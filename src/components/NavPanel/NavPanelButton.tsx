@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import useCloseInOuterClick from 'src/hooks/useCloseInOuterClick';
 
 type NavPanelButtonProps = JSX.IntrinsicElements['button'] & {
     leftItem: React.ReactNode
@@ -12,26 +13,15 @@ const NavPanelButton: React.FC<NavPanelButtonProps> = ({ className, children, le
 
     const containerRef = useRef<HTMLDivElement>(null);
 
-    const hideAuthMessage = useCallback((e: MouseEvent) => {
-        if (containerRef.current && !e.composedPath().includes(containerRef.current)) {
-            setIsAuthMessageVisible(false);
-            document.removeEventListener('click', hideAuthMessage);
-        }
-    }, [containerRef]);
-
     const handleShowMessage = () => setIsAuthMessageVisible(true);
 
     const handleHideMessage = () => setIsAuthMessageVisible(false);
 
-    useEffect(() => {
-        if (isAuthMessageVisible) {
-            document.addEventListener('click', hideAuthMessage);
-        }
-
-        return () => {
-            document.removeEventListener('click', hideAuthMessage);
-        }
-    }, [isAuthMessageVisible]);
+    useCloseInOuterClick({
+        onOuterClick: handleHideMessage,
+        target: containerRef.current,
+        active: isAuthMessageVisible
+    })
 
     return (
         <div ref={containerRef} className='relative'>

@@ -9,7 +9,7 @@ import { ReactComponent as LikedSongIcon } from '../../assets/likedSongs.svg';
 
 const NavPanel: React.FC = () => {
     return (
-        <nav className='w-60 bg-black flex flex-col'>
+        <nav className='w-[var(--nav-bar-width)] bg-black flex flex-col'>
             <div>
                 <Link to='/' className='pt-6 px-6 mb-[1.375rem] block'>
                     <SpotifyLogo fill='#fff' className='max-w-[8.125rem]' />
