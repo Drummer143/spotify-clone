@@ -1,7 +1,7 @@
 import React from 'react';
 import { LinkProps, NavLink } from 'react-router-dom';
 
-import GoogleMaterialIcon from '../GoogleMaterialIcon';
+import GoogleMaterialIcon from '../../GoogleMaterialIcon';
 
 type NavPanelLinkProps = LinkProps & {
     iconName: string

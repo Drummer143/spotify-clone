@@ -1,10 +1,9 @@
 import React, { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 
-import GoogleMaterialIcon from 'src/components/GoogleMaterialIcon';
-import useCloseInOuterClick from 'src/hooks/useCloseInOuterClick';
-import MobileMenuButton from './MobileMenuButton';
 import MobileMenuLink from './MobileMenuLink';
+import MobileMenuButton from './MobileMenuButton';
+import useCloseInOuterClick from 'src/hooks/useCloseInOuterClick';
+import { headerLinks } from 'src/utils/constants';
 
 const MobileMenu: React.FC = () => {
     const [isMenuOpened, setIsMenuOpened] = useState(false);
@@ -28,9 +27,9 @@ const MobileMenu: React.FC = () => {
                     .concat(' bg-[#282828] p-1 flex flex-col')
                     .concat(isMenuOpened ? '' : ' hidden')}
             >
-                <MobileMenuLink to='https://www.spotify.com/premium'>Premium</MobileMenuLink>
-                <MobileMenuLink to='https://support.spotify.com/'>Support</MobileMenuLink>
-                <MobileMenuLink to='https://www.spotify.com/download/'>Download</MobileMenuLink>
+                {headerLinks.map(({ text, to }) => (
+                    <MobileMenuLink to={to}>{text}</MobileMenuLink>
+                ))}
             </div>
         </div>
     )
