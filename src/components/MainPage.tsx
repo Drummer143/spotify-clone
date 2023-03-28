@@ -1,9 +1,7 @@
-import React from 'react';
+import React from "react";
 
 const MainPage: React.FC = () => {
-    return (
-        <div>Main page</div>
-    )
-}
+    return <div>Main page</div>;
+};
 
 export default MainPage;

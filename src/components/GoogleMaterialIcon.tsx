@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-type GoogleMaterialIconProps = Omit<JSX.IntrinsicElements['span'], 'className' | 'children'> & {
+type GoogleMaterialIconProps = Omit<JSX.IntrinsicElements["span"], "className" | "children"> & {
     iconName: string;
 
     size?: string | number;
@@ -25,11 +25,11 @@ const GoogleMaterialIcon: React.FC<GoogleMaterialIconProps> = ({
 }) => {
     return (
         <span
-            className={'aspect-square leading-3 h-min'
-                .concat(' material-symbols-outlined')
-                .concat(className ? ` ${className}` : '')}
+            className={"aspect-square leading-3 h-min"
+                .concat(" material-symbols-outlined")
+                .concat(className ? ` ${className}` : "")}
             style={{
-                fontSize: typeof size === 'number' ? `${size}rem` : size,
+                fontSize: typeof size === "number" ? `${size}rem` : size,
                 color,
                 fontVariationSettings: `'FILL' ${FILL}, 'wght' ${wght}, 'GRAD' ${GRAD}, 'opsz' ${opsz}`
             }}
@@ -39,4 +39,5 @@ const GoogleMaterialIcon: React.FC<GoogleMaterialIconProps> = ({
         </span>
     );
 };
+
 export default GoogleMaterialIcon;
