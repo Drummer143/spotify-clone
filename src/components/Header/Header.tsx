@@ -1,6 +1,7 @@
 import React from "react";
 
 import HeaderLink from "./HeaderLink";
+import LoginButton from "./LoginButton";
 import HistoryNavigationButtons from "./HistoryNavigationButtons";
 import { headerLinks } from "src/utils/constants";
 
@@ -24,15 +25,7 @@ const Header: React.FC = () => {
                 </div>
 
                 <HeaderLink to="https://www.spotify.com/signup">Sign Up</HeaderLink>
-                <button
-                    onClick={() => alert("modal here")}
-                    className={"h-12 w-[6.875rem] bg-white text-black rounded-full font-bold ml-6"
-                        .concat(" transition-[transform,_background-color]")
-                        .concat(" hover:scale-105")
-                        .concat(" active:scale-100 active:bg-[#b7b7b7]")}
-                >
-                    Log in
-                </button>
+                <LoginButton />
             </div>
         </div>
     );

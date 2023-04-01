@@ -11,3 +11,8 @@ export const headerLinks = [
     { to: "https://support.spotify.com/", text: "Support" },
     { to: "https://www.spotify.com/download/", text: "Download" }
 ];
+
+export const spotifyApiHeaders = {
+    "X-RapidAPI-Key": "d48e1ef9fdmshf871c683f8cf358p1cd596jsn0a4f5ff0485a",
+    "X-RapidAPI-Host": "spotify23.p.rapidapi.com"
+}
