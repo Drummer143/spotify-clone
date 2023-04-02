@@ -9,7 +9,7 @@ import styles from "./Layout.module.css";
 
 const Layout: React.FC = () => {
     return (
-        <div className={`relative grid max-w-screen max-h-screen ${styles.wrapper}`}>
+        <div className={`relative grid w-screen h-screen ${styles.wrapper}`}>
             <NavPanel />
 
             <Header />
