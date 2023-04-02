@@ -15,13 +15,7 @@ interface GetCurrentUserResponse {
     }
     href: string
     id: string
-    images: [
-        {
-            url: string
-            height: string
-            width: string
-        }
-    ]
+    images: SpotifyImageInfo[]
     product: string
     type: string
     uri: string

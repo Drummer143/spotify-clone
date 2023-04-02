@@ -20,7 +20,7 @@ const NavigationLinks: React.FC = () => {
                 </NavPanelLink>
             </div>
 
-            <div className="flex-1">
+            <div>
                 <NavPanelButton
                     modalHeading="Create playlist"
                     modalMessage="Log in to create and share playlists."

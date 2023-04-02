@@ -14,6 +14,8 @@
 
 :root {
     --nav-bar-width: 15rem;
+    --left-sidebar-padding-right: 24px;
+    --left-sidebar-padding-left: 24px;
 }
 
 * {
