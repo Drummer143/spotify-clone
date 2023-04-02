@@ -46,6 +46,7 @@ const Header: React.FC = () => {
                         className={"w-[5.5rem] h-8 border border-solid border-[#878787] leading-8 font-semibold block"
                             .concat(" text-white rounded-full text-sm flex justify-center items-center")
                             .concat(" transition-[transform,_border-width]")
+                            .concat(" max-lg:hidden")
                             .concat(" hover:scale-105 hover:border-white")}
                     > Upgrade</a>
 

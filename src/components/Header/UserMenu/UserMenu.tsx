@@ -29,8 +29,8 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
         <div className="relative" ref={menuContainerRef}>
             <UserButton onClick={handleButtonClick}>
                 <img src={user.images[0].url} className="h-full rounded-full"></img>
-                <span className="text-sm leading-none">{user.display_name}</span>
-                <GoogleMaterialIcon iconName="arrow_drop_down" size={1.5} GRAD={200} />
+                <span className="text-sm leading-none max-[870px]:hidden">{user.display_name}</span>
+                <GoogleMaterialIcon iconName="arrow_drop_down" size={1.5} className="max-[870px]:hidden" GRAD={200} />
             </UserButton>
 
             <DropdownMenu visible={isMenuVisible}>
