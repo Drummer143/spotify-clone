@@ -1,3 +1,7 @@
+.wrapper {
+    grid-area: navbar;
+}
+
 .playlists::-webkit-scrollbar {
     width: 12px;
 

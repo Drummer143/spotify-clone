@@ -66,6 +66,11 @@ export const authSlice = createSlice({
         },
         setCodeVerifier: (state, action: PayloadAction<string>) => {
             state.codeVerifier = action.payload;
+        },
+        logOut: (state) => {
+            state.accessToken = undefined;
+            state.codeVerifier = undefined;
+            state.user = undefined;
         }
     },
     extraReducers: builder => {
@@ -81,4 +86,4 @@ export const authSlice = createSlice({
     }
 });
 
-export const { setAccessToken, setCodeVerifier } = authSlice.actions;
+export const { setAccessToken, setCodeVerifier, logOut } = authSlice.actions;

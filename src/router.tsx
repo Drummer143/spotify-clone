@@ -2,7 +2,7 @@
 
 import { createBrowserRouter } from "react-router-dom";
 
-import Layout from "./components/Layout";
+import Layout from "./components/Layout/Layout";
 import MainPage from "./components/MainPage";
 import SuccessFullLoginPage from "./components/SuccessFullLoginPage";
 

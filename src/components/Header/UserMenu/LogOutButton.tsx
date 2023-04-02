@@ -1,9 +1,16 @@
 import React from "react";
 
+import { logOut } from "src/redux/slices/authSlice";
+import { useAppDispatch } from "src/hooks/reduxHooks";
+
 const LogOutButton: React.FC = () => {
+    const dispatch = useAppDispatch();
+
+    const handleClick = () => dispatch(logOut());
 
     return (
         <button
+            onClick={handleClick}
             className={"relative rounded-sm h-10 p-3 text-sm flex-col"
                 .concat(" hover:bg-[hsla(0,0%,100%,.1)]")
                 .concat(" before:border-0 before:border-t before:border-solid before:w-full before:opacity-10")
