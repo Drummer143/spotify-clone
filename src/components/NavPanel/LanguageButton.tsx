@@ -12,7 +12,7 @@ const LanguageButton: React.FC = () => {
         >
             <GoogleMaterialIcon
                 size={1.2}
-                className="absolute top-1/2 -translate-y-1/2 flex items-center left-3"
+                className="absolute top-1/2 -translate-y-1/2 left-3"
                 iconName="language"
             />
             Placeholder

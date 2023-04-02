@@ -1,18 +1,23 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { getAccessToken as spotifyGetAccessToken } from "src/spotifyApiWrapper/auth/getAccessToken";
+import { getCurrentUser as spotifyGetCurrentUser } from "src/spotifyApiWrapper/users/getCurrentUser";
+import { RootState } from "../store";
 
 interface AuthState {
     codeVerifier?: string
     accessToken?: string
+    user?: User
 }
+
+type State = { state: RootState }
 
 const initialState: AuthState = {};
 
 export const getAccessToken = createAsyncThunk<
     GetAccessTokenResponse,
     string,
-    { state: { auth: AuthState } }
+    State
 >(
     "auth/getAccessToken",
     async (code, { getState, rejectWithValue }) => {
@@ -22,13 +27,29 @@ export const getAccessToken = createAsyncThunk<
             return rejectWithValue("Can't login without code verifier.");
         }
 
+        try {
+            return await spotifyGetAccessToken(code, codeVerifier);
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
+
+export const getCurrentUser = createAsyncThunk<
+    User,
+    void,
+    State
+>(
+    "auth/getCurrentUser",
+    async (_, { getState, rejectWithValue }) => {
+        const accessToken = getState().auth.accessToken;
+
+        if (!accessToken) {
+            return rejectWithValue("Can't login without access token");
+        }
 
         try {
-            const response = await spotifyGetAccessToken(code, codeVerifier);
-
-            console.log(response);
-
-            return response;
+            return spotifyGetCurrentUser(accessToken);
         } catch (error) {
             return rejectWithValue(error);
         }
@@ -48,10 +69,15 @@ export const authSlice = createSlice({
         }
     },
     extraReducers: builder => {
-        builder.addCase(getAccessToken.fulfilled, (state, action) => {
-            state.accessToken = action.payload.access_token;
-            state.accessToken = undefined;
-        });
+        builder
+            .addCase(getAccessToken.fulfilled, (state, action) => {
+                state.accessToken = action.payload.access_token;
+                state.codeVerifier = undefined;
+
+            })
+            .addCase(getCurrentUser.fulfilled, (state, action) => {
+                state.user = action.payload;
+            });
     }
 });
 

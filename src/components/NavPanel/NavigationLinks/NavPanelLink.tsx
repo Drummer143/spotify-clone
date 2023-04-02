@@ -23,7 +23,6 @@ const NavPanelLink: React.FC<NavPanelLinkProps> = ({
             <>
                 <GoogleMaterialIcon
                     iconName={iconName}
-                    className="flex justify-center items-center"
                     size={1.8}
                     FILL={isActive ? 1 : 0}
                 />

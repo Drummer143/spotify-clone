@@ -12,6 +12,15 @@ export const headerLinks = [
     { to: "https://www.spotify.com/download/", text: "Download" }
 ];
 
+export const createUserMenuLinks = (userId: string) => [
+    { text: "Account", to: "https://www.spotify.com/account/" },
+    { text: "Profile", to: `/user/${userId}`, internal: true },
+    { text: "Upgrade to Premium", to: "https://www.spotify.com/premium/" },
+    { text: "Support", to: "https://support.spotify.com/" },
+    { text: "Download", to: "https://spotify.com/download" },
+    { text: "Settings", to: "/preferences", internal: true }
+];
+
 export const spotifyApiHeaders = (accessToken: string) => ({
     "Authorization": `Bearer ${accessToken}`
 });

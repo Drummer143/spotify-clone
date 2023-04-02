@@ -27,7 +27,6 @@ const NavigationLinks: React.FC = () => {
                     leftItem={
                         <GoogleMaterialIcon
                             iconName="add_box"
-                            className="flex items-center"
                             FILL={1}
                             size={1.8}
                         />

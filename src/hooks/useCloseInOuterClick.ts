@@ -9,11 +9,11 @@ type UseCloseInOuterClickProps = {
 };
 
 const useCloseInOuterClick = ({ onOuterClick, target, active }: UseCloseInOuterClickProps) => {
-    const hideAuthMessage = useCallback(
+    const hide = useCallback(
         (e: MouseEvent) => {
             if (target && !e.composedPath().includes(target)) {
                 onOuterClick(e);
-                document.removeEventListener("click", hideAuthMessage);
+                document.removeEventListener("click", hide);
             }
         },
         [target]
@@ -21,11 +21,11 @@ const useCloseInOuterClick = ({ onOuterClick, target, active }: UseCloseInOuterC
 
     useEffect(() => {
         if (active) {
-            document.addEventListener("click", hideAuthMessage);
+            document.addEventListener("click", hide);
         }
 
         return () => {
-            document.removeEventListener("click", hideAuthMessage);
+            document.removeEventListener("click", hide);
         };
     }, [active]);
 };

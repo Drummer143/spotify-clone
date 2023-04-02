@@ -9,7 +9,6 @@ const HistoryNavigationButtons: React.FC = () => {
                 <GoogleMaterialIcon
                     iconName="chevron_left"
                     size={2}
-                    className="flex items-center"
                     wght={200}
                 />
             </button>
@@ -18,7 +17,7 @@ const HistoryNavigationButtons: React.FC = () => {
                 <GoogleMaterialIcon
                     iconName="chevron_left"
                     size={2}
-                    className="flex items-center rotate-180"
+                    className="rotate-180"
                     wght={200}
                 />
             </button>

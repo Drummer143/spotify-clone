@@ -16,10 +16,11 @@ const SuccessFullLoginPage: React.FC = () => {
         if (accessToken) {
             navigate("/");
         }
+
         const userCode = searchParams.get("code");
 
         if (userCode) {
-            dispatch(getAccessToken(userCode));
+            dispatch(getAccessToken(userCode)).then(() => navigate("/"));
         }
     }, []);
 

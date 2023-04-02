@@ -20,7 +20,6 @@ const MobileMenuButton: React.FC<MobileMenuButtonProps> = ({
         >
             <GoogleMaterialIcon
                 iconName={isMenuOpened ? "close" : "menu"}
-                className="flex justify-center items-center"
                 size={1.2}
             />
         </button>
