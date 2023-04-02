@@ -8,4 +8,4 @@ export const getCurrentUser = async (accessToken: string) => {
     const response = await axios.get<GetCurrentUserResponse>(URL, { headers: spotifyApiHeaders(accessToken) });
 
     return response.data;
-}
+};

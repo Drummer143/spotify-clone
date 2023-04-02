@@ -2,7 +2,7 @@
 
 import { createBrowserRouter } from "react-router-dom";
 
-import App from "./App";
+import Layout from "./components/Layout";
 import MainPage from "./components/MainPage";
 import SuccessFullLoginPage from "./components/SuccessFullLoginPage";
 
@@ -14,7 +14,7 @@ export default createBrowserRouter([
     {
         caseSensitive: false,
         path: "/",
-        element: <App />,
+        element: <Layout />,
         children: [
             {
                 caseSensitive: false,

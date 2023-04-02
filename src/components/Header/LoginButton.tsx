@@ -11,8 +11,6 @@ const LoginButton: React.FC = () => {
     const handleClick = async () => {
         const codeVerifier = generateRandomString(128);
 
-        console.log(codeVerifier);
-
         dispatch(setCodeVerifier(codeVerifier));
 
         const codeChallenge = await generateCodeChallenge(codeVerifier);

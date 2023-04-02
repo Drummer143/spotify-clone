@@ -5,11 +5,11 @@ interface UserState {
 }
 
 export const getUser = () => createAsyncThunk(
-    'user/getUser',
+    "user/getUser",
     async () => {
-        console.log(''); 
+        console.log("asdasdas"); 
     }
-)
+);
 
 const initialState: UserState = {};
 
