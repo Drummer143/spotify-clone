@@ -3,12 +3,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import { persistCombineReducers, persistStore } from "redux-persist";
 
 import { authSlice } from "./slices/authSlice";
+import { userSlice } from "./slices/userSlice";
 
 const persistentReducer = persistCombineReducers({
     key: "store",
     storage
 }, {
-    auth: authSlice.reducer
+    auth: authSlice.reducer,
+    user: userSlice.reducer
 });
 
 const store = configureStore({

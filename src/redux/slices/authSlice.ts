@@ -1,6 +1,7 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface AuthState {
+    codeVerifier?: string
     accessToken?: string
 }
 
@@ -12,8 +13,12 @@ export const authSlice = createSlice({
     reducers: {
         setAccessToken: (state, action: PayloadAction<string>) => {
             state.accessToken = action.payload;
+            state.codeVerifier = undefined;
+        },
+        setCodeVerifier: (state, action: PayloadAction<string>) => {
+            state.codeVerifier = action.payload;
         }
     }
 });
 
-export const { setAccessToken } = authSlice.actions;
+export const { setAccessToken, setCodeVerifier } = authSlice.actions;

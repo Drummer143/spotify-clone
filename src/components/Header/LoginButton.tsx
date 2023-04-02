@@ -1,9 +1,24 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 
-import { getAuthentificationLink } from "src/spotifyApiWrapper/getAuthentificationLink";
+import { setCodeVerifier } from "src/redux/slices/authSlice";
+import { generateCodeChallenge, generateRandomString } from "src/utils/auth";
+import { getAuthentificationLink } from "src/spotifyApiWrapper/auth/getAuthentificationLink";
 
 const LoginButton: React.FC = () => {
-    const handleClick = () => window.open(getAuthentificationLink(), "_blank");
+    const dispatch = useDispatch();
+
+    const handleClick = async () => {
+        const codeVerifier = generateRandomString(128);
+
+        console.log(codeVerifier);
+
+        dispatch(setCodeVerifier(codeVerifier));
+
+        const codeChallenge = await generateCodeChallenge(codeVerifier);
+
+        window.open(getAuthentificationLink(codeChallenge), "_self");
+    };
 
     return (
         <button

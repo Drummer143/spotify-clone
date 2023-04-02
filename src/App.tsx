@@ -3,8 +3,17 @@ import { Outlet } from "react-router-dom";
 
 import Header from "./components/Header/Header";
 import NavPanel from "./components/NavPanel/NavPanel";
+import { getCurrentUser } from "./spotifyApiWrapper/users/getCurrentUser";
+import { useAppSelector } from "./hooks/reduxHooks";
 
 const App: React.FC = () => {
+    // const accessToken = useAppSelector(state => state.auth.accessToken);
+    // console.log(accessToken);
+
+    // getCurrentUser(accessToken)
+    //     .then(console.log)
+    //     .catch(error => console.error(error.response.data.error));
+
     return (
         <div className="relative flex">
             <NavPanel />
