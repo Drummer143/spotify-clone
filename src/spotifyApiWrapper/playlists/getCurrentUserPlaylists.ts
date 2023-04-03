@@ -15,7 +15,7 @@ export const getCurrentUserPlaylist =
             searchParams.append("offset", offset.toString());
         }
 
-        const response = await axios.get(DEFAULT_URL.concat(limit || offset ? `?${searchParams}` : ""), {
+        const response = await axios.get(`${DEFAULT_URL}?${searchParams.toString()}`, {
             headers: spotifyApiHeaders(accessToken)
         });
 

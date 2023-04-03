@@ -3,7 +3,7 @@ import React from "react";
 import UserMenu from "./UserMenu/UserMenu";
 import HeaderLink from "./HeaderLink";
 import MobileMenu from "./MobileMenu/MobileMenu";
-import LoginButton from "./LoginButton";
+import LoginButton from "../LoginButton";
 import HistoryNavigationButtons from "./HistoryNavigationButtons";
 import { headerLinks } from "src/utils/constants";
 import { useAppSelector } from "src/hooks/reduxHooks";

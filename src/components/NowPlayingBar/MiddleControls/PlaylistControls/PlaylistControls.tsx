@@ -36,7 +36,7 @@ const PlaylistControls: React.FC = () => {
             <ControlsButton className="bg-white rounded-full mx-2 hover:scale-105 active:scale-95">
                 <GoogleMaterialIcon
                     iconName="play_arrow"
-                    className="text-transparent text-[#181818]"
+                    className="text-[#181818]"
                     FILL={1}
                     size={1.7}
                 />

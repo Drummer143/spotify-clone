@@ -3,7 +3,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import Layout from "./components/Layout/Layout";
-import MainPage from "./components/MainPage";
+import MainPageWrapper from "./components/MainPageWrapper/MainPageWrapper";
 import SuccessFullLoginPage from "./components/SuccessFullLoginPage";
 
 export default createBrowserRouter([
@@ -19,7 +19,7 @@ export default createBrowserRouter([
             {
                 caseSensitive: false,
                 path: "/",
-                element: <MainPage />
+                element: <MainPageWrapper />
             }
         ]
     }
