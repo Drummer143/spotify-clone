@@ -2,12 +2,19 @@ import React from "react";
 
 import ControlsButton from "./ControlsButton";
 import GoogleMaterialIcon from "src/components/GoogleMaterialIcon";
+import { toggleRepeat, toggleShuffle } from "src/redux/slices/playerSlice";
+import { useAppDispatch, useAppSelector } from "src/hooks/reduxHooks";
 
 const PlaylistControls: React.FC = () => {
+    const dispatch = useAppDispatch();
+    const { repeat, shuffle } = useAppSelector(state => state.player);
 
     return (
         <div className="w-full flex justify-center gap-2 items-center text-[hsla(0,0%,100%,.7)]">
-            <ControlsButton>
+            <ControlsButton
+                active={shuffle}
+                onClick={() => dispatch(toggleShuffle())}
+            >
                 <GoogleMaterialIcon
                     iconName="shuffle"
                     className="text-inherit"
@@ -45,9 +52,12 @@ const PlaylistControls: React.FC = () => {
                 />
             </ControlsButton>
 
-            <ControlsButton>
+            <ControlsButton
+                active={repeat !== "no"}
+                onClick={() => dispatch(toggleRepeat())}
+            >
                 <GoogleMaterialIcon
-                    iconName="repeat"
+                    iconName={repeat === "single" ? "repeat_one" : "repeat"}
                     className="text-inherit"
                     wght={700}
                     size={1.4}
