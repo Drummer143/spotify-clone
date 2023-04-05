@@ -8,7 +8,7 @@ type DropdownMenuProps = {
 const DropdownMenu: React.FC<DropdownMenuProps> = ({ visible, children }) => {
     return (
         <div
-            className={"absolute -bottom-4 right-0 translate-y-full w-48 rounded shadow-header-menu"
+            className={"w-48 rounded shadow-header-menu"
                 .concat(" bg-[#282828] p-1 flex flex-col")
                 .concat(visible ? "" : " hidden")}
         >{children}</div>

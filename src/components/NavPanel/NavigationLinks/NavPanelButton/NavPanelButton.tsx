@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 
 import AuthMessage from "./AuthMessage";
 import useCloseInOuterClick from "src/hooks/useCloseInOuterClick";
+import Modal from "src/components/Modal/Modal";
 
 type NavPanelButtonProps = JSX.IntrinsicElements["button"] & {
     leftItem: React.ReactNode;
@@ -47,12 +48,19 @@ const NavPanelButton: React.FC<NavPanelButtonProps> = ({
                 </p>
             </button>
 
-            <AuthMessage
-                modalHeading={modalHeading}
-                modalMessage={modalMessage}
-                onClose={handleHideMessage}
+            <Modal
+                className={"transition-[transform,_opacity]"
+                    .concat(" ", isAuthMessageVisible ? "translate-x-[-0.5rem]" : "opacity-0")}
                 visible={isAuthMessageVisible}
-            />
+                left={(containerRef.current?.getBoundingClientRect().right || 0) + 25}
+                top={containerRef.current?.getBoundingClientRect().top}
+            >
+                <AuthMessage
+                    modalHeading={modalHeading}
+                    modalMessage={modalMessage}
+                    onClose={handleHideMessage}
+                />
+            </Modal>
         </div>
     );
 };
