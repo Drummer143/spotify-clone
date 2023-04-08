@@ -56,8 +56,7 @@ const NavPanel: React.FC = () => {
                     />
 
                     <div
-                        className={"overflow-y-auto flex-1 overflow-x-hidden"
-                            .concat(" ", styles.playlists)}
+                        className={"overflow-y-auto flex-1 overflow-x-hidden"}
                     >
                         {playlists?.map(playlist => (
                             <PlaylistLink to={`/playlist/${playlist.id}`} key={playlist.id}>
