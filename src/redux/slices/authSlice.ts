@@ -1,8 +1,10 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { getAccessToken as spotifyGetAccessToken } from "src/spotifyApiWrapper/auth/getAccessToken";
-import { getCurrentUser as spotifyGetCurrentUser } from "src/spotifyApiWrapper/users/getCurrentUser";
-import { RootState } from "../store";
+import { RootState } from "../";
+import {
+    getAccessToken as spotifyGetAccessToken,
+    getCurrentUser as spotifyGetCurrentUser
+} from "../../spotifyApiWrapper";
 
 interface AuthState {
     codeVerifier?: string
@@ -56,7 +58,7 @@ export const getCurrentUser = createAsyncThunk<
     }
 );
 
-export const authSlice = createSlice({
+const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
@@ -85,5 +87,7 @@ export const authSlice = createSlice({
             });
     }
 });
+
+export default authSlice;
 
 export const { setAccessToken, setCodeVerifier, logOut } = authSlice.actions;

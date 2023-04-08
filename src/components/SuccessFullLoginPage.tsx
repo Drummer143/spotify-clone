@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useLocation, useSearchParams, useNavigate } from "react-router-dom";
 
-import { getAccessToken } from "src/redux/slices/authSlice";
-import { useAppDispatch, useAppSelector } from "src/hooks/reduxHooks";
+import { getAccessToken } from "../redux/slices/authSlice";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 
 const SuccessFullLoginPage: React.FC = () => {
     const { accessToken } = useAppSelector(state => state.auth);

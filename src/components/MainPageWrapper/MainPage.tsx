@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import { useAppSelector } from "src/hooks/reduxHooks";
-import { useResizeObserver } from "src/hooks/useResizeObserver";
-import { getSeveralBrowseCategories } from "src/spotifyApiWrapper/categories/getSeveralBrowseCategories";
 import CategoryPlaylistsCollection from "./CategoryPlaylistsCollection";
+import { getSeveralBrowseCategories } from "../../spotifyApiWrapper";
+import { useAppSelector, useResizeObserver } from "../../hooks";
 
 const MainPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);

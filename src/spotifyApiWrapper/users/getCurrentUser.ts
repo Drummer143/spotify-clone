@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { spotifyApiHeaders } from "src/utils/constants";
+import { spotifyApiHeaders } from "../../utils";
 
 const URL = "https://api.spotify.com/v1/me";
 

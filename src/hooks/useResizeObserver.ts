@@ -1,6 +1,5 @@
 import { RefObject, useEffect } from "react";
 
-
 type UseResizeObserverProps = {
     targetRef: RefObject<HTMLElement>
 

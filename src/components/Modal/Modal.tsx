@@ -1,6 +1,7 @@
 import React, { useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
-import useCloseInOuterClick from "src/hooks/useCloseInOuterClick";
+
+import { useCloseInOuterClick } from "../../hooks";
 
 type ModalProps = Pick<JSX.IntrinsicElements["div"], "children" | "className"> & {
     top?: number

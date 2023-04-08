@@ -4,9 +4,9 @@ import UserButton from "./UserButton";
 import LogOutButton from "./LogOutButton";
 import DropdownMenu from "../DropdownMenu";
 import DropdownMenuLink from "../DropdownMenuLink";
-import GoogleMaterialIcon from "src/components/GoogleMaterialIcon";
-import useCloseInOuterClick from "src/hooks/useCloseInOuterClick";
-import { createUserMenuLinks } from "src/utils/constants";
+import GoogleMaterialIcon from "../../GoogleMaterialIcon";
+import { createUserMenuLinks } from "../../../utils";
+import { useCloseInOuterClick } from "../../../hooks";
 
 type UserMenuProps = {
     user: User

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { spotifyApiHeaders } from "src/utils/constants";
+import { spotifyApiHeaders } from "../../utils";
 
 const buildURL = (categoryName: string) => `https://api.spotify.com/v1/browse/categories/${categoryName}/playlists`;
 

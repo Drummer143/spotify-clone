@@ -5,8 +5,8 @@ import HeaderLink from "./HeaderLink";
 import MobileMenu from "./MobileMenu/MobileMenu";
 import LoginButton from "../LoginButton";
 import HistoryNavigationButtons from "./HistoryNavigationButtons";
-import { headerLinks } from "src/utils/constants";
-import { useAppSelector } from "src/hooks/reduxHooks";
+import { headerLinks } from "../../utils";
+import { useAppSelector } from "../../hooks";
 
 const Header: React.FC = () => {
     const user = useAppSelector(state => state.auth.user);

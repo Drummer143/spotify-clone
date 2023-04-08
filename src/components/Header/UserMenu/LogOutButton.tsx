@@ -1,7 +1,7 @@
 import React from "react";
 
-import { logOut } from "src/redux/slices/authSlice";
-import { useAppDispatch } from "src/hooks/reduxHooks";
+import { logOut } from "../../../redux";
+import { useAppDispatch } from "../../../hooks";
 
 const LogOutButton: React.FC = () => {
     const dispatch = useAppDispatch();

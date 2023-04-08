@@ -2,7 +2,7 @@ import React from "react";
 
 import MainPage from "./MainPage";
 import LoginButton from "../LoginButton";
-import { useAppSelector } from "src/hooks/reduxHooks";
+import { useAppSelector } from "../../hooks";
 
 const MainPageWrapper: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);

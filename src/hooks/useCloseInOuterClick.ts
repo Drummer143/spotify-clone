@@ -8,7 +8,7 @@ type UseCloseInOuterClickProps = {
     target?: HTMLElement | null;
 };
 
-const useCloseInOuterClick = ({ onOuterClick, target, active }: UseCloseInOuterClickProps) => {
+export const useCloseInOuterClick = ({ onOuterClick, target, active }: UseCloseInOuterClickProps) => {
     const hide = useCallback(
         (e: MouseEvent) => {
             if (target && !e.composedPath().includes(target)) {
@@ -29,5 +29,3 @@ const useCloseInOuterClick = ({ onOuterClick, target, active }: UseCloseInOuterC
         };
     }, [active]);
 };
-
-export default useCloseInOuterClick;

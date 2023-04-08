@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 
 import { useAppSelector } from "./reduxHooks";
-import { getCurrentUserPlaylist } from "src/spotifyApiWrapper/playlists/getCurrentUserPlaylists";
+import { getCurrentUserPlaylist } from "../spotifyApiWrapper";
 
 export const useGetCurrentUsersPlaylists = (limit?: number, offset?: number): [() => Promise<void>, PlaylistInfo[] | null, boolean, unknown] => {
     const [error, setError] = useState<unknown>(null);

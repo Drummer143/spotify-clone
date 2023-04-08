@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, LinkProps } from "react-router-dom";
 
-import GoogleMaterialIcon from "src/components/GoogleMaterialIcon";
+import GoogleMaterialIcon from "../GoogleMaterialIcon";
 
 type DropdownMenuLinkProps = { internal?: boolean } & Omit<LinkProps, "target" | "className">;
 

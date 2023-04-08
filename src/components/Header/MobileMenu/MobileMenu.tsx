@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react";
 
-import Modal from "src/components/Modal/Modal";
+import Modal from "../../Modal/Modal";
 import DropdownMenu from "../DropdownMenu";
 import MobileMenuButton from "./MobileMenuButton";
 import DropdownMenuLink from "../DropdownMenuLink";
-import { headerLinks } from "src/utils/constants";
+import { headerLinks } from "../../../utils";
 
 const MobileMenu: React.FC = () => {
     const [isMenuOpened, setIsMenuOpened] = useState(false);

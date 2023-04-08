@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { useAppSelector } from "src/hooks/reduxHooks";
-import { getCategorysPlaylists } from "src/spotifyApiWrapper/playlists/getCategorysPlaylists";
 import PlaylistCard from "./PlaylistCard";
+import { useAppSelector } from "../../hooks";
+import { getCategorysPlaylists } from "../../spotifyApiWrapper";
 
 type CategoryPlaylistsCollectionProps = {
     id: string

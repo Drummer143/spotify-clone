@@ -5,10 +5,9 @@ import PlaylistLink from "./PlaylistLink";
 import LanguageButton from "./LanguageButton";
 import NavigationLinks from "./NavigationLinks/NavigationLinks";
 import GoogleMaterialIcon from "../GoogleMaterialIcon";
-import { useAppSelector } from "src/hooks/reduxHooks";
-import { navBarBottomLinks } from "src/utils/constants";
-import { useGetCurrentUsersPlaylists } from "src/hooks/useGetCurrentUsersPlaylists";
+import { navBarBottomLinks } from "../../utils";
 import { ReactComponent as SpotifyLogo } from "../../assets/spotifyLogo.svg";
+import { useAppSelector, useGetCurrentUsersPlaylists } from "../../hooks";
 
 import styles from "./NavPanel.module.css";
 
