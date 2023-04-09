@@ -9,15 +9,12 @@ type UseCloseInOuterClickProps = {
 };
 
 export const useCloseInOuterClick = ({ onOuterClick, target, active }: UseCloseInOuterClickProps) => {
-    const hide = useCallback(
-        (e: MouseEvent) => {
-            if (target && !e.composedPath().includes(target)) {
-                onOuterClick(e);
-                document.removeEventListener("click", hide);
-            }
-        },
-        [target]
-    );
+    const hide = useCallback((e: MouseEvent) => {
+        if (target && !e.composedPath().includes(target)) {
+            onOuterClick(e);
+            document.removeEventListener("click", hide);
+        }
+    }, [target]);
 
     useEffect(() => {
         if (active) {

@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 
 import Modal from "../../../Modal/Modal";
 import AuthMessage from "./AuthMessage";
-import { useCloseInOuterClick } from "../../../../hooks";
+import { useCloseInOuterClick, useDisclosure } from "../../../../hooks";
 
 type NavPanelButtonProps = JSX.IntrinsicElements["button"] & {
     leftItem: React.ReactNode;
@@ -19,24 +19,14 @@ const NavPanelButton: React.FC<NavPanelButtonProps> = ({
     modalMessage,
     ...buttonProps
 }) => {
-    const [isAuthMessageVisible, setIsAuthMessageVisible] = useState(false);
+    const { isOpen, onClose, onOpen } = useDisclosure();
 
     const containerRef = useRef<HTMLDivElement>(null);
-
-    const handleShowMessage = () => setIsAuthMessageVisible(true);
-
-    const handleHideMessage = () => setIsAuthMessageVisible(false);
-
-    useCloseInOuterClick({
-        onOuterClick: handleHideMessage,
-        target: containerRef.current,
-        active: isAuthMessageVisible
-    });
 
     return (
         <div ref={containerRef} className="relative">
             <button
-                onClick={handleShowMessage}
+                onClick={onOpen}
                 className={"group flex items-center gap-4 h-10 w-full px-4 text-sm font-bold relative".concat(
                     ` ${className}` || ""
                 )}
@@ -50,15 +40,17 @@ const NavPanelButton: React.FC<NavPanelButtonProps> = ({
 
             <Modal
                 className={"transition-[transform,_opacity]"
-                    .concat(" ", isAuthMessageVisible ? "translate-x-[-0.5rem]" : "opacity-0")}
-                visible={isAuthMessageVisible}
+                    .concat(" ", isOpen ? "translate-x-[-0.5rem]" : "opacity-0")}
+                visible={isOpen}
+                onClose={onClose}
+                targetRef={containerRef}
                 left={(containerRef.current?.getBoundingClientRect().right || 0) + 25}
                 top={containerRef.current?.getBoundingClientRect().top}
             >
                 <AuthMessage
                     modalHeading={modalHeading}
                     modalMessage={modalMessage}
-                    onClose={handleHideMessage}
+                    onClose={onClose}
                 />
             </Modal>
         </div>

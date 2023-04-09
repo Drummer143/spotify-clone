@@ -5,26 +5,27 @@ import DropdownMenu from "../DropdownMenu";
 import MobileMenuButton from "./MobileMenuButton";
 import DropdownMenuLink from "../DropdownMenuLink";
 import { headerLinks } from "../../../utils";
+import { useDisclosure } from "../../../hooks";
 
 const MobileMenu: React.FC = () => {
-    const [isMenuOpened, setIsMenuOpened] = useState(false);
+    const { isOpen, onClose, onToggle } = useDisclosure();
 
     const menuRef = useRef<HTMLDivElement>(null);
 
-    const handleMenuButtonClick = () => setIsMenuOpened(prev => !prev);
-
     return (
-        <div className="min-[900px]:hidden relative" ref={menuRef}>
-            <MobileMenuButton isMenuOpened={isMenuOpened} onClick={handleMenuButtonClick} />
+        <div className="min-[900px]:hidden" ref={menuRef}>
+            <MobileMenuButton isMenuOpened={isOpen} onClick={onToggle} />
 
             <Modal
                 unmountOnHide
-                visible={isMenuOpened}
+                onClose={onClose}
+                targetRef={menuRef}
+                visible={isOpen}
                 top={(menuRef.current?.getBoundingClientRect().bottom || 0) + 16}
                 left={menuRef.current?.getBoundingClientRect().right}
                 className="-translate-x-full"
             >
-                <DropdownMenu visible={isMenuOpened}>
+                <DropdownMenu>
                     {headerLinks.map(({ text, to }) => (
                         <DropdownMenuLink key={to} to={to}>
                             {text}
