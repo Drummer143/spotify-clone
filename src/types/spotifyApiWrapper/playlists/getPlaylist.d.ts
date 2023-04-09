@@ -47,16 +47,7 @@ interface GetPlayListResponse {
     id: string;
     images: SpotifyImageInfo[];
     name: string;
-    owner: {
-        external_urls: {
-            spotify: string;
-        };
-        href: string;
-        id: string;
-        type: string;
-        uri: string;
-        display_name: string;
-    };
+    owner: OwnerInfo;
     public: boolean;
     snapshot_id: string;
     tracks: {

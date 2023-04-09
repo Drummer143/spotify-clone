@@ -35,6 +35,17 @@ interface AlbumInfo {
     is_playable: boolean;
 }
 
+interface OwnerInfo {
+    external_urls: {
+        spotify: string;
+    };
+    href: string;
+    id: string;
+    type: string;
+    uri: string;
+    display_name: string;
+}
+
 interface PlaylistInfo {
     collaborative: boolean;
     description: string;
@@ -45,16 +56,7 @@ interface PlaylistInfo {
     id: string;
     images: SpotifyImageInfo[];
     name: string;
-    owner: {
-        display_name: string;
-        external_urls: {
-            spotify: string;
-        };
-        href: string;
-        id: string;
-        type: string;
-        uri: string;
-    };
+    owner: OwnerInfo;
     primary_color: string | null;
     public: boolean;
     snapshot_id: string;

@@ -20,3 +20,5 @@ interface GetCurrentUserResponse {
     type: string;
     uri: string;
 }
+
+type GetUserResponse = Omit<GetCurrentUserResponse, "country" | "email" | "explicit_content" | "product">
