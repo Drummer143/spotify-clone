@@ -5,8 +5,6 @@ import AuthMessage from "./AuthMessage";
 import { useDisclosure } from "../../../../hooks";
 
 type NavPanelButtonProps = JSX.IntrinsicElements["button"] & {
-    leftItem: React.ReactNode;
-
     modalHeading: string;
     modalMessage: string;
 };
@@ -14,7 +12,6 @@ type NavPanelButtonProps = JSX.IntrinsicElements["button"] & {
 const NavPanelButton: React.FC<NavPanelButtonProps> = ({
     className,
     children,
-    leftItem,
     modalHeading,
     modalMessage,
     ...buttonProps
@@ -27,15 +24,12 @@ const NavPanelButton: React.FC<NavPanelButtonProps> = ({
         <div ref={containerRef} className="relative">
             <button
                 onClick={onOpen}
-                className={"group flex items-center gap-4 h-10 w-full px-4 text-sm font-bold relative".concat(
-                    ` ${className}` || ""
-                )}
+                className={"group flex items-center gap-4 h-10 w-full px-4 text-sm font-bold relative"
+                    .concat(" text-[#d3d3d3] transition-[color] leading-4 hover:text-white duration-300")
+                    .concat(` ${className}` || "")}
                 {...buttonProps}
             >
-                {leftItem}
-                <p className="text-[#d3d3d3] transition-[color] leading-4 group-hover:text-white duration-300">
-                    {children}
-                </p>
+                {children}
             </button>
 
             <Modal

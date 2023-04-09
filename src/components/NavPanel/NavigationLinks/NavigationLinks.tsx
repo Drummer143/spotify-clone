@@ -3,7 +3,8 @@ import React from "react";
 import NavPanelLink from "./NavPanelLink";
 import NavPanelButton from "./NavPanelButton/NavPanelButton";
 import GoogleMaterialIcon from "../../GoogleMaterialIcon";
-import { ReactComponent as LikedSongIcon } from "../../../assets/likedSongs.svg";
+import LikedSongsButton from "./LikedSongsButton";
+import CreatePlaylistButton from "./CreatePlaylistButton";
 
 const NavigationLinks: React.FC = () => {
     return (
@@ -20,30 +21,10 @@ const NavigationLinks: React.FC = () => {
                 </NavPanelLink>
             </div>
 
-            <div>
-                <NavPanelButton
-                    modalHeading="Create playlist"
-                    modalMessage="Log in to create and share playlists."
-                    leftItem={<GoogleMaterialIcon iconName="add_box" FILL={1} size={1.8} />}
-                    className="mt-6"
-                >
-                    Create playlist
-                </NavPanelButton>
+            <div className="mt-6">
+                <CreatePlaylistButton />
 
-                <NavPanelButton
-                    modalHeading="Enjoy your liked songs"
-                    modalMessage="Log in to see all the songs you&#8217;ve liked in one easy playlist."
-                    leftItem={
-                        <div className="w-6 h-6 ml-0.5 flex justify-center items-center liked-songs-icon mr-1">
-                            <LikedSongIcon
-                                className={"fill-[#d3d3d3] transition-[fill] duration-300"
-                                    .concat(" group-hover:fill-white")}
-                            />
-                        </div>
-                    }
-                >
-                    Liked songs
-                </NavPanelButton>
+                <LikedSongsButton />
             </div>
         </>
     );
