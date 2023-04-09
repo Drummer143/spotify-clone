@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import ActionBar from "./ActionBar";
 import PlaylistInfo from "./PlaylistInfo/PlaylistInfo";
 import { useAppSelector } from "../../hooks";
 import { getUser, getPlaylist as spotifyAPIGetPlaylist } from "../../spotifyApiWrapper";
@@ -46,7 +47,7 @@ const PlaylistPage: React.FC = () => {
         if (id && accessToken) {
             getPlaylist(accessToken, id);
         }
-    }, []);
+    }, [id]);
 
     if (!playlistInfo) {
         return (
@@ -66,6 +67,8 @@ const PlaylistPage: React.FC = () => {
                 playlistDuration={parseDuration(playlistDuration)}
                 tracksCount={playlistInfo.tracks.total}
             />
+
+            <ActionBar />
             {id}
         </section>
     );
