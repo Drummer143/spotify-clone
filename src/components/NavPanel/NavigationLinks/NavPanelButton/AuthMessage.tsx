@@ -1,5 +1,10 @@
 import React from "react";
 
+import { useAppDispatch } from "../../../../hooks";
+import { setCodeVerifier } from "../../../../redux";
+import { getAuthentificationLink } from "../../../../spotifyApiWrapper";
+import { generateRandomString, generateCodeChallenge } from "../../../../utils";
+
 type AuthMessageProps = {
     modalHeading: string;
     modalMessage: string;
@@ -11,6 +16,18 @@ const AuthMessage: React.FC<AuthMessageProps> = ({
     modalMessage,
     onClose
 }) => {
+    const dispatch = useAppDispatch();
+
+    const handleClick = async () => {
+        const codeVerifier = generateRandomString(128);
+
+        dispatch(setCodeVerifier(codeVerifier));
+
+        const codeChallenge = await generateCodeChallenge(codeVerifier);
+
+        window.open(getAuthentificationLink(codeChallenge), "_self");
+    };
+
     return (
         <div
             className={"h-40 w-[20.75rem] bg-[#0d72ea] p-4 rounded-lg"
@@ -36,10 +53,12 @@ const AuthMessage: React.FC<AuthMessageProps> = ({
                 >
                     Not now
                 </button>
+
                 <button
                     className={"h-8 w-[4.5rem] bg-white text-black rounded-full text-sm"
                         .concat(" transition-[color,_transform]")
                         .concat(" hover:scale-105")}
+                    onClick={handleClick}
                 >
                     Log in
                 </button>

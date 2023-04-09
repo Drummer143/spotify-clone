@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 
 import Modal from "../../../Modal/Modal";
 import AuthMessage from "./AuthMessage";
-import { useCloseInOuterClick, useDisclosure } from "../../../../hooks";
+import { useDisclosure } from "../../../../hooks";
 
 type NavPanelButtonProps = JSX.IntrinsicElements["button"] & {
     leftItem: React.ReactNode;
