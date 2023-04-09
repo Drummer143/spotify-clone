@@ -1,10 +1,10 @@
 import { RefObject, useEffect } from "react";
 
 type UseResizeObserverProps = {
-    targetRef: RefObject<HTMLElement>
+    targetRef: RefObject<HTMLElement>;
 
-    onResize: (entries: ResizeObserverEntry[]) => void
-}
+    onResize: (entries: ResizeObserverEntry[]) => void;
+};
 
 export const useResizeObserver = ({ onResize, targetRef }: UseResizeObserverProps) => {
     const resizeObserver = new ResizeObserver(onResize);

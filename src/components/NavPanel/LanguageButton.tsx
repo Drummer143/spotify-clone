@@ -10,11 +10,7 @@ const LanguageButton: React.FC = () => {
                 .concat(" transition-[transform,_border-width,_border-color]")
                 .concat(" hover:scale-105 hover:border-white hover:sborder-2")}
         >
-            <GoogleMaterialIcon
-                size={1.2}
-                className="absolute top-1/2 -translate-y-1/2 left-3"
-                iconName="language"
-            />
+            <GoogleMaterialIcon size={1.2} className="absolute top-1/2 -translate-y-1/2 left-3" iconName="language" />
             Placeholder
         </button>
     );

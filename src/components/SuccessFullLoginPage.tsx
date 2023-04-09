@@ -24,11 +24,7 @@ const SuccessFullLoginPage: React.FC = () => {
         }
     }, []);
 
-    return (
-        <div className="w-screen h-screen flex items-center justify-center text-black text-3xl">
-            Loading...
-        </div>
-    );
+    return <div className="w-screen h-screen flex items-center justify-center text-black text-3xl">Loading...</div>;
 };
 
 export default SuccessFullLoginPage;

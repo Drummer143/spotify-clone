@@ -24,13 +24,7 @@ const NavigationLinks: React.FC = () => {
                 <NavPanelButton
                     modalHeading="Create playlist"
                     modalMessage="Log in to create and share playlists."
-                    leftItem={
-                        <GoogleMaterialIcon
-                            iconName="add_box"
-                            FILL={1}
-                            size={1.8}
-                        />
-                    }
+                    leftItem={<GoogleMaterialIcon iconName="add_box" FILL={1} size={1.8} />}
                     className="mt-6"
                 >
                     Create playlist

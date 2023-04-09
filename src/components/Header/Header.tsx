@@ -12,10 +12,11 @@ const Header: React.FC = () => {
     const user = useAppSelector(state => state.auth.user);
 
     return (
-        <div className={"fixed top-0 right-0 w-[calc(100%_-_var(--nav-bar-width))] h-16"
-            .concat(" flex items-center justify-between px-8")
-            .concat(user ? "" : " bg-[#00000080]")
-            .concat(" max-lg:px-4")}
+        <div
+            className={"fixed top-0 right-0 w-[calc(100%_-_var(--nav-bar-width))] h-16"
+                .concat(" flex items-center justify-between px-8")
+                .concat(user ? "" : " bg-[#00000080]")
+                .concat(" max-lg:px-4")}
         >
             <HistoryNavigationButtons />
 
@@ -48,13 +49,15 @@ const Header: React.FC = () => {
                             .concat(" transition-[transform,_border-width]")
                             .concat(" max-lg:hidden")
                             .concat(" hover:scale-105 hover:border-white")}
-                    > Upgrade</a>
+                    >
+                        {" "}
+                        Upgrade
+                    </a>
 
                     <UserMenu user={user} />
                 </div>
-            )
-            }
-        </div >
+            )}
+        </div>
     );
 };
 

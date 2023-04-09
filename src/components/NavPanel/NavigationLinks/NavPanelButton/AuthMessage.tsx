@@ -11,11 +11,7 @@ type AuthMessageProps = {
     onClose: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-const AuthMessage: React.FC<AuthMessageProps> = ({
-    modalHeading,
-    modalMessage,
-    onClose
-}) => {
+const AuthMessage: React.FC<AuthMessageProps> = ({ modalHeading, modalMessage, onClose }) => {
     const dispatch = useAppDispatch();
 
     const handleClick = async () => {
@@ -34,9 +30,8 @@ const AuthMessage: React.FC<AuthMessageProps> = ({
                 .concat(" flex flex-col justify-between select-none")}
         >
             <div
-                className={"absolute top-0 left-0 translate-y-3 -translate-x-full"
-                    .concat(" border-8 border-l-0 border-solid border-transparent border-r-[#0d72ea]"
-                    )}
+                className={"absolute top-0 left-0 translate-y-3 -translate-x-full border-8"
+                    .concat(" border-l-0 border-solid border-transparent border-r-[#0d72ea]")}
             ></div>
 
             <div>

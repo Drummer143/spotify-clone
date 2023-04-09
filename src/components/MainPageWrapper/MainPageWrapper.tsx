@@ -16,9 +16,7 @@ const MainPageWrapper: React.FC = () => {
         );
     }
 
-    return (
-        <MainPage />
-    );
+    return <MainPage />;
 };
 
 export default MainPageWrapper;

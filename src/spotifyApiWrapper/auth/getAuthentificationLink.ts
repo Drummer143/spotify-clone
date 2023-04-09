@@ -1,11 +1,6 @@
 /* eslint-disable camelcase */
 
-const scopes = [
-    "user-read-private",
-    "user-read-email",
-    "playlist-read-private",
-    "user-read-recently-played"
-];
+const scopes = ["user-read-private", "user-read-email", "playlist-read-private", "user-read-recently-played"];
 
 const createBody = (codeChallenge: string) => ({
     response_type: "code",

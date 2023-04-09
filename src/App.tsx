@@ -15,9 +15,7 @@ const App: React.FC = () => {
         }
     }, [accessToken]);
 
-    return (
-        <RouterProvider router={router} />
-    );
+    return <RouterProvider router={router} />;
 };
 
 export default App;

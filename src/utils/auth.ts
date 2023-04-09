@@ -13,7 +13,7 @@ export function generateRandomString(length: number) {
 
 export async function generateCodeChallenge(codeVerifier: string) {
     function base64encode(string: string) {
-        return btoa(String.fromCharCode.apply(null, (new Uint8Array(string as any) as any)))
+        return btoa(String.fromCharCode.apply(null, new Uint8Array(string as any) as any))
             .replace(/\+/g, "-")
             .replace(/\//g, "_")
             .replace(/=+$/, "");

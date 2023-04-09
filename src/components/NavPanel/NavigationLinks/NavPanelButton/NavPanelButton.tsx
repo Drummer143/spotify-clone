@@ -47,11 +47,7 @@ const NavPanelButton: React.FC<NavPanelButtonProps> = ({
                 left={(containerRef.current?.getBoundingClientRect().right || 0) + 25}
                 top={containerRef.current?.getBoundingClientRect().top}
             >
-                <AuthMessage
-                    modalHeading={modalHeading}
-                    modalMessage={modalMessage}
-                    onClose={onClose}
-                />
+                <AuthMessage modalHeading={modalHeading} modalMessage={modalMessage} onClose={onClose} />
             </Modal>
         </div>
     );

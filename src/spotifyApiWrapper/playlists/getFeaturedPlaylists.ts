@@ -5,11 +5,11 @@ import { spotifyApiHeaders } from "../../utils";
 const URL = "https://api.spotify.com/v1/browse/featured-playlists";
 
 type SearchParams = {
-    country?: string
-    locale?: string
-    limit?: number
-    offset?: number
-}
+    country?: string;
+    locale?: string;
+    limit?: number;
+    offset?: number;
+};
 
 export const getFeaturedPlaylists = async (accessToken: string, search: SearchParams) => {
     const searchParams = new URLSearchParams();

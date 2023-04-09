@@ -7,20 +7,16 @@ import {
 } from "../../spotifyApiWrapper";
 
 interface AuthState {
-    codeVerifier?: string
-    accessToken?: string
-    user?: User
+    codeVerifier?: string;
+    accessToken?: string;
+    user?: User;
 }
 
-type State = { state: RootState }
+type State = { state: RootState };
 
 const initialState: AuthState = {};
 
-export const getAccessToken = createAsyncThunk<
-    GetAccessTokenResponse,
-    string,
-    State
->(
+export const getAccessToken = createAsyncThunk<GetAccessTokenResponse, string, State>(
     "auth/getAccessToken",
     async (code, { getState, rejectWithValue }) => {
         const { codeVerifier } = getState().auth;
@@ -37,11 +33,7 @@ export const getAccessToken = createAsyncThunk<
     }
 );
 
-export const getCurrentUser = createAsyncThunk<
-    User,
-    void,
-    State
->(
+export const getCurrentUser = createAsyncThunk<User, void, State>(
     "auth/getCurrentUser",
     async (_, { getState, rejectWithValue }) => {
         const accessToken = getState().auth.accessToken;
@@ -69,7 +61,7 @@ const authSlice = createSlice({
         setCodeVerifier: (state, action: PayloadAction<string>) => {
             state.codeVerifier = action.payload;
         },
-        logOut: (state) => {
+        logOut: state => {
             state.accessToken = undefined;
             state.codeVerifier = undefined;
             state.user = undefined;
@@ -80,7 +72,6 @@ const authSlice = createSlice({
             .addCase(getAccessToken.fulfilled, (state, action) => {
                 state.accessToken = action.payload.access_token;
                 state.codeVerifier = undefined;
-
             })
             .addCase(getCurrentUser.fulfilled, (state, action) => {
                 state.user = action.payload;

@@ -10,7 +10,7 @@ import { useDisclosure } from "../../../hooks";
 import { createUserMenuLinks } from "../../../utils";
 
 type UserMenuProps = {
-    user: User
+    user: User;
 };
 
 const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
@@ -36,11 +36,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
             >
                 <DropdownMenu>
                     {createUserMenuLinks(user.id).map(link => (
-                        <DropdownMenuLink
-                            key={link.to}
-                            to={link.to}
-                            internal={link.internal}
-                        >{link.text}</DropdownMenuLink>
+                        <DropdownMenuLink key={link.to} to={link.to} internal={link.internal}>
+                            {link.text}
+                        </DropdownMenuLink>
                     ))}
 
                     <LogOutButton />

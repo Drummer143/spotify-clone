@@ -6,11 +6,7 @@ type MobileMenuButtonProps = JSX.IntrinsicElements["button"] & {
     isMenuOpened: boolean;
 };
 
-const MobileMenuButton: React.FC<MobileMenuButtonProps> = ({
-    isMenuOpened,
-    className,
-    ...buttonProps
-}) => {
+const MobileMenuButton: React.FC<MobileMenuButtonProps> = ({ isMenuOpened, className, ...buttonProps }) => {
     return (
         <button
             className={"w-5 h-8 rounded-3xl transition-[background_color] hover:bg-[#282828] focus:bg-[#282828]".concat(
@@ -18,10 +14,7 @@ const MobileMenuButton: React.FC<MobileMenuButtonProps> = ({
             )}
             {...buttonProps}
         >
-            <GoogleMaterialIcon
-                iconName={isMenuOpened ? "close" : "menu"}
-                size={1.2}
-            />
+            <GoogleMaterialIcon iconName={isMenuOpened ? "close" : "menu"} size={1.2} />
         </button>
     );
 };

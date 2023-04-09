@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import GoogleMaterialIcon from "../GoogleMaterialIcon";
 
 type PlaylistCardProps = {
-    imageUrl: string
-    playlistUrl: string
-    name: string
-    description: string
-    id: string
+    imageUrl: string;
+    playlistUrl: string;
+    name: string;
+    description: string;
+    id: string;
 };
 
 const PlaylistCard: React.FC<PlaylistCardProps> = ({ imageUrl, name, description, id }) => {

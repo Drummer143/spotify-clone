@@ -12,5 +12,5 @@ export const useDisclosure = (initialState?: boolean) => {
         onClose,
         onOpen,
         onToggle
-    }
-}
+    };
+};

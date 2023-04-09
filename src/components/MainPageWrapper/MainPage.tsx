@@ -31,7 +31,9 @@ const MainPage: React.FC = () => {
     });
 
     const getPlaylists = async (accessToken: string) => {
-        const { categories: { items } } = await getSeveralBrowseCategories(
+        const {
+            categories: { items }
+        } = await getSeveralBrowseCategories(
             accessToken,
             Intl.DateTimeFormat().resolvedOptions().locale.slice(-2),
             undefined,
@@ -50,12 +52,18 @@ const MainPage: React.FC = () => {
     return (
         <div
             ref={mainPageContainerRef}
-            className={"min-w-[31.25rem] px-[var(--content-spacing)] flex flex-col gap-10 max-h-full"
-                .concat(" overflow-x-hidden overflow-y-auto")}
-        >
-            {categories && categories.map(category =>
-                <CategoryPlaylistsCollection lengthToDisplay={countOfCardsToDisplay} key={category.id} {...category} />
+            className={"min-w-[31.25rem] px-[var(--content-spacing)] flex flex-col gap-10 max-h-full".concat(
+                " overflow-x-hidden overflow-y-auto"
             )}
+        >
+            {categories &&
+                categories.map(category => (
+                    <CategoryPlaylistsCollection
+                        lengthToDisplay={countOfCardsToDisplay}
+                        key={category.id}
+                        {...category}
+                    />
+                ))}
         </div>
     );
 };

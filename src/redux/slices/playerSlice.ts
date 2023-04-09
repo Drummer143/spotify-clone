@@ -5,12 +5,12 @@ type RepeatValues = "no" | "playlist" | "single";
 const repeatValuesArray: Readonly<RepeatValues>[] = ["no", "playlist", "single"];
 
 interface PlayerState {
-    shuffle: boolean
-    repeat: RepeatValues
-    currentPlayTime: number
-    currentSongIndex: number
-    playlist?: any
-    playNextQueue?: any
+    shuffle: boolean;
+    repeat: RepeatValues;
+    currentPlayTime: number;
+    currentSongIndex: number;
+    playlist?: any;
+    playNextQueue?: any;
 }
 
 const initialState: PlayerState = {
@@ -26,10 +26,10 @@ const playerSlice = createSlice({
     name: "player",
     initialState,
     reducers: {
-        toggleShuffle: (state) => {
+        toggleShuffle: state => {
             state.shuffle = !state.shuffle;
         },
-        toggleRepeat: (state) => {
+        toggleRepeat: state => {
             const index = repeatValuesArray.indexOf(state.repeat);
 
             const nextIndex = (index + 1) % 3;

@@ -29,8 +29,10 @@ const NavPanel: React.FC = () => {
             <NavigationLinks />
 
             {!user && (
-                <div className={"text-[0.6875rem] text-[#b3b3b3] flex content-end flex-1 flex-wrap gap-x-4 px-6 my-8"
-                    .concat(" scroll-smooth")}>
+                <div
+                    className={"text-[0.6875rem] text-[#b3b3b3] flex content-end flex-1 flex-wrap gap-x-4 px-6 my-8"
+                        .concat(" scroll-smooth")}
+                >
                     {navBarBottomLinks.map(({ to, text }) => (
                         <a
                             target="_blank"
@@ -50,13 +52,12 @@ const NavPanel: React.FC = () => {
             {user && (
                 <>
                     <hr
-                        className={"bg-[#282828] mr-[var(--left-sidebar-padding-right)]"
-                            .concat(" ml-[var(--left-sidebar-padding-right)] mt-2 mb-4 h-[1px]")}
+                        className={"bg-[#282828] mr-[var(--left-sidebar-padding-right)]".concat(
+                            " ml-[var(--left-sidebar-padding-right)] mt-2 mb-4 h-[1px]"
+                        )}
                     />
 
-                    <div
-                        className={"overflow-y-auto flex-1 overflow-x-hidden"}
-                    >
+                    <div className={"overflow-y-auto flex-1 overflow-x-hidden"}>
                         {playlists?.map(playlist => (
                             <PlaylistLink to={`/playlist/${playlist.id}`} key={playlist.id}>
                                 {playlist.name}
@@ -66,9 +67,11 @@ const NavPanel: React.FC = () => {
 
                     <NavLink
                         to="/download"
-                        className={({ isActive }) => "h-10 w-full flex items-center gap-4"
-                            .concat(" pr-[var(--left-sidebar-padding-right)] pl-[var(--left-sidebar-padding-left)]")
-                            .concat(" ", isActive ? "text-white" : "text-[#b3b3b3] hover:text-white")}
+                        className={({ isActive }) =>
+                            "h-10 w-full flex items-center gap-4"
+                                .concat(" pr-[var(--left-sidebar-padding-right)] pl-[var(--left-sidebar-padding-left)]")
+                                .concat(" ", isActive ? "text-white" : "text-[#b3b3b3] hover:text-white")
+                        }
                     >
                         <GoogleMaterialIcon iconName="download_for_offline" className="text-inherit" size={1.6} />
                         <span className="text-inherit text-sm">Install App</span>

@@ -7,12 +7,7 @@ type NavPanelLinkProps = LinkProps & {
     iconName: string;
 };
 
-const NavPanelLink: React.FC<NavPanelLinkProps> = ({
-    iconName,
-    children,
-    className,
-    ...linkProps
-}) => (
+const NavPanelLink: React.FC<NavPanelLinkProps> = ({ iconName, children, className, ...linkProps }) => (
     <NavLink
         className={"group flex items-center gap-4 h-10 w-full px-4 text-sm font-bold duration-300"
             .concat(" active:scale-[0.98]")
@@ -21,11 +16,7 @@ const NavPanelLink: React.FC<NavPanelLinkProps> = ({
     >
         {({ isActive }) => (
             <>
-                <GoogleMaterialIcon
-                    iconName={iconName}
-                    size={1.8}
-                    FILL={isActive ? 1 : 0}
-                />
+                <GoogleMaterialIcon iconName={iconName} size={1.8} FILL={isActive ? 1 : 0} />
                 <p
                     className={"transition-[color] leading-4 mt-0.5"
                         .concat(" group-hover:text-white")

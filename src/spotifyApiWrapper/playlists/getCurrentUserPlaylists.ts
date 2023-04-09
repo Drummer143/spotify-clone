@@ -4,21 +4,24 @@ import { spotifyApiHeaders } from "../../utils";
 
 const DEFAULT_URL = "https://api.spotify.com/v1/me/playlists";
 
-export const getCurrentUserPlaylist =
-    async (accessToken: string, limit?: number, offset?: number): Promise<GetUserPlaylistsResponse> => {
-        const searchParams = new URLSearchParams();
+export const getCurrentUserPlaylist = async (
+    accessToken: string,
+    limit?: number,
+    offset?: number
+): Promise<GetUserPlaylistsResponse> => {
+    const searchParams = new URLSearchParams();
 
-        if (limit) {
-            searchParams.append("limit", limit.toString());
-        }
+    if (limit) {
+        searchParams.append("limit", limit.toString());
+    }
 
-        if (offset) {
-            searchParams.append("offset", offset.toString());
-        }
+    if (offset) {
+        searchParams.append("offset", offset.toString());
+    }
 
-        const response = await axios.get(`${DEFAULT_URL}?${searchParams.toString()}`, {
-            headers: spotifyApiHeaders(accessToken)
-        });
+    const response = await axios.get(`${DEFAULT_URL}?${searchParams.toString()}`, {
+        headers: spotifyApiHeaders(accessToken)
+    });
 
-        return response.data;
-    };
+    return response.data;
+};

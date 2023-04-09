@@ -5,13 +5,16 @@ import { persistCombineReducers, persistStore } from "redux-persist";
 import authSlice from "./slices/authSlice";
 import playerSlice from "./slices/playerSlice";
 
-const persistentReducer = persistCombineReducers({
-    key: "store",
-    storage
-}, {
-    auth: authSlice.reducer,
-    player: playerSlice.reducer
-});
+const persistentReducer = persistCombineReducers(
+    {
+        key: "store",
+        storage
+    },
+    {
+        auth: authSlice.reducer,
+        player: playerSlice.reducer
+    }
+);
 
 const store = configureStore({
     reducer: persistentReducer,

@@ -22,5 +22,5 @@ export const createUserMenuLinks = (userId: string) => [
 ];
 
 export const spotifyApiHeaders = (accessToken: string) => ({
-    "Authorization": `Bearer ${accessToken}`
+    Authorization: `Bearer ${accessToken}`
 });
