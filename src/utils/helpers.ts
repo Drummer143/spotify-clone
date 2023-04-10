@@ -55,5 +55,6 @@ export async function generateCodeChallenge(codeVerifier: string) {
     const data = encoder.encode(codeVerifier);
     const digest = await window.crypto.subtle.digest("SHA-256", data);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return base64encode(digest as any);
 }

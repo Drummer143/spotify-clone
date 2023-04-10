@@ -1,8 +1,6 @@
 import React from "react";
 
 import NavPanelLink from "./NavPanelLink";
-import NavPanelButton from "./NavPanelButton/NavPanelButton";
-import GoogleMaterialIcon from "../../GoogleMaterialIcon";
 import LikedSongsButton from "./LikedSongsButton";
 import CreatePlaylistButton from "./CreatePlaylistButton";
 

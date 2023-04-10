@@ -9,8 +9,8 @@ interface PlayerState {
     repeat: RepeatValues;
     currentPlayTime: number;
     currentSongIndex: number;
-    playlist?: any;
-    playNextQueue?: any;
+    playlist?: unknown;
+    playNextQueue?: unknown;
 }
 
 const initialState: PlayerState = {

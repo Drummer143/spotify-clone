@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState } from "react";
 
 export const useNumberFormatter = () => {
     const locale = Intl.DateTimeFormat().resolvedOptions().locale;
@@ -6,4 +6,4 @@ export const useNumberFormatter = () => {
     const [formatter] = useState(new Intl.NumberFormat(locale));
 
     return formatter;
-}
+};

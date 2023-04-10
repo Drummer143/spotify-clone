@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 
 import Modal from "../../Modal/Modal";
 import DropdownMenu from "../DropdownMenu";

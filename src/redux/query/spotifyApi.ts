@@ -8,14 +8,14 @@ export const spotifyApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: "https://api.spotify.com/v1" }),
     endpoints: build => ({
         getCurrentUser: build.query<GetCurrentUserResponse, string>({
-            query: (accessToken) => ({
+            query: accessToken => ({
                 url: "/me",
                 headers: spotifyApiHeaders(accessToken)
             })
         }),
 
         getCurrentUserPlaylists: build.query<GetUserPlaylistsResponse, string>({
-            query: (accessToken) => ({
+            query: accessToken => ({
                 url: "/me/playlists",
                 headers: spotifyApiHeaders(accessToken)
             }),
@@ -25,13 +25,13 @@ export const spotifyApi = createApi({
         getSeveralBrowseCategories: build.query<
             GetSeveralBrowseCategoriesResponse,
             {
-                accessToken: string,
+                accessToken: string;
                 searchParams?: {
-                    country?: string
-                    locale?: string,
-                    limit?: number,
-                    offset?: number
-                }
+                    country?: string;
+                    locale?: string;
+                    limit?: number;
+                    offset?: number;
+                };
             }
         >({
             query: ({ accessToken, searchParams }) => ({
@@ -43,13 +43,13 @@ export const spotifyApi = createApi({
         getCategoryPlaylists: build.query<
             GetCategoryPlaylistsResponse,
             {
-                accessToken: string,
-                categoryId: string,
+                accessToken: string;
+                categoryId: string;
                 searchParams?: {
-                    limit?: number,
-                    offset?: number,
-                    country?: string
-                }
+                    limit?: number;
+                    offset?: number;
+                    country?: string;
+                };
             }
         >({
             query: ({ accessToken, categoryId, searchParams }) => ({
@@ -58,21 +58,24 @@ export const spotifyApi = createApi({
             })
         }),
 
-        getUser: build.query<GetUserResponse, { accessToken: string, userId: string }>({
+        getUser: build.query<GetUserResponse, { accessToken: string; userId: string }>({
             query: ({ accessToken, userId }) => ({
                 url: `/users/${userId}`,
                 headers: spotifyApiHeaders(accessToken)
             })
         }),
 
-        getPlaylist: build.query<GetPlayListResponse, { accessToken: string, playlistId: string }>({
+        getPlaylist: build.query<GetPlayListResponse, { accessToken: string; playlistId: string }>({
             query: ({ accessToken, playlistId }) => ({
                 url: `/playlists/${playlistId}`,
                 headers: spotifyApiHeaders(accessToken)
             })
         }),
 
-        isUserFollowsPlaylist: build.query<boolean[], { accessToken: string, playlistId: string, usersIds: string | string[] }>({
+        isUserFollowsPlaylist: build.query<
+            boolean[],
+            { accessToken: string; playlistId: string; usersIds: string | string[] }
+        >({
             query: ({ accessToken, playlistId, usersIds }) => {
                 usersIds = Array.isArray(usersIds) ? usersIds.join(",") : usersIds;
 
@@ -84,7 +87,7 @@ export const spotifyApi = createApi({
             providesTags: ["FollowCheck"]
         }),
 
-        followPlaylist: build.mutation<"", { playlistId: string, accessToken: string }>({
+        followPlaylist: build.mutation<"", { playlistId: string; accessToken: string }>({
             query: ({ accessToken, playlistId }) => ({
                 url: `/playlists/${playlistId}/followers`,
                 method: "PUT",
@@ -96,7 +99,7 @@ export const spotifyApi = createApi({
             invalidatesTags: ["CurrentUsersPlaylists", "FollowCheck"]
         }),
 
-        unfollowPlaylist: build.mutation<"", { playlistId: string, accessToken: string }>({
+        unfollowPlaylist: build.mutation<"", { playlistId: string; accessToken: string }>({
             query: ({ accessToken, playlistId }) => ({
                 url: `/playlists/${playlistId}/followers`,
                 method: "DELETE",
