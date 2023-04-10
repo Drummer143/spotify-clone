@@ -4,6 +4,7 @@ import GoogleMaterialIcon from "../GoogleMaterialIcon";
 import { useParams } from "react-router-dom";
 import { spotifyApi } from "../../redux/query/spotifyApi";
 import { useAppSelector } from "../../hooks";
+import PlayButton from "../PlayButton";
 
 const ActionBar: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken) || "";
@@ -39,13 +40,7 @@ const ActionBar: React.FC = () => {
 
     return (
         <div className="px-[var(--content-spacing)] py-6 flex items-center gap-8">
-            <button
-                className={"h-14 w-14 rounded-full bg-[#1ed760] transition-[transform,_background-color]"
-                    .concat(" flex items-center justify-center")
-                    .concat(" hover:scale-105 active:bg-[#169c46] active:scale-100")}
-            >
-                <GoogleMaterialIcon iconName="play_arrow" FILL={1} size={2.2} className="text-black" />
-            </button>
+            <PlayButton />
 
             <GoogleMaterialIcon
                 iconName="favorite"

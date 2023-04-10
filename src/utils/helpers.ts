@@ -58,3 +58,23 @@ export async function generateCodeChallenge(codeVerifier: string) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return base64encode(digest as any);
 }
+
+export const getDarkenColor = (color: string) => {
+    let r = parseInt(color.slice(1, 3), 16);
+    let g = parseInt(color.slice(3, 5), 16);
+    let b = parseInt(color.slice(5), 16);
+
+    r = Math.round(r * 0.5);
+    g = Math.round(g * 0.5);
+    b = Math.round(b * 0.5);
+
+    let newR = (r < 255 ? r : 255).toString(16);
+    let newG = (g < 255 ? g : 255).toString(16);
+    let newB = (b < 255 ? b : 255).toString(16);
+
+    newR = newR.length === 1 ? "0".concat(newR) : newR;
+    newG = newG.length === 1 ? "0".concat(newG) : newG;
+    newB = newB.length === 1 ? "0".concat(newB) : newB;
+
+    return `#${newR}${newG}${newB}`;
+};

@@ -3,13 +3,15 @@ import { useParams } from "react-router-dom";
 
 import ActionBar from "./ActionBar";
 import PlaylistInfo from "./PlaylistInfo/PlaylistInfo";
+import { setTitle } from "../../redux/slices/appState";
 import { spotifyApi } from "../../redux/query/spotifyApi";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 const PlaylistPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
 
     const { id } = useParams<{ id: string }>();
+    const dispatch = useAppDispatch();
 
     const [playlistDuration, setPlaylistDuration] = useState(0);
 
@@ -43,6 +45,8 @@ const PlaylistPage: React.FC = () => {
         if (!playlistInfo) {
             return;
         }
+
+        dispatch(setTitle(`${playlistInfo.name} | Spotify Clone`));
 
         let duration = playlistInfo.tracks.items
             .reduce((prev, curr) => prev + curr.track.duration_ms, 0);

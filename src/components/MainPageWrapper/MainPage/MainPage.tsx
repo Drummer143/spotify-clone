@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 
 import CategoryPlaylistsCollection from "./CategoryPlaylistsCollection";
-import { spotifyApi } from "../../redux/query/spotifyApi";
-import { useAppSelector, useResizeObserver } from "../../hooks";
+import { spotifyApi } from "../../../redux/query/spotifyApi";
+import { useAppSelector, useResizeObserver } from "../../../hooks";
 
 const MainPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);

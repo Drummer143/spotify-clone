@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import PlaylistCard from "./PlaylistCard";
-import { spotifyApi } from "../../redux/query/spotifyApi";
-import { useAppSelector } from "../../hooks";
+import { spotifyApi } from "../../../redux/query/spotifyApi";
+import { useAppSelector } from "../../../hooks";
 
 type CategoryPlaylistsCollectionProps = {
     id: string;

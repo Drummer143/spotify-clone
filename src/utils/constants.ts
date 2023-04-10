@@ -11,3 +11,8 @@ export const headerLinks = [
     { to: "https://support.spotify.com/", text: "Support" },
     { to: "https://www.spotify.com/download/", text: "Download" }
 ];
+
+export const defaultHeadersBGColors: { [key in "authentificated" | "nonAuthentificated"]: ColorPair } = {
+    nonAuthentificated: ["#12121200", "#121212"],
+    authentificated: ["#4820B000", "#4820B0"]
+};

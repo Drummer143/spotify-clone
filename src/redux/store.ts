@@ -2,6 +2,7 @@ import storage from "redux-persist/lib/storage";
 import { configureStore } from "@reduxjs/toolkit";
 import { persistCombineReducers, persistStore } from "redux-persist";
 
+import appSlice from "./slices/appState";
 import authSlice from "./slices/authSlice";
 import playerSlice from "./slices/playerSlice";
 import { spotifyApi } from "./query/spotifyApi";
@@ -13,6 +14,7 @@ const persistentReducer = persistCombineReducers(
         storage
     },
     {
+        app: appSlice.reducer,
         auth: authSlice.reducer,
         player: playerSlice.reducer,
         [spotifyApi.reducerPath]: spotifyApi.reducer

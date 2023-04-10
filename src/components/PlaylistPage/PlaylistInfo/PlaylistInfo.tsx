@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ColorThief from "color-thief-ts";
 
 import PlaylistStats from "./PlaylistStats";
+import { changeHeadBGColor } from "../../../redux/slices/appState";
+import { useAppDispatch, useAppSelector } from "../../../hooks";
 
 import styles from "./PlaylistInfo.module.css";
 
@@ -23,23 +25,30 @@ const PlaylistInfo: React.FC<PlaylistInfoProps> = ({
     name,
     ...stats
 }) => {
-    const [dominantColor, setDominantColor] = useState<string | undefined>();
+    const bgColor = useAppSelector(state => state.app.headerBGColor[1]);
 
-    const playlistNameRef = useRef<HTMLHeadingElement>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
+    const [colorDetector] = useState(new ColorThief());
+
+    const dispatch = useAppDispatch();
+
+    const getBGColor = async () => {
+        const bgColor = await colorDetector.getColorAsync(imageUrl);
+
+        const hex = bgColor.toString();
+
+        dispatch(changeHeadBGColor([`${hex}00`, hex]));
+    };
 
     useEffect(() => {
-        new ColorThief().getColorAsync(imageUrl)
-            .then(res => setDominantColor(res.toString()));
+        getBGColor();
     }, [imageUrl]);
 
     return (
         <div
-            ref={containerRef}
             className={"h-[30vh] min-h-[340px] max-h-[500px] transition-[background-color] duration-500 ease-in-out"
                 .concat(" flex items-end px-[var(--content-spacing)] pb-6 gap-6")
                 .concat(" ", styles.gradient)}
-            style={{ backgroundColor: dominantColor }}
+            style={{ backgroundColor: bgColor }}
         >
             <img className="w-48 h-48 shadow-playlist-cover-image" src={imageUrl} />
             <div
@@ -49,7 +58,6 @@ const PlaylistInfo: React.FC<PlaylistInfoProps> = ({
 
                 <div className="mt-2">
                     <h1
-                        ref={playlistNameRef}
                         className="text-8xl font-bold tracking-tighter w-fit mt-[0.08em] mb-[0.12em]"
                     >
                         {name}

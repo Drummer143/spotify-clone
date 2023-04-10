@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
+import { MotionValue, motion, useTransform } from "framer-motion";
 
 import UserMenu from "./UserMenu/UserMenu";
 import HeaderLink from "./HeaderLink";
 import MobileMenu from "./MobileMenu/MobileMenu";
+import PlaylistBar from "./PlaylistBar";
 import LoginButton from "../LoginButton";
 import HistoryNavigationButtons from "./HistoryNavigationButtons";
 import { spotifyApi } from "../../redux/query/spotifyApi";
-import { headerLinks } from "../../utils";
 import { useAppSelector } from "../../hooks";
+import { getDarkenColor, headerLinks } from "../../utils";
 
-const Header: React.FC = () => {
+type HeaderProps = {
+    scrollY: MotionValue<number>
+}
+
+const Header: React.FC<HeaderProps> = ({ scrollY }) => {
+    const bgColors = useAppSelector(state => state.app.headerBGColor);
+    const isPlaylistPage = useLocation().pathname.includes("playlist");
+
+    const [BGTransitionOffsetY] = useState([10, 150]);
+
+    const bgColor = useTransform(scrollY, BGTransitionOffsetY, [bgColors[0], getDarkenColor(bgColors[1])]);
+
     const accessToken = useAppSelector(state => state.auth.accessToken);
 
     const { currentData: user } = spotifyApi.useGetCurrentUserQuery(accessToken || "", {
@@ -18,13 +32,20 @@ const Header: React.FC = () => {
     });
 
     return (
-        <div
+        <motion.header
             className={"fixed top-0 right-0 z-[1] w-[calc(100%_-_var(--nav-bar-width))] h-16"
-                .concat(" flex items-center justify-between px-8")
+                .concat(" flex items-center justify-between px-8 transition-[bg-color] duration-500")
                 .concat(user ? "" : " bg-[#00000080]")
                 .concat(" max-lg:px-4")}
+            style={{
+                backgroundColor: bgColor
+            }}
         >
-            <HistoryNavigationButtons />
+            <div className="flex items-center gap-4">
+                <HistoryNavigationButtons />
+
+                {isPlaylistPage && <PlaylistBar scrollY={scrollY} />}
+            </div>
 
             {!user && (
                 <div className="flex gap-4 items-center">
@@ -63,7 +84,7 @@ const Header: React.FC = () => {
                     <UserMenu user={user} />
                 </div>
             )}
-        </div>
+        </motion.header>
     );
 };
 
