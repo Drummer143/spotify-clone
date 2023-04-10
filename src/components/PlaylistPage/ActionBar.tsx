@@ -1,10 +1,10 @@
 import React, { useCallback } from "react";
 
+import PlayButton from "../PlayButton";
 import GoogleMaterialIcon from "../GoogleMaterialIcon";
 import { useParams } from "react-router-dom";
 import { spotifyApi } from "../../redux/query/spotifyApi";
 import { useAppSelector } from "../../hooks";
-import PlayButton from "../PlayButton";
 
 const ActionBar: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken) || "";
