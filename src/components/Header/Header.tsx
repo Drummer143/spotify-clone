@@ -12,13 +12,14 @@ import { useAppSelector } from "../../hooks";
 const Header: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
 
-    const { data: user } = spotifyApi.useGetCurrentUserQuery(accessToken || "", {
+    const { currentData: user } = spotifyApi.useGetCurrentUserQuery(accessToken || "", {
+        skip: !accessToken,
         refetchOnMountOrArgChange: true
     });
 
     return (
         <div
-            className={"fixed top-0 right-0 w-[calc(100%_-_var(--nav-bar-width))] h-16"
+            className={"fixed top-0 right-0 z-[1] w-[calc(100%_-_var(--nav-bar-width))] h-16"
                 .concat(" flex items-center justify-between px-8")
                 .concat(user ? "" : " bg-[#00000080]")
                 .concat(" max-lg:px-4")}

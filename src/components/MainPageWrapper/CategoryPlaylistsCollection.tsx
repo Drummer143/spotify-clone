@@ -20,6 +20,8 @@ const CategoryPlaylistsCollection: React.FC<CategoryPlaylistsCollectionProps> = 
         searchParams: {
             limit: lengthToDisplay
         }
+    }, {
+        skip: !accessToken
     });
 
     if (!playlists) {

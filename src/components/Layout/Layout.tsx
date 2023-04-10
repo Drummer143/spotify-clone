@@ -14,7 +14,8 @@ const Layout: React.FC = () => {
 
             <Header />
 
-            <main className={`h-full w-full bg-[#121212] overflow-hidden ${styles.main}`}>
+            <main className={`h-full w-full bg-[#121212] overflow-y-auto overflow-x-hidden ${styles.main}`}>
+
                 <Outlet />
             </main>
 

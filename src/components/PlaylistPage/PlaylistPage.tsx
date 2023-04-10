@@ -26,12 +26,18 @@ const PlaylistPage: React.FC = () => {
     const { data: playlistInfo } = spotifyApi.useGetPlaylistQuery({
         accessToken: accessToken || "",
         playlistId: id || ""
-    }, { refetchOnMountOrArgChange: true });
+    }, {
+        refetchOnMountOrArgChange: true,
+        skip: !accessToken
+    });
 
     const { data: ownerInfo } = spotifyApi.useGetUserQuery({
         accessToken: accessToken || "",
         userId: playlistInfo?.owner.id || ""
-    }, { refetchOnMountOrArgChange: true });
+    }, {
+        refetchOnMountOrArgChange: true,
+        skip: !accessToken || !playlistInfo
+    });
 
     useEffect(() => {
         if (!playlistInfo) {
@@ -53,7 +59,9 @@ const PlaylistPage: React.FC = () => {
     }
 
     return (
-        <section>
+        <section
+            className="max-h-full"
+        >
             <PlaylistInfo
                 description={playlistInfo.description}
                 followersCount={playlistInfo.followers.total}
@@ -67,6 +75,8 @@ const PlaylistPage: React.FC = () => {
 
             <ActionBar />
             {id}
+
+            <div className="h-[200vh]"></div>
         </section>
     );
 };

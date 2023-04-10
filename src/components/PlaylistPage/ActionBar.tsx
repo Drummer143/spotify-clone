@@ -1,30 +1,35 @@
 import React, { useCallback } from "react";
 
 import GoogleMaterialIcon from "../GoogleMaterialIcon";
+import { useParams } from "react-router-dom";
 import { spotifyApi } from "../../redux/query/spotifyApi";
 import { useAppSelector } from "../../hooks";
-import { Navigate, useParams } from "react-router-dom";
 
 const ActionBar: React.FC = () => {
-    const { user, accessToken } = useAppSelector(state => state.auth);
+    const accessToken = useAppSelector(state => state.auth.accessToken) || "";
 
-    const { id: playlistId } = useParams<{ id: string }>();
-
-    if (!user || !accessToken || !playlistId) {
-        return <Navigate to='/' replace />;
-    }
+    const { id: playlistId = "" } = useParams<{ id: string }>();
 
     const [unfollowPlaylist] = spotifyApi.useUnfollowPlaylistMutation();
     const [followPlaylist] = spotifyApi.useFollowPlaylistMutation();
+    const { currentData: user } = spotifyApi.useGetCurrentUserQuery(accessToken, {
+        skip: !accessToken
+    });
     const {
         data: followInfo
     } = spotifyApi.useIsUserFollowsPlaylistQuery({
-        accessToken,
-        playlistId,
-        usersIds: user.id
+        accessToken: accessToken,
+        playlistId: playlistId,
+        usersIds: user?.id || ""
+    }, {
+        skip: !playlistId || !accessToken || !user
     });
 
     const handleAddPlaylistToFavorite = useCallback(() => {
+        if(!playlistId || !accessToken) {
+            return;
+        }
+
         if (followInfo && followInfo[0]) {
             unfollowPlaylist({ accessToken, playlistId });
         } else {

@@ -35,14 +35,14 @@ const MainPage: React.FC = () => {
             locale: Intl.DateTimeFormat().resolvedOptions().locale,
             limit: 3
         }
+    }, {
+        skip: !accessToken
     });
 
     return (
         <div
             ref={mainPageContainerRef}
-            className={"min-w-[31.25rem] pt-16 px-[var(--content-spacing)] flex flex-col gap-10 max-h-full".concat(
-                " overflow-x-hidden overflow-y-auto"
-            )}
+            className={"min-w-[31.25rem] pt-16 px-[var(--content-spacing)] flex flex-col gap-10 max-h-full"}
         >
             {browseCategories &&
                 browseCategories.categories.items.map(category => (

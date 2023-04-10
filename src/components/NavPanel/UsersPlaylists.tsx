@@ -12,7 +12,8 @@ const UsersPlaylists: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
 
     const { data: playlists } = spotifyApi.useGetCurrentUserPlaylistsQuery(accessToken || "", {
-        refetchOnMountOrArgChange: true
+        refetchOnMountOrArgChange: true,
+        skip:!accessToken
     });
 
     if (!accessToken) {
