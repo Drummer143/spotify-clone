@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import ColorThief from "color-thief-ts";
 
 import PlaylistStats from "./PlaylistStats";
 
@@ -22,19 +23,35 @@ const PlaylistInfo: React.FC<PlaylistInfoProps> = ({
     name,
     ...stats
 }) => {
+    const [dominantColor, setDominantColor] = useState<string | undefined>();
+
+    const playlistNameRef = useRef<HTMLHeadingElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        new ColorThief().getColorAsync(imageUrl)
+            .then(res => setDominantColor(res.toString()));
+    }, [imageUrl]);
+
     return (
         <div
-            className={"h-[40vh] min-h-[340px] bg-cover bg-no-repeat bg-[50%_15%] bg-scroll"}
-            style={{ backgroundImage: `url(${imageUrl})` }}
+            ref={containerRef}
+            className={"h-[30vh] min-h-[340px] max-h-[500px] transition-[background-color] duration-500 ease-in-out"
+                .concat(" flex items-end px-[var(--content-spacing)] pb-6 gap-6")
+                .concat(" ", styles.gradient)}
+            style={{ backgroundColor: dominantColor }}
         >
+            <img className="w-48 h-48 shadow-playlist-cover-image" src={imageUrl} />
             <div
-                className={"flex h-full pb-6 px-[var(--content-spacing)] flex-col justify-end"
-                    .concat(" ", styles.gradient)}
+                className={"flex h-full flex-col justify-end"}
             >
                 <p className="font-bold text-sm">Playlist</p>
 
                 <div className="mt-2">
-                    <h1 className="text-8xl font-bold tracking-tighter w-fit mt-[0.08em] mb-[0.12em]">
+                    <h1
+                        ref={playlistNameRef}
+                        className="text-8xl font-bold tracking-tighter w-fit mt-[0.08em] mb-[0.12em]"
+                    >
                         {name}
                     </h1>
                 </div>

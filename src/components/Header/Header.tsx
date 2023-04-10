@@ -5,11 +5,16 @@ import HeaderLink from "./HeaderLink";
 import MobileMenu from "./MobileMenu/MobileMenu";
 import LoginButton from "../LoginButton";
 import HistoryNavigationButtons from "./HistoryNavigationButtons";
+import { spotifyApi } from "../../redux/query/spotifyApi";
 import { headerLinks } from "../../utils";
 import { useAppSelector } from "../../hooks";
 
 const Header: React.FC = () => {
-    const user = useAppSelector(state => state.auth.user);
+    const accessToken = useAppSelector(state => state.auth.accessToken);
+
+    const { data: user } = spotifyApi.useGetCurrentUserQuery(accessToken || "", {
+        refetchOnMountOrArgChange: true
+    });
 
     return (
         <div

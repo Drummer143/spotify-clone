@@ -1,10 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { RootState } from "../";
-import {
-    getAccessToken as spotifyGetAccessToken,
-    getCurrentUser as spotifyGetCurrentUser
-} from "../../spotifyApiWrapper";
+import { getAccessToken as spotifyGetAccessToken } from "../../utils";
 
 interface AuthState {
     codeVerifier?: string;
@@ -33,23 +30,6 @@ export const getAccessToken = createAsyncThunk<GetAccessTokenResponse, string, S
     }
 );
 
-export const getCurrentUser = createAsyncThunk<User, void, State>(
-    "auth/getCurrentUser",
-    async (_, { getState, rejectWithValue }) => {
-        const accessToken = getState().auth.accessToken;
-
-        if (!accessToken) {
-            return rejectWithValue("Can't login without access token");
-        }
-
-        try {
-            return spotifyGetCurrentUser(accessToken);
-        } catch (error) {
-            return rejectWithValue(error);
-        }
-    }
-);
-
 const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -72,9 +52,6 @@ const authSlice = createSlice({
             .addCase(getAccessToken.fulfilled, (state, action) => {
                 state.accessToken = action.payload.access_token;
                 state.codeVerifier = undefined;
-            })
-            .addCase(getCurrentUser.fulfilled, (state, action) => {
-                state.user = action.payload;
             });
     }
 });

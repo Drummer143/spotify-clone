@@ -4,6 +4,8 @@ import { persistCombineReducers, persistStore } from "redux-persist";
 
 import authSlice from "./slices/authSlice";
 import playerSlice from "./slices/playerSlice";
+import { spotifyApi } from "./query/spotifyApi";
+import { setupListeners } from "@reduxjs/toolkit/dist/query";
 
 const persistentReducer = persistCombineReducers(
     {
@@ -12,14 +14,17 @@ const persistentReducer = persistCombineReducers(
     },
     {
         auth: authSlice.reducer,
-        player: playerSlice.reducer
+        player: playerSlice.reducer,
+        [spotifyApi.reducerPath]: spotifyApi.reducer
     }
 );
 
 const store = configureStore({
     reducer: persistentReducer,
-    middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false })
+    middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false }).concat(spotifyApi.middleware)
 });
+
+setupListeners(store.dispatch);
 
 export const persistor = persistStore(store);
 

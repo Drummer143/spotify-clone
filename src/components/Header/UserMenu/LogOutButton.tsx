@@ -6,7 +6,10 @@ import { useAppDispatch } from "../../../hooks";
 const LogOutButton: React.FC = () => {
     const dispatch = useAppDispatch();
 
-    const handleClick = () => dispatch(logOut());
+    const handleClick = () => {
+        dispatch(logOut());
+        window.open(window.location.host, "_self");
+    };
 
     return (
         <button

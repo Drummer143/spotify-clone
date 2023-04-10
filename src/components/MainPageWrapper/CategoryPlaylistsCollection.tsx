@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 import PlaylistCard from "./PlaylistCard";
+import { spotifyApi } from "../../redux/query/spotifyApi";
 import { useAppSelector } from "../../hooks";
-import { getCategorysPlaylists } from "../../spotifyApiWrapper";
 
 type CategoryPlaylistsCollectionProps = {
     id: string;
@@ -14,21 +14,17 @@ type CategoryPlaylistsCollectionProps = {
 const CategoryPlaylistsCollection: React.FC<CategoryPlaylistsCollectionProps> = ({ id, name, lengthToDisplay }) => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
 
-    const [playlists, setPlaylists] = useState<PlaylistInfo[] | undefined>();
-
-    const getPlaylists = async (accessToken: string) => {
-        const {
-            playlists: { items }
-        } = await getCategorysPlaylists(id, accessToken, lengthToDisplay);
-
-        setPlaylists(items);
-    };
-
-    useEffect(() => {
-        if (accessToken) {
-            getPlaylists(accessToken);
+    const { data: playlists } = spotifyApi.useGetCategoryPlaylistsQuery({
+        accessToken: accessToken || "",
+        categoryId: id,
+        searchParams: {
+            limit: lengthToDisplay
         }
-    }, [lengthToDisplay]);
+    });
+
+    if (!playlists) {
+        return <></>;
+    }
 
     return (
         <section>
@@ -44,19 +40,21 @@ const CategoryPlaylistsCollection: React.FC<CategoryPlaylistsCollectionProps> = 
                 className={"grid gap-[var(--collection-gap)] grid-rows-1"
                     .concat(" grid-cols-[repeat(var(--cards-count),_minmax(0,_1fr))]")}
             >
-                {playlists &&
-                    playlists
-                        .slice(0, lengthToDisplay)
-                        .map(playlist => (
-                            <PlaylistCard
-                                key={playlist.id}
-                                id={playlist.id}
-                                description={playlist.description}
-                                imageUrl={playlist.images[0].url}
-                                name={playlist.name}
-                                playlistUrl={playlist.href}
-                            />
-                        ))}
+                {playlists
+                    .playlists
+                    .items
+                    .slice(0, lengthToDisplay)
+                    .map(playlist => (
+                        <PlaylistCard
+                            key={playlist.id}
+                            id={playlist.id}
+                            description={playlist.description}
+                            imageUrl={playlist.images[0].url}
+                            name={playlist.name}
+                            playlistUrl={playlist.href}
+                        />
+                    ))
+                }
             </div>
         </section>
     );

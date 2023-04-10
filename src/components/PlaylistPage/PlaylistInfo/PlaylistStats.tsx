@@ -27,13 +27,17 @@ const PlaylistStats: React.FC<PlaylistStatsProps> = ({
                 to={`/user/${owner.id}`}
                 className="flex gap-1 items-center hover:underline"
             >
-                <img src={ownerImageUrl} className="h-6 w-6 rounded-full" />
+                {ownerImageUrl && <img src={ownerImageUrl} className="h-6 w-6 rounded-full" />}
                 <p className="font-bold">{owner.display_name}</p>
             </Link>
 
-            <span className="mx-1 text-base">•</span>
+            {followersCount > 0 && (
+                <>
+                    <span className="mx-1 text-base">•</span>
 
-            <p>{numberFormatter.format(followersCount)} likes</p>
+                    <p>{numberFormatter.format(followersCount)} likes</p>
+                </>
+            )}
 
             <span className="mx-1 text-base">•</span>
 

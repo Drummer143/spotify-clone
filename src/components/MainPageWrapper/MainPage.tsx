@@ -1,13 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 
 import CategoryPlaylistsCollection from "./CategoryPlaylistsCollection";
-import { getSeveralBrowseCategories } from "../../spotifyApiWrapper";
+import { spotifyApi } from "../../redux/query/spotifyApi";
 import { useAppSelector, useResizeObserver } from "../../hooks";
 
 const MainPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
 
-    const [categories, setCategories] = useState<Category[] | undefined>();
     const [countOfCardsToDisplay, setCountOfCardsToDisplay] = useState(2);
 
     const mainPageContainerRef = useRef<HTMLDivElement>(null);
@@ -30,24 +29,13 @@ const MainPage: React.FC = () => {
         }
     });
 
-    const getPlaylists = async (accessToken: string) => {
-        const {
-            categories: { items }
-        } = await getSeveralBrowseCategories(
-            accessToken,
-            Intl.DateTimeFormat().resolvedOptions().locale.slice(-2),
-            undefined,
-            3
-        );
-
-        setCategories(items);
-    };
-
-    useEffect(() => {
-        if (accessToken) {
-            getPlaylists(accessToken);
+    const { data: browseCategories } = spotifyApi.useGetSeveralBrowseCategoriesQuery({
+        accessToken: accessToken || "",
+        searchParams: {
+            locale: Intl.DateTimeFormat().resolvedOptions().locale,
+            limit: 3
         }
-    }, []);
+    });
 
     return (
         <div
@@ -56,8 +44,8 @@ const MainPage: React.FC = () => {
                 " overflow-x-hidden overflow-y-auto"
             )}
         >
-            {categories &&
-                categories.map(category => (
+            {browseCategories &&
+                browseCategories.categories.items.map(category => (
                     <CategoryPlaylistsCollection
                         lengthToDisplay={countOfCardsToDisplay}
                         key={category.id}

@@ -1,44 +1,36 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback } from "react";
 
 import GoogleMaterialIcon from "../GoogleMaterialIcon";
+import { spotifyApi } from "../../redux/query/spotifyApi";
 import { useAppSelector } from "../../hooks";
 import { Navigate, useParams } from "react-router-dom";
-import {
-    followPlaylist,
-    isUserFollowsPlaylist as spotifyIsUserFollowsPlaylist,
-    unfollowPlaylist
-} from "../../spotifyApiWrapper";
 
 const ActionBar: React.FC = () => {
     const { user, accessToken } = useAppSelector(state => state.auth);
 
     const { id: playlistId } = useParams<{ id: string }>();
 
-    const [isUserFollowsPlaylist, setIsUserFollowsPlaylist] = useState(false);
-
     if (!user || !accessToken || !playlistId) {
         return <Navigate to='/' replace />;
     }
 
-    const checkIfUserFollowsPlaylist = async () => {
-        const res = await spotifyIsUserFollowsPlaylist(accessToken, playlistId, user.id);
+    const [unfollowPlaylist] = spotifyApi.useUnfollowPlaylistMutation();
+    const [followPlaylist] = spotifyApi.useFollowPlaylistMutation();
+    const {
+        data: followInfo
+    } = spotifyApi.useIsUserFollowsPlaylistQuery({
+        accessToken,
+        playlistId,
+        usersIds: user.id
+    });
 
-        setIsUserFollowsPlaylist(res[0]);
-    };
-
-    const handleAddPlaylistToFavorite = useCallback(async () => {
-        if (isUserFollowsPlaylist) {
-            await unfollowPlaylist(accessToken, playlistId);
+    const handleAddPlaylistToFavorite = useCallback(() => {
+        if (followInfo && followInfo[0]) {
+            unfollowPlaylist({ accessToken, playlistId });
         } else {
-            await followPlaylist(accessToken, playlistId);
+            followPlaylist({ accessToken, playlistId });
         }
-
-        await checkIfUserFollowsPlaylist();
-    }, [isUserFollowsPlaylist]);
-
-    useEffect(() => {
-        checkIfUserFollowsPlaylist();
-    }, []);
+    }, [followInfo]);
 
     return (
         <div className="px-[var(--content-spacing)] py-6 flex items-center gap-8">
@@ -53,10 +45,10 @@ const ActionBar: React.FC = () => {
             <GoogleMaterialIcon
                 iconName="favorite"
                 size={2.4}
-                FILL={isUserFollowsPlaylist ? 1 : 0}
+                FILL={followInfo && followInfo[0] ? 1 : 0}
                 onClick={handleAddPlaylistToFavorite}
                 className={"cursor-pointer transition-[color]"
-                    .concat(" ", isUserFollowsPlaylist ?
+                    .concat(" ", followInfo && followInfo[0] ?
                         "text-[#1ed760]" :
                         "text-[hsla(0,0%,100%,.7)] hover:text-white")
                 }

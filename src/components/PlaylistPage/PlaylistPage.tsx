@@ -3,16 +3,14 @@ import { useParams } from "react-router-dom";
 
 import ActionBar from "./ActionBar";
 import PlaylistInfo from "./PlaylistInfo/PlaylistInfo";
+import { spotifyApi } from "../../redux/query/spotifyApi";
 import { useAppSelector } from "../../hooks";
-import { getUser, getPlaylist as spotifyAPIGetPlaylist } from "../../spotifyApiWrapper";
 
 const PlaylistPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
 
     const { id } = useParams<{ id: string }>();
 
-    const [playlistInfo, setPlaylistInfo] = useState<GetPlayListResponse | undefined>();
-    const [ownerImage, setOwnerImage] = useState<string | undefined>();
     const [playlistDuration, setPlaylistDuration] = useState(0);
 
     const parseDuration = (duration: number) => {
@@ -25,29 +23,28 @@ const PlaylistPage: React.FC = () => {
         };
     };
 
-    const getPlaylist = async (accessToken: string, id: string) => {
-        const playlist = await spotifyAPIGetPlaylist(accessToken, id);
+    const { data: playlistInfo } = spotifyApi.useGetPlaylistQuery({
+        accessToken: accessToken || "",
+        playlistId: id || ""
+    }, { refetchOnMountOrArgChange: true });
 
-        document.title = `${playlist.name} | Spotify Playlist`;
+    const { data: ownerInfo } = spotifyApi.useGetUserQuery({
+        accessToken: accessToken || "",
+        userId: playlistInfo?.owner.id || ""
+    }, { refetchOnMountOrArgChange: true });
 
-        const { images: [{ url }] } = await getUser(accessToken, playlist.owner.id);
+    useEffect(() => {
+        if (!playlistInfo) {
+            return;
+        }
 
-        let duration = playlist.tracks.items
+        let duration = playlistInfo.tracks.items
             .reduce((prev, curr) => prev + curr.track.duration_ms, 0);
 
         duration = Math.round(duration / 1000);
 
         setPlaylistDuration(duration);
-
-        setOwnerImage(url);
-        setPlaylistInfo(playlist);
-    };
-
-    useEffect(() => {
-        if (id && accessToken) {
-            getPlaylist(accessToken, id);
-        }
-    }, [id]);
+    }, [playlistInfo]);
 
     if (!playlistInfo) {
         return (
@@ -63,7 +60,7 @@ const PlaylistPage: React.FC = () => {
                 imageUrl={playlistInfo.images[0].url}
                 name={playlistInfo.name}
                 owner={playlistInfo.owner}
-                ownerImageUrl={ownerImage}
+                ownerImageUrl={ownerInfo?.images[0]?.url}
                 playlistDuration={parseDuration(playlistDuration)}
                 tracksCount={playlistInfo.tracks.total}
             />

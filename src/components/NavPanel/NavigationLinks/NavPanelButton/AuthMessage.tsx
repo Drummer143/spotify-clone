@@ -2,8 +2,7 @@ import React from "react";
 
 import { useAppDispatch } from "../../../../hooks";
 import { setCodeVerifier } from "../../../../redux";
-import { getAuthentificationLink } from "../../../../spotifyApiWrapper";
-import { generateRandomString, generateCodeChallenge } from "../../../../utils";
+import { generateRandomString, generateCodeChallenge, getAuthentificationLink } from "../../../../utils";
 
 type AuthMessageProps = {
     modalHeading: string;

@@ -1,4 +1,4 @@
-interface GetCategorysPlaylistsResponse {
+interface GetCategoryPlaylistsResponse {
     playlists: {
         href: string;
         limit: number;
