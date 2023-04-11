@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { MotionValue, motion, useTransform } from "framer-motion";
 
@@ -8,28 +8,45 @@ import MobileMenu from "./MobileMenu/MobileMenu";
 import PlaylistBar from "./PlaylistBar";
 import LoginButton from "../LoginButton";
 import HistoryNavigationButtons from "./HistoryNavigationButtons";
+import { logOut } from "../../redux";
 import { spotifyApi } from "../../redux/query/spotifyApi";
-import { useAppSelector } from "../../hooks";
 import { getDarkenColor, headerLinks } from "../../utils";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 type HeaderProps = {
     scrollY: MotionValue<number>
 }
 
 const Header: React.FC<HeaderProps> = ({ scrollY }) => {
-    const bgColors = useAppSelector(state => state.app.headerBGColor);
+    const { app: { headerBGColor }, auth: { accessToken } } = useAppSelector(state => state);
     const isPlaylistPage = useLocation().pathname.includes("playlist");
 
     const [BGTransitionOffsetY] = useState([10, 150]);
 
-    const bgColor = useTransform(scrollY, BGTransitionOffsetY, [bgColors[0], getDarkenColor(bgColors[1])]);
+    const bgColor = useTransform(scrollY, BGTransitionOffsetY, [headerBGColor[0], getDarkenColor(headerBGColor[1])]);
+    const dispatch = useAppDispatch();
 
-    const accessToken = useAppSelector(state => state.auth.accessToken);
-
-    const { currentData: user } = spotifyApi.useGetCurrentUserQuery(accessToken || "", {
+    const { currentData: user, error, isError } = spotifyApi.useGetCurrentUserQuery(accessToken || "", {
         skip: !accessToken,
         refetchOnMountOrArgChange: true
     });
+
+    useEffect(() => {
+        if (!isError) {
+            return;
+        }
+
+        if ("message" in error) {
+            if (error.message === "The access token expired") {
+                dispatch(logOut());
+            }
+        } else {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            if ((error as any)?.data?.error?.message === "The access token expired") {
+                dispatch(logOut());
+            }
+        }
+    }, [error, isError]);
 
     return (
         <motion.header

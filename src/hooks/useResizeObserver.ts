@@ -3,7 +3,7 @@ import { RefObject, useEffect } from "react";
 type UseResizeObserverProps = {
     targetRef: RefObject<HTMLElement>;
 
-    onResize: (entries: ResizeObserverEntry[]) => void;
+    onResize: ResizeObserverCallback
 };
 
 export const useResizeObserver = ({ onResize, targetRef }: UseResizeObserverProps) => {

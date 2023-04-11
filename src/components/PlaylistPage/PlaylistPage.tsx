@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import Tracklist from "./Tracklist/Tracklist";
 import ActionBar from "./ActionBar";
 import PlaylistInfo from "./PlaylistInfo/PlaylistInfo";
 import { setTitle } from "../../redux/slices/appState";
@@ -78,9 +79,8 @@ const PlaylistPage: React.FC = () => {
             />
 
             <ActionBar />
-            {id}
 
-            <div className="h-[200vh]"></div>
+            <Tracklist tracks={playlistInfo.tracks.items} />
         </section>
     );
 };

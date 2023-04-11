@@ -25,7 +25,7 @@ const GoogleMaterialIcon: React.FC<GoogleMaterialIconProps> = ({
 }) => {
     return (
         <span
-            className={"aspect-square leading-3 h-min flex items-center justify-between"
+            className={"aspect-square leading-3 h-min flex items-center"
                 .concat(" material-symbols-outlined")
                 .concat(className ? ` ${className}` : "")}
             style={{
