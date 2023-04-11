@@ -5,6 +5,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import PlaylistPage from "./components/PlaylistPage/PlaylistPage";
 import MainPageWrapper from "./components/MainPageWrapper/MainPageWrapper";
+import DefaultSearchPage from "./components/DefaultSearchPage/DefaultSearchPage";
 import SuccessFullLoginPage from "./components/SuccessFullLoginPage";
 
 export default createBrowserRouter([
@@ -26,6 +27,11 @@ export default createBrowserRouter([
                 caseSensitive: false,
                 path: "/playlist/:id",
                 element: <PlaylistPage />
+            },
+            {
+                caseSensitive: false,
+                path: "/search",
+                element: <DefaultSearchPage />
             }
         ]
     }

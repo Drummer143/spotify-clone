@@ -19,7 +19,7 @@ const Layout: React.FC = () => {
     }, [location.pathname]);
 
     return (
-        <div className={`relative grid w-screen h-screen ${styles.wrapper}`}>
+        <div className={`relative w-full h-screen min-w-[50rem] grid ${styles.wrapper}`}>
             <NavPanel />
 
             <Header scrollY={scrollY} />

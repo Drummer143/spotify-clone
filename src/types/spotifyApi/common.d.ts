@@ -44,7 +44,7 @@ interface PlaylistInfo {
 
 interface CategoryInfo {
     href: string
-    icons: ImageInfo
+    icons: ImageInfo[]
     id: string
     name: string
 }

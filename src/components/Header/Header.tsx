@@ -6,6 +6,7 @@ import UserMenu from "./UserMenu/UserMenu";
 import HeaderLink from "./HeaderLink";
 import MobileMenu from "./MobileMenu/MobileMenu";
 import PlaylistBar from "./PlaylistBar";
+import SearchInput from "./SearchInput";
 import LoginButton from "../LoginButton";
 import HistoryNavigationButtons from "./HistoryNavigationButtons";
 import { logOut } from "../../redux";
@@ -19,7 +20,7 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ scrollY }) => {
     const { app: { headerBGColor }, auth: { accessToken } } = useAppSelector(state => state);
-    const isPlaylistPage = useLocation().pathname.includes("playlist");
+    const location = useLocation();
 
     const [BGTransitionOffsetY] = useState([10, 150]);
 
@@ -50,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({ scrollY }) => {
 
     return (
         <motion.header
-            className={"fixed top-0 right-0 z-[1] w-[calc(100%_-_var(--nav-bar-width))] h-16"
+            className={"fixed top-0 right-0 z-[2] w-[calc(100%_-_var(--nav-bar-width))] h-16"
                 .concat(" flex items-center justify-between px-8 transition-[bg-color] duration-500")
                 .concat(user ? "" : " bg-[#00000080]")
                 .concat(" max-lg:px-4")}
@@ -58,10 +59,11 @@ const Header: React.FC<HeaderProps> = ({ scrollY }) => {
                 backgroundColor: bgColor
             }}
         >
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 flex-grow">
                 <HistoryNavigationButtons />
 
-                {isPlaylistPage && <PlaylistBar scrollY={scrollY} />}
+                {location.pathname.includes("playlist") && <PlaylistBar scrollY={scrollY} />}
+                {location.pathname.includes("search") && <SearchInput />}
             </div>
 
             {!user && (

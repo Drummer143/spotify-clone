@@ -11,7 +11,8 @@ import { setupListeners } from "@reduxjs/toolkit/dist/query";
 const persistentReducer = persistCombineReducers(
     {
         key: "store",
-        storage
+        storage,
+        blacklist: [spotifyApi.reducerPath]
     },
     {
         app: appSlice.reducer,
