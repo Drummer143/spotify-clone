@@ -19,15 +19,15 @@ const ListHead: React.FC = () => {
     return (
         <div
             className={" mb-4 sticky top-16 transition-[background-color] px-[var(--content-spacing)]"
-                .concat(" ", isSticky ? "bg-[#18181800]" : "bg-[#181818]")
-                .concat(" max-lg:grid-cols-tracklist-4 max-md:grid-cols-tracklist-3")}
+                .concat(" ", isSticky ? "bg-[#18181800]" : "bg-[#181818]")}
         >
 
             <div ref={headRef} className="w-[1px] absolute -top-[65px] invisible"></div>
 
             <div
                 className={"px-4 grid grid-cols-tracklist-5 h-8 place-items-start items-center gap-4 text-[#b3b3b3]"
-                    .concat(" border-0 border-b border-solid border-[hsla(0,0%,100%,.1)]")}
+                    .concat(" border-0 border-b border-solid border-[hsla(0,0%,100%,.1)]")
+                    .concat(" max-lg:grid-cols-tracklist-4 max-md:grid-cols-tracklist-3")}
             >
                 <span className="justify-self-end text-inherit">#</span>
                 <span className="text-inherit">Title</span>

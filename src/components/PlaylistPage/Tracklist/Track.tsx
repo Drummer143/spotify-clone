@@ -61,7 +61,7 @@ const Track: React.FC<TrackProps> = ({ track: { added_at, track }, number }) => 
                 {track.album.name}
             </Link>
 
-            <span className="line-clamp-1 text-inherit">{dateFormatter.format(new Date(added_at))}</span>
+            <span className="line-clamp-1 text-inherit max-lg:hidden">{dateFormatter.format(new Date(added_at))}</span>
 
             <span className="text-[#b3b3b3] justify-self-end mr-8">
                 {moment.utc(moment.duration(track.duration_ms, "milliseconds").asMilliseconds()).format("mm:ss").toString()}

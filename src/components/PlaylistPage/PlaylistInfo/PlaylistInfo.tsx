@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ColorThief from "color-thief-ts";
 
 import PlaylistStats from "./PlaylistStats";
@@ -30,6 +30,8 @@ const PlaylistInfo: React.FC<PlaylistInfoProps> = ({
     const [colorDetector] = useState(new ColorThief());
 
     const dispatch = useAppDispatch();
+    const containerRef = useRef<HTMLDivElement>(null);
+    const playlistNameRef = useRef<HTMLHeadingElement>(null);
 
     const getBGColor = async () => {
         const bgColor = await colorDetector.getColorAsync(imageUrl);
@@ -52,13 +54,16 @@ const PlaylistInfo: React.FC<PlaylistInfoProps> = ({
         >
             <img className="w-48 h-48 shadow-playlist-cover-image" src={imageUrl} />
             <div
+                ref={containerRef}
                 className={"flex h-full flex-col justify-end"}
             >
                 <p className="font-bold text-sm">Playlist</p>
 
                 <div className="mt-2">
                     <h1
-                        className="text-8xl font-bold tracking-tighter w-fit mt-[0.08em] mb-[0.12em]"
+                        ref={playlistNameRef}
+                        className={"font-bold tracking-tighter w-fit mt-[0.08em] mb-[0.12em] line-clamp-1"
+                            .concat(" text-[calc((100vw_-_30rem)/(80_-_30)_*_(1.5_-_1)_+_2rem)]")}
                     >
                         {name}
                     </h1>
