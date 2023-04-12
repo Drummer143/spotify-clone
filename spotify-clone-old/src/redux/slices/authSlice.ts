@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { RootState } from "../";
+import { RootState } from "..";
 import { getAccessToken as spotifyGetAccessToken } from "../../utils";
 
 interface AuthState {
