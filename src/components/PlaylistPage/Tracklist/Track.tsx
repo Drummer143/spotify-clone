@@ -8,17 +8,19 @@ import ListingOfAuthors from "../../ListingOfAuthors";
 import GoogleMaterialIcon from "../../GoogleMaterialIcon";
 
 type TrackProps = {
-    track: TrackInPlaylistInfo
-    number: number
+    track: TrackInPlaylistInfo;
+    number: number;
 };
 
 // eslint-disable-next-line camelcase
 const Track: React.FC<TrackProps> = ({ track: { added_at, track }, number }) => {
-    const [dateFormatter] = useState(new Intl.DateTimeFormat(Intl.DateTimeFormat().resolvedOptions().locale, {
-        month: "short",
-        day: "numeric",
-        year: "numeric"
-    }));
+    const [dateFormatter] = useState(
+        new Intl.DateTimeFormat(Intl.DateTimeFormat().resolvedOptions().locale, {
+            month: "short",
+            day: "numeric",
+            year: "numeric"
+        })
+    );
 
     return (
         <button
@@ -42,7 +44,9 @@ const Track: React.FC<TrackProps> = ({ track: { added_at, track }, number }) => 
                 <img src={track.album.images[2].url} className="w-10 h-10" />
 
                 <div>
-                    <Link to={`/track/${track.id}`} className="line-clamp-1 hover:underline w-fit">{track.name}</Link>
+                    <Link to={`/track/${track.id}`} className="line-clamp-1 hover:underline w-fit">
+                        {track.name}
+                    </Link>
 
                     <ListingOfAuthors artists={track.artists} />
                 </div>
@@ -55,7 +59,10 @@ const Track: React.FC<TrackProps> = ({ track: { added_at, track }, number }) => 
             <span className="line-clamp-1 text-inherit max-lg:hidden">{dateFormatter.format(new Date(added_at))}</span>
 
             <span className="text-[#b3b3b3] justify-self-end mr-8">
-                {moment.utc(moment.duration(track.duration_ms, "milliseconds").asMilliseconds()).format("mm:ss").toString()}
+                {moment
+                    .utc(moment.duration(track.duration_ms, "milliseconds").asMilliseconds())
+                    .format("mm:ss")
+                    .toString()}
             </span>
         </button>
     );

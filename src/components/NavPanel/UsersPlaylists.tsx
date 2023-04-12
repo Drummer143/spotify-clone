@@ -13,7 +13,7 @@ const UsersPlaylists: React.FC = () => {
 
     const { data: playlists } = spotifyApi.useGetCurrentUserPlaylistsQuery(accessToken || "", {
         refetchOnMountOrArgChange: true,
-        skip:!accessToken
+        skip: !accessToken
     });
 
     if (!accessToken) {

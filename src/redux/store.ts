@@ -24,16 +24,17 @@ const persistentReducer = persistCombineReducers(
 
 const store = configureStore({
     reducer: persistentReducer,
-    middleware: getDefaultMiddleware => getDefaultMiddleware({
-        serializableCheck: {
-            ignoredActions: ["persist/PERSIST", "spotifyApi"],
-            warnAfter: 128
-        },
-        immutableCheck: {
-            ignoredPaths: ["spotifyApi"],
-            warnAfter: 128
-        }
-    }).concat(spotifyApi.middleware)
+    middleware: getDefaultMiddleware =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: ["persist/PERSIST", "spotifyApi"],
+                warnAfter: 128
+            },
+            immutableCheck: {
+                ignoredPaths: ["spotifyApi"],
+                warnAfter: 128
+            }
+        }).concat(spotifyApi.middleware)
 });
 
 setupListeners(store.dispatch);

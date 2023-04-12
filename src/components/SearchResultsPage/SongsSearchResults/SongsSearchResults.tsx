@@ -5,7 +5,7 @@ import "moment-duration-format";
 import SongCard from "./SongCard";
 
 type SongsSearchResultProps = {
-    result: NonNullable<SearchForItemResponse["tracks"]>
+    result: NonNullable<SearchForItemResponse["tracks"]>;
 };
 
 const SongsSearchResult: React.FC<SongsSearchResultProps> = ({ result }) => {

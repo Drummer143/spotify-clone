@@ -31,8 +31,9 @@ const SearchInput: React.FC = () => {
             <input
                 value={input}
                 onChange={handleChange}
-                className={"h-10 w-full rounded-full py-1.5 px-12 text-sm text-black"
-                    .concat(" placeholder:opacity-100 placeholder:text-[rgb(117,117,117)]")}
+                className={"h-10 w-full rounded-full py-1.5 px-12 text-sm text-black".concat(
+                    " placeholder:opacity-100 placeholder:text-[rgb(117,117,117)]"
+                )}
                 placeholder="What do you want to listen to?"
             />
 

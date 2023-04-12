@@ -12,8 +12,8 @@ export const spotifyApiHeaders = (accessToken: string) => ({
 });
 
 type StringifySearchParamsProps = {
-    [parameter: string]: number | string | number[] | string[]
-}
+    [parameter: string]: number | string | number[] | string[];
+};
 
 export const stringifySearchParams = (params?: StringifySearchParamsProps) => {
     if (!params || !Object.keys(params).length) {

@@ -10,9 +10,15 @@ const SearchResultsPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
 
     const [countOfCards, setCountOfCards] = useState(0);
-    const [categoriesOrder] = useState<Exclude<keyof SearchForItemResponse, "tracks">[]>(["artists", "albums", "playlists", "shows", "episodes"]);
+    const [categoriesOrder] = useState<Exclude<keyof SearchForItemResponse, "tracks">[]>([
+        "artists",
+        "albums",
+        "playlists",
+        "shows",
+        "episodes"
+    ]);
 
-    const { query, type } = useParams<{ query: string, type: ItemType }>();
+    const { query, type } = useParams<{ query: string; type: ItemType }>();
     const containerRef = useRef<HTMLDivElement>(null);
 
     const [getSearchResult, { currentData: result }] = spotifyApi.useLazySearchForItemQuery();
@@ -55,18 +61,19 @@ const SearchResultsPage: React.FC = () => {
         <div ref={containerRef} className="p-[var(--content-spacing)] pt-16">
             {result?.tracks && <SongsSearchResult result={result.tracks} />}
 
-            {result && categoriesOrder.map(category => {
-                const res = result[category];
+            {result &&
+                categoriesOrder.map(category => {
+                    const res = result[category];
 
-                return res && res.items.length && (
-                    <CategorySearchResult
-                        key={category}
-                        heading={category}
-                        result={res}
-                        countOfCards={countOfCards}
-                    />
-                );
-            })}
+                    return res?.items.length && (
+                        <CategorySearchResult
+                            key={category}
+                            heading={category}
+                            result={res}
+                            countOfCards={countOfCards}
+                        />
+                    );
+                })}
         </div>
     );
 };

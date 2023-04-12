@@ -48,11 +48,10 @@ const authSlice = createSlice({
         }
     },
     extraReducers: builder => {
-        builder
-            .addCase(getAccessToken.fulfilled, (state, action) => {
-                state.accessToken = action.payload.access_token;
-                state.codeVerifier = undefined;
-            });
+        builder.addCase(getAccessToken.fulfilled, (state, action) => {
+            state.accessToken = action.payload.access_token;
+            state.codeVerifier = undefined;
+        });
     }
 });
 

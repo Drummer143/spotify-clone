@@ -1,8 +1,8 @@
 type User = GetCurrentUserResponse;
 
 interface PlaylistDuration {
-    hours: number
-    minutes: number
+    hours: number;
+    minutes: number;
 }
 
-type ColorPair = [string, string]
+type ColorPair = [string, string];

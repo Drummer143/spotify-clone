@@ -26,21 +26,27 @@ const PlaylistPage: React.FC = () => {
         };
     };
 
-    const { data: playlistInfo } = spotifyApi.useGetPlaylistQuery({
-        accessToken: accessToken || "",
-        playlistId: id || ""
-    }, {
-        refetchOnMountOrArgChange: true,
-        skip: !accessToken
-    });
+    const { data: playlistInfo } = spotifyApi.useGetPlaylistQuery(
+        {
+            accessToken: accessToken || "",
+            playlistId: id || ""
+        },
+        {
+            refetchOnMountOrArgChange: true,
+            skip: !accessToken
+        }
+    );
 
-    const { data: ownerInfo } = spotifyApi.useGetUserQuery({
-        accessToken: accessToken || "",
-        userId: playlistInfo?.owner.id || ""
-    }, {
-        refetchOnMountOrArgChange: true,
-        skip: !accessToken || !playlistInfo
-    });
+    const { data: ownerInfo } = spotifyApi.useGetUserQuery(
+        {
+            accessToken: accessToken || "",
+            userId: playlistInfo?.owner.id || ""
+        },
+        {
+            refetchOnMountOrArgChange: true,
+            skip: !accessToken || !playlistInfo
+        }
+    );
 
     useEffect(() => {
         if (!playlistInfo) {
@@ -49,8 +55,7 @@ const PlaylistPage: React.FC = () => {
 
         dispatch(setTitle(`${playlistInfo.name} | Spotify Clone`));
 
-        let duration = playlistInfo.tracks.items
-            .reduce((prev, curr) => prev + curr.track.duration_ms, 0);
+        let duration = playlistInfo.tracks.items.reduce((prev, curr) => prev + curr.track.duration_ms, 0);
 
         duration = Math.round(duration / 1000);
 
@@ -58,15 +63,11 @@ const PlaylistPage: React.FC = () => {
     }, [playlistInfo]);
 
     if (!playlistInfo) {
-        return (
-            <div>loading...</div>
-        );
+        return <div>loading...</div>;
     }
 
     return (
-        <section
-            className="max-h-full"
-        >
+        <section className="max-h-full">
             <PlaylistInfo
                 description={playlistInfo.description}
                 followersCount={playlistInfo.followers.total}

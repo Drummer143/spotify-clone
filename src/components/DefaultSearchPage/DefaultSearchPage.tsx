@@ -56,12 +56,12 @@ const DefaultSearchPage: React.FC = () => {
             <h2 className="text-2xl font-bold mb-4">Browse all</h2>
 
             <div
-                className={"grid grid-cols-[repeat(var(--search-cards-count),_minmax(0,_1fr))]"
-                    .concat(" gap-[var(--search-page-gap)]")}
+                className={"grid grid-cols-[repeat(var(--search-cards-count),_minmax(0,_1fr))]".concat(
+                    " gap-[var(--search-page-gap)]"
+                )}
             >
-                {categories && categories.categories.items.map(category => (
-                    <GenreCard key={category.id} category={category} />
-                ))}
+                {categories &&
+                    categories.categories.items.map(category => <GenreCard key={category.id} category={category} />)}
             </div>
         </section>
     );

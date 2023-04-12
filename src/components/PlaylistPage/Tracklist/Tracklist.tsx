@@ -4,8 +4,8 @@ import Track from "./Track";
 import ListHead from "./ListHead";
 
 type TracklistProps = {
-    tracks: TrackInPlaylistInfo[]
-}
+    tracks: TrackInPlaylistInfo[];
+};
 
 const Tracklist: React.FC<TracklistProps> = ({ tracks }) => {
     return (
@@ -13,9 +13,10 @@ const Tracklist: React.FC<TracklistProps> = ({ tracks }) => {
             <ListHead />
 
             <div className="px-[var(--content-spacing)]">
-                {tracks && tracks.map((track, i) => (
-                    track.track && <Track track={track} number={i + 1} key={track.track.id} />
-                ))}
+                {tracks &&
+                    tracks.map(
+                        (track, i) => track.track && <Track track={track} number={i + 1} key={track.track.id} />
+                    )}
             </div>
         </div>
     );

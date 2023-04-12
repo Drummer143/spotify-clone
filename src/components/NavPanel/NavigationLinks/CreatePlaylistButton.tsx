@@ -16,7 +16,8 @@ const CreatePlaylistButton: React.FC = () => {
                 className={({ isActive }) =>
                     "group flex items-center gap-4 h-10 w-full px-4 text-sm font-bold"
                         .concat(" transition-[color] leading-4 duration-300")
-                        .concat(" ", isActive ? "text-white" : "text-[#d3d3d3] hover:text-white")}
+                        .concat(" ", isActive ? "text-white" : "text-[#d3d3d3] hover:text-white")
+                }
             >
                 <GoogleMaterialIcon iconName="add_box" FILL={1} size={1.8} />
                 Create playlist
@@ -25,10 +26,7 @@ const CreatePlaylistButton: React.FC = () => {
     }
 
     return (
-        <NavPanelButton
-            modalHeading="Create playlist"
-            modalMessage="Log in to create and share playlists."
-        >
+        <NavPanelButton modalHeading="Create playlist" modalMessage="Log in to create and share playlists.">
             <GoogleMaterialIcon iconName="add_box" FILL={1} size={1.8} />
             Create playlist
         </NavPanelButton>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import ItemCard from "../ItemCard";
 import ListingOfAuthors from "../ListingOfAuthors";
@@ -6,10 +6,10 @@ import GoogleMaterialIcon from "../GoogleMaterialIcon";
 import moment from "moment";
 
 type CategorySearchResultProps = {
-    result: NonNullable<SearchForItemResponse[Exclude<keyof SearchForItemResponse, "tracks">]>
-    heading: Exclude<keyof SearchForItemResponse, "tracks">
+    result: NonNullable<SearchForItemResponse[Exclude<keyof SearchForItemResponse, "tracks">]>;
+    heading: Exclude<keyof SearchForItemResponse, "tracks">;
 
-    countOfCards?: number
+    countOfCards?: number;
 };
 
 const CategorySearchResult: React.FC<CategorySearchResultProps> = ({ heading, result, countOfCards = 2 }) => {
@@ -23,7 +23,8 @@ const CategorySearchResult: React.FC<CategorySearchResultProps> = ({ heading, re
                     </>
                 );
             }
-            case "artist": return "Artist";
+            case "artist":
+                return "Artist";
             case "episode": {
                 return (
                     <div className="line-clamp-1">
@@ -33,16 +34,16 @@ const CategorySearchResult: React.FC<CategorySearchResultProps> = ({ heading, re
                     </div>
                 );
             }
-            case "playlist": return item.description;
-            case "show": return item.description;
+            case "playlist":
+                return item.description;
+            case "show":
+                return item.description;
         }
     };
 
     return (
         <div>
-            <h2 className="text-2xl font-bold mb-4 mt-[var(--collection-gap)] first-letter:uppercase">
-                {heading}
-            </h2>
+            <h2 className="text-2xl font-bold mb-4 mt-[var(--collection-gap)] first-letter:uppercase">{heading}</h2>
 
             <div
                 className={"grid grid-cols-[repeat(var(--cards-count),_minmax(0,_1fr))] grid-rows-1"

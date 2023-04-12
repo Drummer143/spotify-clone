@@ -5,9 +5,7 @@ type DropdownMenuProps = {
 };
 
 const DropdownMenu: React.FC<DropdownMenuProps> = ({ children }) => {
-    return (
-        <div className="w-48 rounded shadow-header-menu bg-[#282828] p-1 flex flex-col">{children}</div>
-    );
+    return <div className="w-48 rounded shadow-header-menu bg-[#282828] p-1 flex flex-col">{children}</div>;
 };
 
 export default DropdownMenu;

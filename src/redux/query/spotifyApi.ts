@@ -68,15 +68,15 @@ export const spotifyApi = createApi({
         searchForItem: build.query<
             SearchForItemResponse,
             {
-                accessToken: string,
+                accessToken: string;
                 searchParams: {
-                    q: string
-                    type: ItemType | ItemType[]
-                    market?: string
-                    limit?: number
-                    offset?: number
-                    include_external?: "audio"
-                }
+                    q: string;
+                    type: ItemType | ItemType[];
+                    market?: string;
+                    limit?: number;
+                    offset?: number;
+                    include_external?: "audio";
+                };
             }
         >({
             query: ({ accessToken, searchParams }) => ({

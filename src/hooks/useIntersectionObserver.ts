@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 
 interface UseIntersectionObserverProps {
-    targetRef: React.RefObject<HTMLElement>
-    onIntersection: IntersectionObserverCallback
+    targetRef: React.RefObject<HTMLElement>;
+    onIntersection: IntersectionObserverCallback;
 
-    options?: IntersectionObserverInit
+    options?: IntersectionObserverInit;
 }
 
 export const useIntersectionObserver = ({ onIntersection, targetRef }: UseIntersectionObserverProps) => {

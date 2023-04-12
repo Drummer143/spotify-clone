@@ -29,21 +29,21 @@ const MainPage: React.FC = () => {
         }
     });
 
-    const { data: browseCategories } = spotifyApi.useGetSeveralBrowseCategoriesQuery({
-        accessToken: accessToken || "",
-        searchParams: {
-            locale: Intl.DateTimeFormat().resolvedOptions().locale,
-            limit: 3
+    const { data: browseCategories } = spotifyApi.useGetSeveralBrowseCategoriesQuery(
+        {
+            accessToken: accessToken || "",
+            searchParams: {
+                locale: Intl.DateTimeFormat().resolvedOptions().locale,
+                limit: 3
+            }
+        },
+        {
+            skip: !accessToken
         }
-    }, {
-        skip: !accessToken
-    });
+    );
 
     return (
-        <div
-            ref={mainPageContainerRef}
-            className={"pt-16 px-[var(--content-spacing)] flex flex-col gap-10 max-h-full"}
-        >
+        <div ref={mainPageContainerRef} className={"pt-16 px-[var(--content-spacing)] flex flex-col gap-10 max-h-full"}>
             {browseCategories &&
                 browseCategories.categories.items.map(category => (
                     <CategoryPlaylistsCollection

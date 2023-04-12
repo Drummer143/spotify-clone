@@ -3,9 +3,9 @@ import React from "react";
 import GoogleMaterialIcon from "./GoogleMaterialIcon";
 
 type PlayButtonProps = {
-    size?: number
+    size?: number;
 
-    className?: string
+    className?: string;
 };
 
 const PlayButton: React.FC<PlayButtonProps> = ({ size = 3.5, className }) => {
@@ -19,7 +19,7 @@ const PlayButton: React.FC<PlayButtonProps> = ({ size = 3.5, className }) => {
                 .concat(className ? ` ${className}` : "")
                 .concat(" hover:scale-105 active:bg-[#169c46] active:scale-100")}
         >
-            <GoogleMaterialIcon iconName="play_arrow" FILL={1} size={2.2 * size / 3.5} className="text-black" />
+            <GoogleMaterialIcon iconName="play_arrow" FILL={1} size={(2.2 * size) / 3.5} className="text-black" />
         </button>
     );
 };

@@ -26,10 +26,8 @@ const Layout: React.FC = () => {
 
             <main
                 ref={scrollRef}
-                className={"h-full w-full bg-[#121212] overflow-y-auto overflow-x-hidden"
-                    .concat(" ", styles.main)}
+                className={"h-full w-full bg-[#121212] overflow-y-auto overflow-x-hidden".concat(" ", styles.main)}
             >
-
                 <Outlet />
             </main>
 

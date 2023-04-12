@@ -7,7 +7,10 @@ import { spotifyApi } from "../../redux/query/spotifyApi";
 import { useAppSelector } from "../../hooks";
 
 const ActionBar: React.FC = () => {
-    const { auth: { accessToken = "" }, app: { headerBGColor } } = useAppSelector(state => state);
+    const {
+        auth: { accessToken = "" },
+        app: { headerBGColor }
+    } = useAppSelector(state => state);
 
     const { id: playlistId = "" } = useParams<{ id: string }>();
 
@@ -16,15 +19,16 @@ const ActionBar: React.FC = () => {
     const { currentData: user } = spotifyApi.useGetCurrentUserQuery(accessToken, {
         skip: !accessToken
     });
-    const {
-        data: followInfo
-    } = spotifyApi.useIsUserFollowsPlaylistQuery({
-        accessToken: accessToken,
-        playlistId: playlistId,
-        usersIds: user?.id || ""
-    }, {
-        skip: !playlistId || !accessToken || !user
-    });
+    const { data: followInfo } = spotifyApi.useIsUserFollowsPlaylistQuery(
+        {
+            accessToken: accessToken,
+            playlistId: playlistId,
+            usersIds: user?.id || ""
+        },
+        {
+            skip: !playlistId || !accessToken || !user
+        }
+    );
 
     const handleAddPlaylistToFavorite = useCallback(() => {
         if (!playlistId || !accessToken) {

@@ -8,23 +8,18 @@ import { useAppDispatch, useAppSelector } from "../../../hooks";
 import styles from "./PlaylistInfo.module.css";
 
 type PlaylistInfoProps = {
-    description: string
-    imageUrl: string
-    name: string
-    owner: OwnerInfo
-    followersCount: number
-    tracksCount: number
-    playlistDuration: PlaylistDuration
+    description: string;
+    imageUrl: string;
+    name: string;
+    owner: OwnerInfo;
+    followersCount: number;
+    tracksCount: number;
+    playlistDuration: PlaylistDuration;
 
-    ownerImageUrl?: string
+    ownerImageUrl?: string;
 };
 
-const PlaylistInfo: React.FC<PlaylistInfoProps> = ({
-    description,
-    imageUrl,
-    name,
-    ...stats
-}) => {
+const PlaylistInfo: React.FC<PlaylistInfoProps> = ({ description, imageUrl, name, ...stats }) => {
     const bgColor = useAppSelector(state => state.app.headerBGColor[1]);
 
     const [colorDetector] = useState(new ColorThief());
@@ -53,17 +48,15 @@ const PlaylistInfo: React.FC<PlaylistInfoProps> = ({
             style={{ backgroundColor: bgColor }}
         >
             <img className="w-48 h-48 shadow-playlist-cover-image" src={imageUrl} />
-            <div
-                ref={containerRef}
-                className={"flex h-full flex-col justify-end"}
-            >
+            <div ref={containerRef} className={"flex h-full flex-col justify-end"}>
                 <p className="font-bold text-sm">Playlist</p>
 
                 <div className="mt-2">
                     <h1
                         ref={playlistNameRef}
-                        className={"font-bold tracking-tighter w-fit mt-[0.08em] mb-[0.12em] line-clamp-1"
-                            .concat(" text-[calc((100vw_-_30rem)/(80_-_30)_*_(1.5_-_1)_+_2rem)]")}
+                        className={"font-bold tracking-tighter w-fit mt-[0.08em] mb-[0.12em] line-clamp-1".concat(
+                            " text-[calc((100vw_-_30rem)/(80_-_30)_*_(1.5_-_1)_+_2rem)]"
+                        )}
                     >
                         {name}
                     </h1>

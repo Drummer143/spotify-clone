@@ -5,7 +5,7 @@ import ListingOfAuthors from "../../ListingOfAuthors";
 import GoogleMaterialIcon from "../../GoogleMaterialIcon";
 
 type SongCardProps = {
-    song: TrackInfo
+    song: TrackInfo;
 };
 
 const SongCard: React.FC<SongCardProps> = ({ song }) => {
@@ -17,9 +17,11 @@ const SongCard: React.FC<SongCardProps> = ({ song }) => {
             <div className="relative">
                 <img className="h-10 w-10" src={song.album.images[0].url} />
 
-                <div className={"absolute top-0 left-0 w-full h-full items-center justify-center"
-                    .concat(" hidden bg-[rgba(0,0,0,.5)] cursor-pointer")
-                    .concat(" group-hover:flex")}>
+                <div
+                    className={"absolute top-0 left-0 w-full h-full items-center justify-center"
+                        .concat(" hidden bg-[rgba(0,0,0,.5)] cursor-pointer")
+                        .concat(" group-hover:flex")}
+                >
                     <GoogleMaterialIcon iconName="play_arrow" FILL={1} size={1.5} />
                 </div>
             </div>

@@ -15,7 +15,8 @@ const LikedSongsButton: React.FC = () => {
                 className={({ isActive }) =>
                     "group flex items-center gap-4 h-10 w-full px-4 text-sm font-bold"
                         .concat(" transition-[color] leading-4 duration-300")
-                        .concat(" ", isActive ? "text-white" : "text-[#d3d3d3] hover:text-white")}
+                        .concat(" ", isActive ? "text-white" : "text-[#d3d3d3] hover:text-white")
+                }
             >
                 {({ isActive }) => (
                     <>
@@ -39,8 +40,7 @@ const LikedSongsButton: React.FC = () => {
         >
             <div className="w-6 h-6 ml-0.5 flex justify-center items-center liked-songs-icon mr-1">
                 <LikedSongIcon
-                    className={"fill-[#d3d3d3] transition-[fill] duration-300"
-                        .concat(" group-hover:fill-white")}
+                    className={"fill-[#d3d3d3] transition-[fill] duration-300".concat(" group-hover:fill-white")}
                 />
             </div>
             Liked songs

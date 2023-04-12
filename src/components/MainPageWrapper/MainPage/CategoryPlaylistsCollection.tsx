@@ -14,15 +14,18 @@ type CategoryPlaylistsCollectionProps = {
 const CategoryPlaylistsCollection: React.FC<CategoryPlaylistsCollectionProps> = ({ id, name, lengthToDisplay }) => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
 
-    const { data: playlists } = spotifyApi.useGetCategoryPlaylistsQuery({
-        accessToken: accessToken || "",
-        categoryId: id,
-        searchParams: {
-            limit: lengthToDisplay
+    const { data: playlists } = spotifyApi.useGetCategoryPlaylistsQuery(
+        {
+            accessToken: accessToken || "",
+            categoryId: id,
+            searchParams: {
+                limit: lengthToDisplay
+            }
+        },
+        {
+            skip: !accessToken
         }
-    }, {
-        skip: !accessToken
-    });
+    );
 
     if (!playlists) {
         return <></>;
@@ -39,24 +42,20 @@ const CategoryPlaylistsCollection: React.FC<CategoryPlaylistsCollectionProps> = 
                 </Link>
             </div>
             <div
-                className={"grid gap-[var(--collection-gap)] grid-rows-1"
-                    .concat(" grid-cols-[repeat(var(--cards-count),_minmax(0,_1fr))]")}
+                className={"grid gap-[var(--collection-gap)] grid-rows-1".concat(
+                    " grid-cols-[repeat(var(--cards-count),_minmax(0,_1fr))]"
+                )}
             >
-                {playlists
-                    .playlists
-                    .items
-                    .slice(0, lengthToDisplay)
-                    .map(playlist => (
-                        <ItemCard
-                            key={playlist.id}
-                            id={playlist.id}
-                            description={playlist.description}
-                            imageURL={playlist.images[0].url}
-                            name={playlist.name}
-                            type={playlist.type}
-                        />
-                    ))
-                }
+                {playlists.playlists.items.slice(0, lengthToDisplay).map(playlist => (
+                    <ItemCard
+                        key={playlist.id}
+                        id={playlist.id}
+                        description={playlist.description}
+                        imageURL={playlist.images[0].url}
+                        name={playlist.name}
+                        type={playlist.type}
+                    />
+                ))}
             </div>
         </section>
     );

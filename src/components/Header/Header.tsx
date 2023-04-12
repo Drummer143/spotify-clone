@@ -15,11 +15,14 @@ import { getDarkenColor, headerLinks } from "../../utils";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 
 type HeaderProps = {
-    scrollY: MotionValue<number>
-}
+    scrollY: MotionValue<number>;
+};
 
 const Header: React.FC<HeaderProps> = ({ scrollY }) => {
-    const { app: { headerBGColor }, auth: { accessToken } } = useAppSelector(state => state);
+    const {
+        app: { headerBGColor },
+        auth: { accessToken }
+    } = useAppSelector(state => state);
     const location = useLocation();
 
     const [BGTransitionOffsetY] = useState([10, 150]);
@@ -27,7 +30,11 @@ const Header: React.FC<HeaderProps> = ({ scrollY }) => {
     const bgColor = useTransform(scrollY, BGTransitionOffsetY, [headerBGColor[0], getDarkenColor(headerBGColor[1])]);
     const dispatch = useAppDispatch();
 
-    const { currentData: user, error, isError } = spotifyApi.useGetCurrentUserQuery(accessToken || "", {
+    const {
+        currentData: user,
+        error,
+        isError
+    } = spotifyApi.useGetCurrentUserQuery(accessToken || "", {
         skip: !accessToken,
         refetchOnMountOrArgChange: true
     });

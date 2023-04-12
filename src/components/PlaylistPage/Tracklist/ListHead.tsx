@@ -21,7 +21,6 @@ const ListHead: React.FC = () => {
             className={" mb-4 sticky top-16 transition-[background-color] px-[var(--content-spacing)]"
                 .concat(" ", isSticky ? "bg-[#18181800]" : "bg-[#181818]")}
         >
-
             <div ref={headRef} className="w-[1px] absolute -top-[65px] invisible"></div>
 
             <div

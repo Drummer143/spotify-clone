@@ -4,7 +4,7 @@ import { MotionValue, useTransform, motion, useMotionValueEvent } from "framer-m
 import PlayButton from "../PlayButton";
 
 type PlaylistBarProps = {
-    scrollY: MotionValue<number>
+    scrollY: MotionValue<number>;
 };
 
 const PlaylistBar: React.FC<PlaylistBarProps> = ({ scrollY }) => {
@@ -16,10 +16,7 @@ const PlaylistBar: React.FC<PlaylistBarProps> = ({ scrollY }) => {
     useMotionValueEvent(opacity, "change", value => setIsClickable(value > 0.5));
 
     return (
-        <motion.div
-            className={isClickable ? "" : "pointer-events-none"}
-            style={{ opacity, pointerEvents: opacity }}
-        >
+        <motion.div className={isClickable ? "" : "pointer-events-none"} style={{ opacity, pointerEvents: opacity }}>
             <PlayButton size={3} />
         </motion.div>
     );
