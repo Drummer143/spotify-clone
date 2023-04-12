@@ -18,11 +18,17 @@ type HeaderProps = {
     scrollY: MotionValue<number>;
 };
 
+const pathWhenPlayButtonVisible = [
+    "v1/playlist/",
+    "/collection"
+];
+
 const Header: React.FC<HeaderProps> = ({ scrollY }) => {
     const {
         app: { headerBGColor },
         auth: { accessToken }
     } = useAppSelector(state => state);
+
     const location = useLocation();
 
     const [BGTransitionOffsetY] = useState([10, 150]);
@@ -56,62 +62,64 @@ const Header: React.FC<HeaderProps> = ({ scrollY }) => {
         }
     }, [error, isError]);
 
-return (
-    <motion.header
-        className={"fixed top-0 right-0 z-[2] w-[calc(100%_-_var(--nav-bar-width))] h-16"
-            .concat(" flex items-center justify-between px-8 transition-[bg-color] duration-500")
-            .concat(user ? "" : " bg-[#00000080]")
-            .concat(" max-lg:px-4")}
-        style={{
-            backgroundColor: bgColor
-        }}
-    >
-        <div className="flex items-center gap-4 flex-grow">
-            <HistoryNavigationButtons />
+    return (
+        <motion.header
+            className={"fixed top-0 right-0 z-[2] w-[calc(100%_-_var(--nav-bar-width))] h-16"
+                .concat(" flex items-center justify-between px-8 transition-[bg-color] duration-500")
+                .concat(user ? "" : " bg-[#00000080]")
+                .concat(" max-lg:px-4")}
+            style={{
+                backgroundColor: bgColor
+            }}
+        >
+            <div className="flex items-center gap-4 flex-grow">
+                <HistoryNavigationButtons />
 
-            {location.pathname.includes("playlist/") && <PlaylistBar scrollY={scrollY} />}
-            {location.pathname.includes("search") && <SearchInput />}
-        </div>
+                {pathWhenPlayButtonVisible.some(path => location.pathname.includes(path)) && (
+                    <PlaylistBar scrollY={scrollY} />
+                )}
+                {location.pathname.includes("search") && <SearchInput />}
+            </div>
 
-        {!user && (
-            <div className="flex gap-4 items-center">
-                <div className="flex gap-4 items-center max-[900px]:hidden">
-                    {headerLinks.map(({ text, to }) => (
-                        <HeaderLink key={to} to={to}>
-                            {text}
-                        </HeaderLink>
-                    ))}
+            {!user && (
+                <div className="flex gap-4 items-center">
+                    <div className="flex gap-4 items-center max-[900px]:hidden">
+                        {headerLinks.map(({ text, to }) => (
+                            <HeaderLink key={to} to={to}>
+                                {text}
+                            </HeaderLink>
+                        ))}
 
-                    <div className="h-8 w-[1px] bg-white mx-4"></div>
+                        <div className="h-8 w-[1px] bg-white mx-4"></div>
+                    </div>
+
+                    <HeaderLink to="https://www.spotify.com/signup">Sign Up</HeaderLink>
+                    <LoginButton />
+
+                    <MobileMenu />
                 </div>
+            )}
 
-                <HeaderLink to="https://www.spotify.com/signup">Sign Up</HeaderLink>
-                <LoginButton />
+            {user && (
+                <div className="flex gap-4 items-center">
+                    <a
+                        href="https://www.spotify.com/premium"
+                        title="Upgrade to Premium"
+                        className={"w-[5.5rem] h-8 border border-solid border-[#878787] leading-8 font-semibold block"
+                            .concat(" text-white rounded-full text-sm flex justify-center items-center")
+                            .concat(" transition-[transform,_border-width]")
+                            .concat(" max-lg:hidden")
+                            .concat(" hover:scale-105 hover:border-white")}
+                    >
+                        {" "}
+                        Upgrade
+                    </a>
 
-                <MobileMenu />
-            </div>
-        )}
-
-        {user && (
-            <div className="flex gap-4 items-center">
-                <a
-                    href="https://www.spotify.com/premium"
-                    title="Upgrade to Premium"
-                    className={"w-[5.5rem] h-8 border border-solid border-[#878787] leading-8 font-semibold block"
-                        .concat(" text-white rounded-full text-sm flex justify-center items-center")
-                        .concat(" transition-[transform,_border-width]")
-                        .concat(" max-lg:hidden")
-                        .concat(" hover:scale-105 hover:border-white")}
-                >
-                    {" "}
-                    Upgrade
-                </a>
-
-                <UserMenu user={user} />
-            </div>
-        )}
-    </motion.header>
-);
+                    <UserMenu user={user} />
+                </div>
+            )}
+        </motion.header>
+    );
 };
 
 export default Header;

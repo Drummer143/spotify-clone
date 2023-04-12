@@ -4,6 +4,7 @@ import { createBrowserRouter } from "react-router-dom";
 
 import Layout from "./components/Layout/Layout";
 import PlaylistPage from "./components/PlaylistPage/PlaylistPage";
+import LikedSongsPage from "./components/LikedSongsPage/LikedSongsPage";
 import MainPageWrapper from "./components/MainPageWrapper/MainPageWrapper";
 import DefaultSearchPage from "./components/DefaultSearchPage/DefaultSearchPage";
 import SearchResultsLayout from "./components/SearchResultsPage/SearchResultsLayout";
@@ -52,6 +53,11 @@ export default createBrowserRouter([
                         element: <SongsSearchResultsPage />
                     }
                 ]
+            },
+            {
+                caseSensitive: false,
+                path: "/collection/tracks",
+                element: <LikedSongsPage />
             }
         ]
     }

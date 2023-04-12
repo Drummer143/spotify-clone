@@ -45,6 +45,7 @@ const authSlice = createSlice({
             state.accessToken = undefined;
             state.codeVerifier = undefined;
             state.user = undefined;
+            localStorage.clear();
         }
     },
     extraReducers: builder => {

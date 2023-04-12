@@ -22,6 +22,23 @@ export const spotifyApi = createApi({
             providesTags: ["CurrentUsersPlaylists"]
         }),
 
+        getCurrentUserSavedTracks: build.query<
+            GetCurrentUserSavedTracksResponse,
+            {
+                accessToken: string;
+                searchParams?: {
+                    limit?: number
+                    offset?: number
+                    market?: string
+                }
+            }
+        >({
+            query: ({ accessToken, searchParams }) => ({
+                url: `/me/tracks?${stringifySearchParams(searchParams)}`,
+                headers: spotifyApiHeaders(accessToken)
+            })
+        }),
+
         getSeveralBrowseCategories: build.query<
             GetSeveralBrowseCategoriesResponse,
             {

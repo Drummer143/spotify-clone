@@ -178,3 +178,8 @@ interface TrackInPlaylistInfo {
         url: string | null;
     };
 }
+
+interface LikedTrackInfo {
+    added_at: string
+    track: TrackInfo
+}
