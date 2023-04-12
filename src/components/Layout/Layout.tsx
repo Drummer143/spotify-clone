@@ -3,8 +3,8 @@ import { useScroll } from "framer-motion";
 import { Outlet, useLocation } from "react-router-dom";
 
 import Header from "../Header/Header";
-import NowPlayingBar from "../NowPlayingBar/NowPlayingBar";
 import NavPanel from "../NavPanel/NavPanel";
+import NowPlayingBar from "../NowPlayingBar/NowPlayingBar";
 
 import styles from "./Layout.module.css";
 

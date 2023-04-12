@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import PlaylistCard from "./PlaylistCard";
+import ItemCard from "../../ItemCard";
 import { spotifyApi } from "../../../redux/query/spotifyApi";
 import { useAppSelector } from "../../../hooks";
 
@@ -47,13 +47,13 @@ const CategoryPlaylistsCollection: React.FC<CategoryPlaylistsCollectionProps> = 
                     .items
                     .slice(0, lengthToDisplay)
                     .map(playlist => (
-                        <PlaylistCard
+                        <ItemCard
                             key={playlist.id}
                             id={playlist.id}
                             description={playlist.description}
-                            imageUrl={playlist.images[0].url}
+                            imageURL={playlist.images[0].url}
                             name={playlist.name}
-                            playlistUrl={playlist.href}
+                            type={playlist.type}
                         />
                     ))
                 }

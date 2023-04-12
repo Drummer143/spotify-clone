@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 import GenreCard from "./GenreCard";
 import { spotifyApi } from "../../redux/query/spotifyApi";
 import { useAppDispatch, useAppSelector, useResizeObserver } from "../../hooks";
-import { changeHeadBGColor } from "../../redux/slices/appState";
+import { changeHeadBGColor, setTitle } from "../../redux/slices/appState";
 
 const DefaultSearchPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -48,6 +48,7 @@ const DefaultSearchPage: React.FC = () => {
 
     useEffect(() => {
         dispatch(changeHeadBGColor(["#12121200", "#121212"]));
+        dispatch(setTitle("Spotify Clone - Search"));
     }, []);
 
     return (

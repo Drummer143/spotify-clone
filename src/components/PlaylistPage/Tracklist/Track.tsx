@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
 
-import GoogleMaterialIcon from "../../GoogleMaterialIcon";
-
 import "moment-duration-format";
+
+import ListingOfAuthors from "../../ListingOfAuthors";
+import GoogleMaterialIcon from "../../GoogleMaterialIcon";
 
 type TrackProps = {
     track: TrackInPlaylistInfo
@@ -43,17 +44,7 @@ const Track: React.FC<TrackProps> = ({ track: { added_at, track }, number }) => 
                 <div>
                     <Link to={`/track/${track.id}`} className="line-clamp-1 hover:underline w-fit">{track.name}</Link>
 
-                    <div className="line-clamp-1">
-                        {track.artists.map((artist, i) => (
-                            <React.Fragment key={artist.id}>
-                                <Link
-                                    to={`/artist/${artist.id}`}
-                                    className="text-[#b3b3b3] hover:underline"
-                                >{artist.name}</Link>
-                                {i < track.artists.length - 1 && <span className="text-inherit">, </span>}
-                            </React.Fragment>
-                        ))}
-                    </div>
+                    <ListingOfAuthors artists={track.artists} />
                 </div>
             </div>
 

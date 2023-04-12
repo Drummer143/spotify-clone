@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDebounce } from "use-debounce";
+import { useNavigate, useParams } from "react-router-dom";
 
 import GoogleMaterialIcon from "../GoogleMaterialIcon";
 
 const SearchInput: React.FC = () => {
-    const [input, setInput] = useState("");
+    const { query } = useParams<{ query: string }>();
+
+    const [input, setInput] = useState(query || "");
+    const [debouncedInput] = useDebounce(input, 500);
+
+    const navigate = useNavigate();
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => setInput(e.target.value);
 
     const resetInput = () => setInput("");
+
+    useEffect(() => {
+        navigate(`search/${debouncedInput}`);
+    }, [debouncedInput]);
 
     return (
         <form className="flex-[0_1_364px] relative">

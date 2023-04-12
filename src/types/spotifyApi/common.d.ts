@@ -22,6 +22,15 @@ interface FollowersInfo {
     total: number
 }
 
+type ItemType = "album" | "artist" | "playlist" | "track" | "show" | "episode" /* | "audiobook" */;
+
+interface CategoryInfo {
+    href: string
+    icons: ImageInfo[]
+    id: string
+    name: string
+}
+
 interface PlaylistInfo {
     collaborative: boolean
     description: string
@@ -37,24 +46,75 @@ interface PlaylistInfo {
         href: string
         total: number
     }
-    type: string
+    type: "playlist"
     uri: string
     primary_color: string | null
 }
 
-interface CategoryInfo {
+interface ArtistInfo {
+    external_urls: ExternalUrlsInfo
+    followers: FollowersInfo
+    genres: string[]
     href: string
-    icons: ImageInfo[]
     id: string
+    images: ImageInfo[]
     name: string
+    popularity: number
+    type: "artist"
+    uri: string
 }
 
-interface ArtistInfo {
+interface ShowInfo {
+    available_markets: string[]
+    copyrights: unknown[]
+    description: string
+    html_description: string
+    explicit: boolean
+    external_urls: ExternalUrlsInfo
+    href: string
+    id: string
+    images: ImageInfo[]
+    is_externally_hosted: boolean
+    languages: string[]
+    media_type: string
+    name: string
+    publisher: string
+    type: "show"
+    uri: string
+    total_episodes: number
+}
+
+interface EpisodeInfo {
+    audio_preview_url: string
+    description: string
+    html_description: string
+    duration_ms: number
+    explicit: boolean
+    external_urls: ExternalUrlsInfo
+    href: string
+    id: string
+    images: ImageInfo[]
+    is_externally_hosted: boolean
+    is_playable: boolean
+    language: string
+    languages: string[]
+    name: string
+    release_date: string
+    release_date_precision: string
+    resume_point: {
+        fully_played: boolean
+        resume_position_ms: number
+    }
+    type: "episode"
+    uri: string
+}
+
+interface ShortArtistInfo {
     external_urls: ExternalUrlsInfo
     href: string
     id: string
     name: string
-    type: string
+    type: "show"
     uri: string
 }
 
@@ -69,16 +129,16 @@ interface AlbumInfo {
     name: string
     release_date: string
     release_date_precision: string
-    type: string
+    type: "album"
     uri: string
     album_group: string
-    artists: ArtistInfo[]
+    artists: ShortArtistInfo[]
     is_playable: boolean
 }
 
 interface TrackInfo {
     album: AlbumInfo
-    artists: ArtistInfo[]
+    artists: ShortArtistInfo[]
     available_markets: string
     disc_number: number
     duration_ms: number
@@ -93,7 +153,7 @@ interface TrackInfo {
     popularity: number
     preview_url: string
     track_number: number
-    type: string
+    type: "track"
     uri: string
     is_local: boolean
     episode: boolean

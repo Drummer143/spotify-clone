@@ -65,6 +65,26 @@ export const spotifyApi = createApi({
             })
         }),
 
+        searchForItem: build.query<
+            SearchForItemResponse,
+            {
+                accessToken: string,
+                searchParams: {
+                    q: string
+                    type: ItemType | ItemType[]
+                    market?: string
+                    limit?: number
+                    offset?: number
+                    include_external?: "audio"
+                }
+            }
+        >({
+            query: ({ accessToken, searchParams }) => ({
+                url: `/search?${stringifySearchParams(searchParams)}`,
+                headers: spotifyApiHeaders(accessToken)
+            })
+        }),
+
         getPlaylist: build.query<GetPlayListResponse, { accessToken: string; playlistId: string }>({
             query: ({ accessToken, playlistId }) => ({
                 url: `/playlists/${playlistId}`,
