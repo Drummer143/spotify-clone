@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import GoogleMaterialIcon from "../GoogleMaterialIcon";
 
 const SearchInput: React.FC = () => {
-    const { query } = useParams<{ query: string }>();
+    const { query, type } = useParams<{ query: string, type: SearchItemTypes }>();
 
     const [input, setInput] = useState(query || "");
     const [debouncedInput] = useDebounce(input, 500);
@@ -17,7 +17,7 @@ const SearchInput: React.FC = () => {
     const resetInput = () => setInput("");
 
     useEffect(() => {
-        navigate(`search/${debouncedInput}`);
+        navigate(`search/${debouncedInput}${type && debouncedInput ? `/${type}` : ""}`);
     }, [debouncedInput]);
 
     return (

@@ -4,11 +4,13 @@ import { defaultHeadersBGColors } from "../../utils";
 interface AppState {
     title: string;
     headerBGColor: ColorPair;
+    countOfCardsInColumn: number
 }
 
 const initialState: AppState = {
     headerBGColor: defaultHeadersBGColors.nonAuthentificated,
-    title: "Spotify Clone"
+    title: "Spotify Clone",
+    countOfCardsInColumn: 5
 };
 
 const appSlice = createSlice({
@@ -25,12 +27,17 @@ const appSlice = createSlice({
                 state.headerBGColor = defaultHeadersBGColors[action.payload];
             }
         },
+    
         setTitle: (state, action: PayloadAction<AppState["title"] | undefined>) => {
             state.title = action.payload || initialState.title;
+        },
+
+        setCountOfCardsInColumn: (state, action: PayloadAction<AppState["countOfCardsInColumn"]>) => {
+            state.countOfCardsInColumn = action.payload;
         }
     }
 });
 
 export default appSlice;
 
-export const { changeHeadBGColor, setTitle } = appSlice.actions;
+export const { changeHeadBGColor, setTitle, setCountOfCardsInColumn } = appSlice.actions;

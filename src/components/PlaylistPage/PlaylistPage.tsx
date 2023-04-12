@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import Tracklist from "./Tracklist/Tracklist";
+import Tracklist from "./Tracklist";
 import ActionBar from "./ActionBar";
 import PlaylistInfo from "./PlaylistInfo/PlaylistInfo";
 import { setTitle } from "../../redux/slices/appState";

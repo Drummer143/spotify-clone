@@ -5,9 +5,11 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import PlaylistPage from "./components/PlaylistPage/PlaylistPage";
 import MainPageWrapper from "./components/MainPageWrapper/MainPageWrapper";
-import SearchResultsPage from "./components/SearchResultsPage/SearchResultsPage";
 import DefaultSearchPage from "./components/DefaultSearchPage/DefaultSearchPage";
+import SearchResultsLayout from "./components/SearchResultsPage/SearchResultsLayout";
 import SuccessFullLoginPage from "./components/SuccessFullLoginPage";
+import AllSearchResultsPage from "./components/SearchResultsPage/AllSearchResultsPage/AllSearchResultsPage";
+import SongsSearchResultsPage from "./components/SearchResultsPage/CertainSearchResultsPage";
 
 export default createBrowserRouter([
     {
@@ -37,12 +39,19 @@ export default createBrowserRouter([
             {
                 caseSensitive: false,
                 path: "/search/:query",
-                element: <SearchResultsPage />
-            },
-            {
-                caseSensitive: false,
-                path: "/search/:query/:filter",
-                element: <SearchResultsPage />
+                element: <SearchResultsLayout />,
+                children: [
+                    {
+                        caseSensitive: false,
+                        path: "/search/:query",
+                        element: <AllSearchResultsPage />
+                    },
+                    {
+                        caseSensitive: false,
+                        path: "/search/:query/:type",
+                        element: <SongsSearchResultsPage />
+                    }
+                ]
             }
         ]
     }

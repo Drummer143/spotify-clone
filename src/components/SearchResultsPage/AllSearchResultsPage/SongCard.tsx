@@ -10,8 +10,8 @@ type SongCardProps = {
 
 const SongCard: React.FC<SongCardProps> = ({ song }) => {
     return (
-        <div
-            className={"group flex items-center gap-4 p-2 w-full rounded"
+        <button
+            className={"group flex items-center gap-4 p-2 w-full rounded text-start cursor-default"
                 .concat(" hover:bg-[hsla(0,0%,100%,.1)] focus:bg-[hsla(0,0%,100%,.3)]")}
         >
             <div className="relative">
@@ -34,7 +34,7 @@ const SongCard: React.FC<SongCardProps> = ({ song }) => {
             <span className="cursor-default text-sm text-[#b3b3b3]">
                 {moment.utc(moment.duration(song.duration_ms).asMilliseconds()).format("mm:ss")}
             </span>
-        </div>
+        </button>
     );
 };
 

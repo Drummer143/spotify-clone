@@ -6,3 +6,5 @@ interface PlaylistDuration {
 }
 
 type ColorPair = [string, string];
+
+type SearchItemTypes = keyof SearchForItemResponse;
