@@ -1,14 +1,17 @@
 import React from "react";
+import { useRouter } from "next/router";
 
-import { logOut } from "../../../redux";
-import { useAppDispatch } from "../../../hooks";
+import { logOut } from "@/redux";
+import { useAppDispatch } from "@/hooks";
 
 const LogOutButton: React.FC = () => {
     const dispatch = useAppDispatch();
+    const router = useRouter();
 
     const handleClick = () => {
         dispatch(logOut());
-        window.open(window.location.host, "_self");
+
+        router.push({ pathname: "/login" });
     };
 
     return (

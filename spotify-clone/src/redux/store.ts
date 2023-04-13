@@ -8,9 +8,11 @@ import playerSlice from "./slices/playerSlice";
 import { spotifyApi } from "./query/spotifyApi";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 
+export const PERSIST_KEY = "store";
+
 const persistentReducer = persistCombineReducers(
     {
-        key: "store",
+        key: PERSIST_KEY,
         storage,
         blacklist: [spotifyApi.reducerPath]
     },

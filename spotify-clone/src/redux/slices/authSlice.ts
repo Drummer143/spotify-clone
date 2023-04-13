@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { RootState } from "..";
+import { PERSIST_KEY, RootState } from "..";
 import { getAccessToken as spotifyGetAccessToken } from "../../utils";
 
 interface AuthState {
@@ -45,7 +45,7 @@ const authSlice = createSlice({
             state.accessToken = undefined;
             state.codeVerifier = undefined;
             state.user = undefined;
-            localStorage.clear();
+            localStorage.removeItem(`persist:${PERSIST_KEY}`);
         }
     },
     extraReducers: builder => {

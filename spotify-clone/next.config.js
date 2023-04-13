@@ -7,6 +7,14 @@ const nextConfig = {
                 protocol: "https",
                 hostname: "i.scdn.co",
                 pathname: "/image/*"
+            },
+            {
+                protocol: "https",
+                hostname: "platform-lookaside.fbsbx.com"
+            },
+            {
+                protocol: "https",
+                hostname: "mosaic.scdn.co"
             }
         ]
     }

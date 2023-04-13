@@ -1,11 +1,17 @@
+import { HYDRATE } from "next-redux-wrapper";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { spotifyApiHeaders, stringifySearchParams } from "../../utils";
+import { spotifyApiHeaders, stringifySearchParams } from "@/utils";
 
 export const spotifyApi = createApi({
     reducerPath: "spotifyApi",
     tagTypes: ["CurrentUsersPlaylists", "FollowCheck"],
     baseQuery: fetchBaseQuery({ baseUrl: "https://api.spotify.com/v1" }),
+    extractRehydrationInfo: (action, { reducerPath }) => {
+        if (action.type === HYDRATE) {
+            return action.payload[reducerPath]
+        }
+    },
     endpoints: build => ({
         getCurrentUser: build.query<GetCurrentUserResponse, string>({
             query: accessToken => ({

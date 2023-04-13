@@ -12,6 +12,8 @@ import { logOut, spotifyApi } from "@/redux";
 import { getDarkenColor, headerLinks } from "@/utils";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
+import Background from "./Background";
 
 type HeaderProps = {
     scrollY: MotionValue<number>;
@@ -23,16 +25,10 @@ const pathWhenPlayButtonVisible = [
 ];
 
 const Header: React.FC<HeaderProps> = ({ scrollY }) => {
-    const {
-        app: { headerBGColor },
-        auth: { accessToken }
-    } = useAppSelector(state => state);
+    const  accessToken  = useAppSelector(state => state.auth.accessToken);
 
     const router = useRouter();
 
-    const [BGTransitionOffsetY] = useState([10, 150]);
-
-    const bgColor = useTransform(scrollY, BGTransitionOffsetY, [headerBGColor[0], getDarkenColor(headerBGColor[1])]);
     const dispatch = useAppDispatch();
 
     const {
@@ -60,15 +56,14 @@ const Header: React.FC<HeaderProps> = ({ scrollY }) => {
     }, [dispatch, error, isError, router]);
 
     return (
-        <motion.header
+        <header
             className={"fixed top-0 right-0 z-[2] w-[calc(100%_-_var(--nav-bar-width))] h-16"
                 .concat(" flex items-center justify-between px-8 transition-[bg-color] duration-500")
                 .concat(user ? "" : " bg-[#00000080]")
                 .concat(" max-lg:px-4")}
-            style={{
-                backgroundColor: bgColor
-            }}
         >
+            <Background scrollY={scrollY} />
+
             <div className="flex items-center gap-4 flex-grow">
                 <HistoryNavigationButtons />
 
@@ -115,7 +110,7 @@ const Header: React.FC<HeaderProps> = ({ scrollY }) => {
                     <UserMenu user={user} />
                 </div>
             )}
-        </motion.header>
+        </header>
     );
 };
 
