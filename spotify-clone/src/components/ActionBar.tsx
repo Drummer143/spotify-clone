@@ -37,7 +37,7 @@ const ActionBar: React.FC<{ playlistId: string }> = ({ playlistId }) => {
         } else {
             followPlaylist({ accessToken, playlistId });
         }
-    }, [accessToken, followInfo, followPlaylist, unfollowPlaylist]);
+    }, [accessToken, followInfo, followPlaylist, playlistId, unfollowPlaylist]);
 
     return (
         <div className="relative z-[0]">

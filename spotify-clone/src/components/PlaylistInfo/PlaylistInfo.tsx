@@ -1,21 +1,22 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import ColorThief from "color-thief-ts";
 
 import PlaylistStats from "./PlaylistStats";
 import { changeHeadBGColor } from "../../redux/slices/appState";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 
-import styles from "./PlaylistInfo.module.css";
+import styles from "@/styles/PlaylistInfo.module.css";
 import Image from "next/image";
 
 type PlaylistInfoProps = {
-    description: string;
-    imageUrl: string;
-    name: string;
-    owner: OwnerInfo;
-    followersCount: number;
     tracksCount: number;
+    imageUrl: string;
+    ownerId: string;
+    ownerDisplayName: string;
 
+    description?: string;
+    name?: string;
+    followersCount?: number;
     ownerImageUrl?: string;
 };
 
@@ -28,17 +29,17 @@ const PlaylistInfo: React.FC<PlaylistInfoProps> = ({ description, imageUrl, name
     const containerRef = useRef<HTMLDivElement>(null);
     const playlistNameRef = useRef<HTMLHeadingElement>(null);
 
-    const getBGColor = async () => {
+    const getBGColor = useCallback(async () => {
         const bgColor = await colorDetector.getColorAsync(imageUrl);
 
         const hex = bgColor.toString();
 
         dispatch(changeHeadBGColor([`${hex}00`, hex]));
-    };
+    }, [colorDetector, dispatch, imageUrl]);
 
     useEffect(() => {
         getBGColor();
-    }, [imageUrl]);
+    }, [getBGColor, imageUrl]);
 
     return (
         <div

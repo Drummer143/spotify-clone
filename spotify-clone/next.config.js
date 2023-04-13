@@ -15,6 +15,10 @@ const nextConfig = {
             {
                 protocol: "https",
                 hostname: "mosaic.scdn.co"
+            },
+            {
+                protocol: "https",
+                hostname: "t.scdn.co"
             }
         ]
     }
