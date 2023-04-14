@@ -5,14 +5,18 @@ import { useRouter } from "next/router";
 import { getAccessToken } from "@/redux";
 import { useAppSelector, useAppDispatch } from "@/hooks";
 
-export default function SuccessfulLogin({ }) {
+export default function SuccessfulLogin() {
     const { accessToken } = useAppSelector(state => state.auth);
 
-    const router = useRouter();
+    const { isReady, ...router } = useRouter();
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
+        if (!isReady) {
+            return;
+        }
+
         if (accessToken) {
             router.push({ pathname: "/" });
             return;
@@ -25,9 +29,11 @@ export default function SuccessfulLogin({ }) {
                 code = code.join("");
             }
 
-            dispatch(getAccessToken(code)).then(() => router.push({ pathname: "/" }));
+            dispatch(getAccessToken(code))
+                .then(() => router.push({ pathname: "/" }))
+                .catch(error => console.log(error));
         }
-    }, [accessToken, dispatch, router]);
+    }, [accessToken, dispatch, isReady]);
 
     return (
         <div className="w-screen h-screen flex items-center justify-center text-black text-3xl">Loading...</div>
