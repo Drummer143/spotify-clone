@@ -30,18 +30,15 @@ const CategoryPlaylistsCollection: React.FC<CategoryPlaylistsCollectionProps> = 
     return (
         <section>
             <div className="flex justify-between items-center mb-4">
-                <Link href={`/category/${id}`} className="text-2xl font-bold hover:underline">
+                <Link href={`/genre/${id}`} className="text-2xl font-bold hover:underline">
                     {name}
                 </Link>
-                <Link href={`/category/${id}`} className="text-sm font-bold hover:underline text-[#b3b3b3]">
+                <Link href={`/genre/${id}`} className="text-sm font-bold hover:underline text-[#b3b3b3]">
                     Show all
                 </Link>
             </div>
-            <div
-                className={"grid gap-[var(--collection-gap)] grid-rows-1".concat(
-                    " grid-cols-[repeat(var(--cards-count),_minmax(0,_1fr))]"
-                )}
-            >
+
+            <div className="grid gap-dynamic grid-cols-dynamic grid-rows-1">
                 {playlists && playlists.playlists.items.slice(0, countOfCardsInColumn).map(playlist => (
                     <ItemCard
                         key={playlist.id}

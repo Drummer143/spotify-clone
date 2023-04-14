@@ -63,6 +63,23 @@ export const spotifyApi = createApi({
             })
         }),
 
+        getSingleBrowseCategory: build.query<
+            CategoryInfo,
+            {
+                accessToken: string;
+                categoryId: string;
+                searchParams?: {
+                    country?: string;
+                    locale?: string;
+                };
+            }
+        >({
+            query: ({ accessToken, categoryId, searchParams }) => ({
+                url: `/browse/categories/${categoryId}?${stringifySearchParams(searchParams)}`,
+                headers: spotifyApiHeaders(accessToken)
+            })
+        }),
+
         getCategoryPlaylists: build.query<
             GetCategoryPlaylistsResponse,
             {

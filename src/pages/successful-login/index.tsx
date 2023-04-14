@@ -30,8 +30,7 @@ export default function SuccessfulLogin() {
             }
 
             dispatch(getAccessToken(code))
-                .then(() => router.push({ pathname: "/" }))
-                .catch(error => console.log(error));
+                .then(() => router.push({ pathname: "/" }));
         }
     }, [accessToken, dispatch, isReady]);
 

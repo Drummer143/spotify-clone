@@ -14,10 +14,17 @@ module.exports = {
                 "action-bar-gradient": "linear-gradient(rgba(0, 0, 0, 0.6) 0, #121212 100%), var(--background-noise)"
             },
             gridTemplateColumns: {
-                "tracklist-5": "[index] 16px [first] 6fr [var1] 4fr [var2] 3fr [last] minmax(120px,1fr)",
-                "tracklist-4": "[index] 16px [first] 4fr [var1] 2fr [last] minmax(120px,1fr)",
-                "tracklist-3": "[index] 16px [first] 4fr [last] minmax(120px,1fr)",
-                "tracklist-2": "[first] 4fr [last] minmax(120px,1fr)"
+                "tracklist-5": "[index] 16px [first] 6fr [var1] 4fr [var2] 3fr [last] minmax(120px, 1fr)",
+                "tracklist-4": "[index] 16px [first] 4fr [var1] 2fr [last] minmax(120px, 1fr)",
+                "tracklist-3": "[index] 16px [first] 4fr [last] minmax(120px, 1fr)",
+                "tracklist-2": "[first] 4fr [last] minmax(120px,1fr)",
+                "dynamic": "repeat(var(--cards-count), minmax(0, 1fr))"
+            },
+            gap: {
+                "dynamic": "var(--collection-gap)"
+            },
+            padding: {
+                "content-spacing": "var(--content-spacing)"
             }
         }
     },

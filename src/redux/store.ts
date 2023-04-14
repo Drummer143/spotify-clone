@@ -7,7 +7,7 @@ import authSlice from "./slices/authSlice";
 import playerSlice from "./slices/playerSlice";
 import { spotifyApi } from "./query/spotifyApi";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
-import { rtkQueryErrorLogger } from "./middleware/tokenChecker";
+import { rtkQueryErrorLogger } from "./middleware/logger";
 
 export const PERSIST_KEY = "store";
 
