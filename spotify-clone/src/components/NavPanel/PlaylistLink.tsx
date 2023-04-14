@@ -14,7 +14,7 @@ const PlaylistLink: React.FC<PlaylistLinkProps> = ({ children, href, ...rest }) 
             href={href}
             className={"h-8 w-full pl-[var(--left-sidebar-padding-left)]"
                 .concat(" text-sm truncate transition-[color] pr-[var(--left-sidebar-padding-right)]")
-                .concat(" whitespace-nowrap flex items-center truncate text-inherit")
+                .concat(" whitespace-nowrap flex items-center truncate")
                 .concat(" ", href === asPath ? "text-white" : "text-[#b3b3b3] hover:text-white")
             }
         >

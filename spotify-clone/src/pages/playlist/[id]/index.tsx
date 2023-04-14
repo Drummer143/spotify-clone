@@ -15,8 +15,8 @@ const PlaylistPage: React.FC = () => {
     const dispatch = useAppDispatch();
     const { query } = useRouter();
 
-    const [getPlaylist, { data: playlistInfo, isFetching }] = spotifyApi.useLazyGetPlaylistQuery();
-    const [getOwnerInfo, { data: ownerInfo }] = spotifyApi.useLazyGetUserQuery();
+    const [getPlaylist, { data: playlistInfo, isFetching: playlistIsFetching }] = spotifyApi.useLazyGetPlaylistQuery();
+    const [getOwnerInfo, { data: ownerInfo, isFetching: ownerIsFetching }] = spotifyApi.useLazyGetUserQuery();
 
     useEffect(() => {
         let id = query.id;
@@ -44,17 +44,18 @@ const PlaylistPage: React.FC = () => {
 
     return (
         <Layout
-            isLoading={isFetching}
+            isLoading={ownerIsFetching && playlistIsFetching}
             title={playlistInfo && `${playlistInfo.name} | Spotify Clone`}
         >
-            {(playlistInfo && !isFetching) && (
+            {playlistInfo && ownerInfo && (
                 <section className="max-h-full">
                     <PlaylistInfo
                         description={playlistInfo.description}
                         followersCount={playlistInfo.followers.total}
                         imageUrl={playlistInfo.images[0].url}
                         name={playlistInfo.name}
-                        owner={playlistInfo.owner}
+                        ownerDisplayName={ownerInfo?.display_name}
+                        ownerId={ownerInfo?.id}
                         ownerImageUrl={ownerInfo?.images[0]?.url}
                         tracksCount={playlistInfo.tracks.total}
                     />
