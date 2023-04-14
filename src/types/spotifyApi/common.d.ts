@@ -8,6 +8,11 @@ interface ExternalUrlsInfo {
     spotify: string;
 }
 
+interface CopyrightsInfo {
+    text: string
+    type: string
+}
+
 interface OwnerInfo {
     external_urls: ExternalUrlsInfo;
     href: string;
@@ -66,7 +71,7 @@ interface ArtistInfo {
 
 interface ShowInfo {
     available_markets: string[];
-    copyrights: unknown[];
+    copyrights: CopyrightsInfo[];
     description: string;
     html_description: string;
     explicit: boolean;
@@ -84,29 +89,43 @@ interface ShowInfo {
     total_episodes: number;
 }
 
+interface SavedEpisodeInfo {
+    added_at: string
+    episode: EpisodeInfo
+}
+
+interface SavedShowInfo {
+    added_at: string
+    show: ShowInfo
+}
+
 interface EpisodeInfo {
-    audio_preview_url: string;
-    description: string;
-    html_description: string;
-    duration_ms: number;
-    explicit: boolean;
-    external_urls: ExternalUrlsInfo;
-    href: string;
-    id: string;
-    images: ImageInfo[];
-    is_externally_hosted: boolean;
-    is_playable: boolean;
-    language: string;
-    languages: string[];
-    name: string;
-    release_date: string;
-    release_date_precision: string;
+    audio_preview_url: string
+    description: string
+    html_description: string
+    duration_ms: number
+    explicit: boolean
+    external_urls: ExternalUrlsInfo
+    href: string
+    id: string
+    images: ImageInfo[]
+    is_externally_hosted: boolean
+    is_playable: boolean
+    language: string
+    languages: string[]
+    name: string
+    release_date: string
+    release_date_precision: string
     resume_point: {
-        fully_played: boolean;
-        resume_position_ms: number;
-    };
-    type: "episode";
-    uri: string;
+        fully_played: boolean
+        resume_position_ms: number
+    }
+    type: "episode"
+    uri: string
+    restrictions?: {
+        reason: string
+    }
+    show?: ShowInfo
 }
 
 interface ShortArtistInfo {
@@ -134,6 +153,43 @@ interface AlbumInfo {
     album_group: string;
     artists: ShortArtistInfo[];
     is_playable: boolean;
+}
+
+interface FullAlbumInfo {
+    added_at: string
+    album: {
+        album_type: string
+        total_tracks: number
+        available_markets: string[]
+        external_urls: ExternalUrlsInfo
+        href: string
+        id: string
+        images: ImageInfo[]
+        name: string
+        release_date: string
+        release_date_precision: string
+        type: "album"
+        uri: string
+        copyrights: CopyrightsInfo[]
+        external_ids: {
+            upc: string
+        }
+        genres: string[]
+        label: string
+        popularity: number
+        artists: ShortArtistInfo[]
+        tracks: {
+            href: string
+            limit: number
+            next: string | null
+            offset: number
+            previous: string | null
+            total: number
+            items: TrackInfo[]
+        }
+        album_group: string
+        is_playable: boolean
+    }
 }
 
 interface TrackInfo {

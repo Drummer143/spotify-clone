@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { MotionValue, motion, useTransform } from "framer-motion";
+import React, { useEffect } from "react";
+import { useRouter } from "next/router";
+import { MotionValue } from "framer-motion";
 
 import UserMenu from "./UserMenu/UserMenu";
 import HeaderLink from "./HeaderLink";
+import Background from "./Background";
 import MobileMenu from "./MobileMenu/MobileMenu";
 import PlaylistBar from "./PlaylistBar";
 import SearchInput from "./SearchInput";
 import LoginButton from "../LoginButton";
+import CollectionButtons from "./CollectionButtons";
 import HistoryNavigationButtons from "./HistoryNavigationButtons";
-import { logOut, spotifyApi } from "@/redux";
-import { getDarkenColor, headerLinks } from "@/utils";
-import { useAppDispatch, useAppSelector } from "@/hooks";
-import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
-import Background from "./Background";
+import { spotifyApi } from "@/redux";
+import { headerLinks } from "@/utils";
+import { useAppSelector } from "@/hooks";
 
 type HeaderProps = {
     scrollY: MotionValue<number>;
@@ -53,6 +53,7 @@ const Header: React.FC<HeaderProps> = ({ scrollY }) => {
                     <PlaylistBar scrollY={scrollY} />
                 )}
                 {router.pathname.includes("search") && <SearchInput />}
+                {router.pathname.includes("collection") && !router.pathname.includes("track") && <CollectionButtons />}
             </div>
 
             {!user && (

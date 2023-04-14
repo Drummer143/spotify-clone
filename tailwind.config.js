@@ -11,7 +11,9 @@ module.exports = {
                 "playlist-cover-image": "0 4px 60px rgb(0 0 0 / 50%)"
             },
             backgroundImage: {
-                "action-bar-gradient": "linear-gradient(rgba(0, 0, 0, 0.6) 0, #121212 100%), var(--background-noise)"
+                "action-bar-gradient": "linear-gradient(rgba(0, 0, 0, 0.6) 0, #121212 100%), var(--background-noise)",
+                "liked-song-in-playlists-collection": "linear-gradient(149.46deg,#450af5,#8e8ee5 99.16%)",
+                "liked-episodes-in-playlists-collection": "linear-gradient(.316turn,#00644e 50.57%,#27856a)"
             },
             gridTemplateColumns: {
                 "tracklist-5": "[index] 16px [first] 6fr [var1] 4fr [var2] 3fr [last] minmax(120px, 1fr)",

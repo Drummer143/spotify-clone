@@ -14,7 +14,7 @@ const NavigationLinks: React.FC = () => {
                 <NavPanelLink href="/search" iconName="search">
                     Search
                 </NavPanelLink>
-                <NavPanelLink href="/collection" iconName="list">
+                <NavPanelLink href="/collection/playlists" iconName="list">
                     Your Library
                 </NavPanelLink>
             </div>

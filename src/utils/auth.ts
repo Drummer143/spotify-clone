@@ -10,7 +10,10 @@ const scopes = [
     "user-library-read",
     "user-library-modify",
 
+    "user-follow-read",
+
     "playlist-read-private",
+
     "playlist-modify-public",
     "playlist-modify-private"
 ];

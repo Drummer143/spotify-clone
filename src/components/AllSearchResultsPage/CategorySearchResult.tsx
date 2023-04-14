@@ -1,7 +1,7 @@
 import React from "react";
 
 import ItemCard from "../ItemCard";
-import { createDescription } from "../../utils";
+import { createDescription } from "@/utils";
 
 type CategorySearchResultProps = {
     result: NonNullable<SearchForItemResponse[Exclude<keyof SearchForItemResponse, "tracks">]>;

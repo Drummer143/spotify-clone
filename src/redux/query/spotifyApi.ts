@@ -45,6 +45,72 @@ export const spotifyApi = createApi({
             })
         }),
 
+        getCurrentUserSavedEpisodes: build.query<
+            GetCurrentUserSavedEpisodes,
+            {
+                accessToken: string
+                searchParams?: {
+                    limit?: number
+                    offset?: number
+                    market?: string
+                }
+            }
+        >({
+            query: ({ accessToken, searchParams }) => ({
+                url: "/me/episodes?" + stringifySearchParams(searchParams),
+                headers: spotifyApiHeaders(accessToken)
+            }),
+        }),
+
+        getCurrentUserSavedShows: build.query<
+            GetCurrentUserSavedShows,
+            {
+                accessToken: string
+                searchParams?: {
+                    limit?: number
+                    offset?: number
+                }
+            }
+        >({
+            query: ({ accessToken, searchParams }) => ({
+                url: "/me/shows?" + stringifySearchParams(searchParams),
+                headers: spotifyApiHeaders(accessToken)
+            }),
+        }),
+
+        getFollowedArtists: build.query<
+            GetFollowedArtists,
+            {
+                accessToken: string
+                searchParams?: {
+                    limit?: number
+                    after?: string
+                }
+            }
+        >({
+            query: ({ accessToken, searchParams }) => ({
+                url: "/me/following?" + stringifySearchParams({ ...searchParams, type: "artist" }),
+                headers: spotifyApiHeaders(accessToken)
+            })
+        }),
+
+        getUserSavedAlbums: build.query<
+            GetUserSavedAlbums,
+            {
+                accessToken: string
+                searchParams?: {
+                    limit?: number
+                    after?: string
+                    market?: string
+                }
+            }
+        >({
+            query: ({ accessToken, searchParams }) => ({
+                url: "/me/albums?" + stringifySearchParams(searchParams),
+                headers: spotifyApiHeaders(accessToken)
+            })
+        }),
+
         getSeveralBrowseCategories: build.query<
             GetSeveralBrowseCategoriesResponse,
             {
