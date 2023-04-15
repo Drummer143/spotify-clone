@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MotionValue, useTransform, motion, useMotionValueEvent } from "framer-motion";
 
-import PlayButton from "../PlayButton";
+import { PlayButton } from "..";
 
 type PlaylistBarProps = {
     scrollY: MotionValue<number>;

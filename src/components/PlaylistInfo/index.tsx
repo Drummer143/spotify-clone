@@ -1,12 +1,12 @@
+import Image from "next/image";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ColorThief from "color-thief-ts";
 
 import PlaylistStats from "./PlaylistStats";
-import { changeHeadBGColor } from "../../redux/slices/appState";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { changeHeadBGColor } from "@/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 
 import styles from "@/styles/PlaylistInfo.module.css";
-import Image from "next/image";
 
 type PlaylistInfoProps = {
     tracksCount: number;

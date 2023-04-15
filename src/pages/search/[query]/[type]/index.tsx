@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import ItemCard from "@/components/ItemCard";
-import SongCard from "@/components/SongCard";
-import SonglistHead from "@/components/SonglistHead";
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
 import { createDescription } from "@/utils";
+import { ItemCard, SongCard, SonglistHead } from "@/components";
 
 const CertainSearchResultsPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);

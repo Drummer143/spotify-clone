@@ -1,7 +1,7 @@
 import React from "react";
 
-import SavedSongsIcon from "@/components/SavedSongsIcon";
-import NavPanelButton from "./NavPanelButton/NavPanelButton";
+import NavPanelButton from "./NavPanelButton";
+import { SavedSongsIcon } from "@/components";
 
 const LikedSongsButton: React.FC = () => {
     return (

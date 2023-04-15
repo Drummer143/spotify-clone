@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
 
-import Modal from "@/components/Modal";
 import DropdownMenu from "../DropdownMenu";
 import MobileMenuButton from "./MobileMenuButton";
 import DropdownMenuLink from "../DropdownMenuLink";
 import { headerLinks } from "@/utils";
 import { useDisclosure } from "@/hooks";
+import { Modal } from "@/components";
 
 const MobileMenu: React.FC = () => {
     const { isOpen, onClose, onToggle } = useDisclosure();

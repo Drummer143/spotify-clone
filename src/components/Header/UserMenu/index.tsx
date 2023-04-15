@@ -1,14 +1,13 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 
-import Modal from "@/components/Modal";
 import UserButton from "./UserButton";
 import LogOutButton from "./LogOutButton";
 import DropdownMenu from "../DropdownMenu";
 import DropdownMenuLink from "../DropdownMenuLink";
-import GoogleMaterialIcon from "@/components/GoogleMaterialIcon";
 import { useDisclosure } from "@/hooks";
 import { createUserMenuLinks } from "@/utils";
+import { GoogleMaterialIcon, Modal } from "@/components";
 
 type UserMenuProps = {
     user: User;

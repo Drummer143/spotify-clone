@@ -1,7 +1,7 @@
 import Link, { LinkProps } from "next/link";
 import React from "react";
 
-import GoogleMaterialIcon from "../GoogleMaterialIcon";
+import { GoogleMaterialIcon } from "..";
 
 type DropdownMenuLinkProps = LinkProps &
     Omit<React.HTMLProps<HTMLAnchorElement>, "ref"> & {

@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import { useRouter } from "next/router";
 
-import Modal from "@/components/Modal";
 import AuthMessage from "./AuthMessage";
+import { Modal } from "@/components";
 import { useAppSelector, useDisclosure } from "@/hooks";
 
 type NavPanelButtonProps = JSX.IntrinsicElements["button"] & {

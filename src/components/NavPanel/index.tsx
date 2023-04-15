@@ -3,9 +3,9 @@ import Link from "next/link";
 
 import SpotifyLogo from "../SpotifyLogo";
 import UsersPlaylists from "./UsersPlaylists";
-import NavigationLinks from "./NavigationLinks/NavigationLinks";
+import NavigationLinks from "./NavigationLinks";
 
-import styles from "./NavPanel.module.css";
+import styles from "@/styles/NavPanel.module.css";
 
 const NavPanel: React.FC = () => {
     return (

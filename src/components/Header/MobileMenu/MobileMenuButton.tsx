@@ -1,6 +1,6 @@
 import React from "react";
 
-import GoogleMaterialIcon from "../../GoogleMaterialIcon";
+import { GoogleMaterialIcon } from "@/components";
 
 type MobileMenuButtonProps = JSX.IntrinsicElements["button"] & {
     isMenuOpened: boolean;

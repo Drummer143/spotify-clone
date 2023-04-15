@@ -2,7 +2,7 @@ import Link, { LinkProps } from "next/link";
 import React from "react";
 import { useRouter } from "next/router";
 
-import GoogleMaterialIcon from "../../GoogleMaterialIcon";
+import { GoogleMaterialIcon } from "@/components";
 
 type NavPanelLinkProps = LinkProps &
     Omit<React.HTMLProps<HTMLAnchorElement>, "ref"> & {
@@ -21,6 +21,7 @@ const NavPanelLink: React.FC<NavPanelLinkProps> = ({ iconName, href, children, c
             {...linkProps}
         >
             <GoogleMaterialIcon iconName={iconName} size={1.8} FILL={href === asPath ? 1 : 0} />
+
             <span
                 className={"transition-[color] leading-4 mt-0.5"
                     .concat(" group-hover:text-white")

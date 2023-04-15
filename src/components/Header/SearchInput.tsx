@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDebounce } from "use-debounce";
 
-import GoogleMaterialIcon from "../GoogleMaterialIcon";
+import { GoogleMaterialIcon } from "..";
 
 const SearchInput: React.FC = () => {
     const router = useRouter();

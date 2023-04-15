@@ -1,8 +1,8 @@
 import Link from "next/link";
 import React from "react";
-
-import { useNumberFormatter } from "../../hooks";
 import Image from "next/image";
+
+import { useNumberFormatter } from "@/hooks";
 
 type PlaylistStatsProps = {
     ownerDisplayName: string;

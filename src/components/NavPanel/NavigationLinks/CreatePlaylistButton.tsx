@@ -1,7 +1,7 @@
 import React from "react";
 
-import NavPanelButton from "./NavPanelButton/NavPanelButton";
-import GoogleMaterialIcon from "@/components/GoogleMaterialIcon";
+import NavPanelButton from "./NavPanelButton";
+import { GoogleMaterialIcon } from "@/components";
 
 const CreatePlaylistButton: React.FC = () => {
     return (

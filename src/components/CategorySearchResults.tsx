@@ -1,16 +1,16 @@
 import React from "react";
 
-import ItemCard from "../ItemCard";
+import { ItemCard } from ".";
 import { createDescription } from "@/utils";
 
-type CategorySearchResultProps = {
+type CategorySearchResultsProps = {
     result: NonNullable<SearchForItemResponse[Exclude<keyof SearchForItemResponse, "tracks">]>;
     heading: Exclude<keyof SearchForItemResponse, "tracks">;
 
     countOfCards?: number;
 };
 
-const CategorySearchResult: React.FC<CategorySearchResultProps> = ({ heading, result, countOfCards = 2 }) => {
+const CategorySearchResults: React.FC<CategorySearchResultsProps> = ({ heading, result, countOfCards = 2 }) => {
     return (
         <div>
             <h2 className="text-2xl font-bold mb-4 mt-[var(--collection-gap)] first-letter:uppercase">{heading}</h2>
@@ -35,4 +35,4 @@ const CategorySearchResult: React.FC<CategorySearchResultProps> = ({ heading, re
     );
 };
 
-export default CategorySearchResult;
+export default CategorySearchResults;

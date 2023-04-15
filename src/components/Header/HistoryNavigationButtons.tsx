@@ -1,6 +1,6 @@
 import React from "react";
 
-import GoogleMaterialIcon from "../GoogleMaterialIcon";
+import { GoogleMaterialIcon } from "..";
 
 const HistoryNavigationButtons: React.FC = () => {
     return (

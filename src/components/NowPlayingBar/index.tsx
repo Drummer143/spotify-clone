@@ -1,7 +1,8 @@
 import React from "react";
 
-import styles from "./NowPlayingBar.module.css";
-import MiddleControls from "./MiddleControls/MiddleControls";
+import MiddleControls from "./MiddleControls";
+
+import styles from "@/styles/NowPlayingBar.module.css";
 
 const NowPlayingBar: React.FC = () => {
     return (

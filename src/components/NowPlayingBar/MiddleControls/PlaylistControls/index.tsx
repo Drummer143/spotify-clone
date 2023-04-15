@@ -1,9 +1,9 @@
 import React from "react";
 
 import ControlsButton from "./ControlsButton";
-import GoogleMaterialIcon from "../../../GoogleMaterialIcon";
-import { toggleShuffle, toggleRepeat } from "../../../../redux";
-import { useAppDispatch, useAppSelector } from "../../../../hooks";
+import { GoogleMaterialIcon } from "@/components";
+import { toggleShuffle, toggleRepeat } from "@/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 
 const PlaylistControls: React.FC = () => {
     const dispatch = useAppDispatch();

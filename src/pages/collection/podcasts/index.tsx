@@ -1,10 +1,8 @@
+import Link from "next/link";
 import Head from "next/head";
 import React, { useEffect } from "react";
 
-import Link from "next/link";
-import Loader from "@/components/Loader";
-import ItemCard from "@/components/ItemCard";
-import PlayButton from "@/components/PlayButton";
+import { Loader, ItemCard, PlayButton } from "@/components";
 import { changeHeadBGColor, spotifyApi } from "@/redux";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 
@@ -48,8 +46,9 @@ const PodcastsCollectionPage: React.FC = () => {
                 <div className="grid grid-cols-dynamic gap-dynamic">
                     <Link
                         href="/collection/tracks"
-                        className={"group col-span-2 rounded-[clamp(4px,32px_*_0.025,8px)] flex flex-col gap-5"
-                            .concat(" text-base p-5 bg-liked-episodes-in-playlists-collection")}
+                        className={"group col-span-2 rounded-[clamp(4px,32px_*_0.025,8px)] flex flex-col gap-5".concat(
+                            " text-base p-5 bg-liked-episodes-in-playlists-collection"
+                        )}
                     >
                         <div className="flex-grow flex items-end">
                             <div className="line-clamp-3 text-sm">

@@ -1,8 +1,8 @@
 import React from "react";
 
-import { useAppDispatch } from "../hooks";
-import { setCodeVerifier } from "../redux";
-import { generateRandomString, generateCodeChallenge, getAuthentificationLink } from "../utils";
+import { useAppDispatch } from "@/hooks";
+import { setCodeVerifier } from "@/redux";
+import { generateRandomString, generateCodeChallenge, getAuthentificationLink } from "@/utils";
 
 const LoginButton: React.FC = () => {
     const dispatch = useAppDispatch();

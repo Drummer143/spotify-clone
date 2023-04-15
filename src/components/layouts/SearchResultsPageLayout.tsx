@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
 
-import SearchTypeButton from "./SearchTypeButton";
+import { SearchTypeButton } from "..";
 
 type SearchResultsPageLayoutProps = {
     children?: React.ReactNode;

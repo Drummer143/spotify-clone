@@ -4,10 +4,10 @@ import { useRouter } from "next/router";
 
 import PlaylistLink from "./PlaylistLink";
 import LanguageButton from "./LanguageButton";
-import GoogleMaterialIcon from "../GoogleMaterialIcon";
-import { spotifyApi } from "../../redux/query/spotifyApi";
-import { useAppSelector } from "../../hooks";
-import { navBarBottomLinks } from "../../utils";
+import { spotifyApi } from "@/redux";
+import { useAppSelector } from "@/hooks";
+import { navBarBottomLinks } from "@/utils";
+import { GoogleMaterialIcon } from "..";
 
 const UsersPlaylists: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);

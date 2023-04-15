@@ -1,11 +1,10 @@
+import Head from "next/head";
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 
-import Loader from "@/components/Loader";
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
-import ItemCard from "@/components/ItemCard";
-import Head from "next/head";
+import { Loader, ItemCard } from "@/components";
 
 const GenreCollection: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);

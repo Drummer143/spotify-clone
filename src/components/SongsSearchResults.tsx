@@ -2,7 +2,7 @@ import React from "react";
 
 import "moment-duration-format";
 
-import SongCard from "./SongCard";
+import { SongCard } from ".";
 
 type SongsSearchResultProps = {
     result: NonNullable<SearchForItemResponse["tracks"]>;
@@ -15,7 +15,14 @@ const SongsSearchResult: React.FC<SongsSearchResultProps> = ({ result }) => {
 
             <div>
                 {result.items.slice(0, 5).map(song => (
-                    <SongCard song={song} key={song.id} />
+                    <SongCard
+                        key={song.id}
+                        artists={song.artists}
+                        duration={song.duration_ms}
+                        imageURL={song.album.images[2]?.url}
+                        name={song.name}
+                        songId={song.id}
+                    />
                 ))}
             </div>
         </div>

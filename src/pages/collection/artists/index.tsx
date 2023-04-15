@@ -1,8 +1,7 @@
 import Head from "next/head";
 import React, { useEffect } from "react";
 
-import Loader from "@/components/Loader";
-import ItemCard from "@/components/ItemCard";
+import { Loader, ItemCard } from "@/components";
 import { changeHeadBGColor, spotifyApi } from "@/redux";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 

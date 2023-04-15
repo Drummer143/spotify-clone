@@ -6,8 +6,7 @@ import type { AppProps } from "next/app";
 import "@/styles/globals.css";
 
 import store from "@/redux";
-import Layout from "@/components/Layout";
-import SearchResultsPageLayout from "@/components/SearchResultsPageLayout";
+import { Layout, SearchResultsPageLayout } from "@/components/layouts";
 
 export default function App({ Component, pageProps }: AppProps) {
     const { pathname } = useRouter();

@@ -1,13 +1,13 @@
-import { useResizeObserver } from "@/hooks";
-import { setCountOfCardsInColumn } from "@/redux";
 import dynamic from "next/dynamic";
 import React, { useRef } from "react";
-import { useDispatch } from "react-redux";
+
+import { setCountOfCardsInColumn } from "@/redux";
+import { useAppDispatch, useResizeObserver } from "@/hooks";
 
 const ResizeDetector: React.FC = () => {
     const resizeDetectorRef = useRef<HTMLDivElement>(null);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useResizeObserver({
         targetRef: resizeDetectorRef,

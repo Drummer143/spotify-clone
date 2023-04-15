@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
 
-import ItemCard from "../ItemCard";
-import { spotifyApi } from "../../redux/query/spotifyApi";
-import { useAppSelector } from "../../hooks";
+import { ItemCard } from ".";
+import { spotifyApi } from "@/redux";
+import { useAppSelector } from "@/hooks";
 
 type CategoryPlaylistsCollectionProps = {
     id: string;

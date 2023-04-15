@@ -1,75 +1,110 @@
 import Head from "next/head";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import Loader from "@/components/Loader";
-import ActionBar from "@/components/ActionBar";
-import Tracklist from "@/components/Tracklist";
-import PlaylistInfo from "@/components/PlaylistInfo/PlaylistInfo";
-import { spotifyApi, setTitle } from "@/redux";
-import { useAppSelector, useAppDispatch } from "@/hooks";
+import { spotifyApi } from "@/redux";
+import { useAppSelector } from "@/hooks";
+import { Loader, ActionBar, Tracklist, PlaylistInfo } from "@/components";
 
 const PlaylistPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
 
-    const dispatch = useAppDispatch();
+    const [playlistId, setPlaylistId] = useState<string>();
+
     const { query } = useRouter();
 
     const [getPlaylist, { data: playlistInfo, isFetching: playlistIsFetching }] = spotifyApi.useLazyGetPlaylistQuery();
     const [getOwnerInfo, { data: ownerInfo, isFetching: ownerIsFetching }] = spotifyApi.useLazyGetUserQuery();
+    const [unfollowPlaylist] = spotifyApi.useUnfollowPlaylistMutation();
+    const [followPlaylist] = spotifyApi.useFollowPlaylistMutation();
+    const [getCurrentUser, { currentData: user }] = spotifyApi.useLazyGetCurrentUserQuery();
+    const [checkFollow, { data: followInfo }] = spotifyApi.useLazyIsUserFollowsPlaylistQuery();
 
-    useEffect(() => {
-        let id = query.id;
-
-        if (id && accessToken) {
-            id = Array.isArray(id) ? id[0] : id;
-
-            getPlaylist({ accessToken, playlistId: id });
-        }
-    }, [query, accessToken, getPlaylist]);
-
-    useEffect(() => {
-        if (playlistInfo?.owner.id && accessToken) {
-            getOwnerInfo({ accessToken, userId: playlistInfo.owner.id });
-        }
-    }, [playlistInfo, accessToken, getOwnerInfo]);
-
-    useEffect(() => {
-        if (!playlistInfo) {
+    const handleAddPlaylistToFavorite = useCallback(() => {
+        if (!playlistId || !accessToken) {
             return;
         }
 
-        dispatch(setTitle(`${playlistInfo.name} | Spotify Clone`));
-    }, [dispatch, playlistInfo]);
+        if (followInfo && followInfo[0]) {
+            unfollowPlaylist({ accessToken, playlistId });
+        } else {
+            followPlaylist({ accessToken, playlistId });
+        }
+    }, [accessToken, followInfo, followPlaylist, playlistId, unfollowPlaylist]);
 
-    if(playlistIsFetching || ownerIsFetching) {
+    useEffect(() => {
+        if (!query.id) {
+            return;
+        }
+
+        const id = query.id;
+
+        setPlaylistId(Array.isArray(id) ? id[0] : id);
+    }, [query.id]);
+
+    useEffect(() => {
+        if (accessToken) {
+            getCurrentUser(accessToken);
+        }
+    }, [accessToken, getCurrentUser]);
+
+    useEffect(() => {
+        if (playlistId && accessToken) {
+            getPlaylist({ accessToken, playlistId });
+        }
+    }, [accessToken, playlistId, getPlaylist]);
+
+    useEffect(() => {
+        if (playlistInfo && accessToken) {
+            getOwnerInfo({ accessToken, userId: playlistInfo.owner.id });
+        }
+    }, [accessToken, playlistInfo, getOwnerInfo]);
+
+    useEffect(() => {
+        if (user && accessToken && playlistId) {
+            checkFollow({ accessToken, playlistId, usersIds: user.id });
+        }
+    }, [accessToken, playlistId, user, checkFollow]);
+
+    if (playlistIsFetching || ownerIsFetching) {
         return <Loader />;
+    }
+
+    if (!playlistInfo || !ownerInfo) {
+        return <div>Error</div>;
     }
 
     return (
         <>
             <Head>
-                <title>{playlistInfo && `${playlistInfo.name} | Spotify Clone`}</title>
+                <title>{playlistInfo.name} | Spotify Clone</title>
             </Head>
 
-            {playlistInfo && ownerInfo && (
-                <section className="max-h-full">
-                    <PlaylistInfo
-                        description={playlistInfo.description}
-                        followersCount={playlistInfo.followers.total}
-                        imageUrl={playlistInfo.images[0].url}
-                        name={playlistInfo.name}
-                        ownerDisplayName={ownerInfo?.display_name}
-                        ownerId={ownerInfo?.id}
-                        ownerImageUrl={ownerInfo?.images[0]?.url}
-                        tracksCount={playlistInfo.tracks.total}
-                    />
+            <section className="max-h-full">
+                <PlaylistInfo
+                    description={playlistInfo.description}
+                    followersCount={playlistInfo.followers.total}
+                    imageUrl={playlistInfo.images[0].url}
+                    name={playlistInfo.name}
+                    ownerDisplayName={ownerInfo?.display_name}
+                    ownerId={ownerInfo?.id}
+                    ownerImageUrl={ownerInfo?.images[0]?.url}
+                    tracksCount={playlistInfo.tracks.total}
+                />
 
-                    <ActionBar playlistId={Array.isArray(query.id) ? query.id[0] : query.id || ""} />
+                <ActionBar
+                    userInfo={
+                        followInfo
+                            ? {
+                                  isFollowing: followInfo[0],
+                                  onFollowToggle: handleAddPlaylistToFavorite
+                              }
+                            : undefined
+                    }
+                />
 
-                    <Tracklist tracks={playlistInfo.tracks.items} />
-                </section>
-            )}
+                <Tracklist tracks={playlistInfo.tracks.items} />
+            </section>
         </>
     );
 };

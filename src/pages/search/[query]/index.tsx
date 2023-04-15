@@ -2,10 +2,9 @@ import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import SongsSearchResult from "@/components/AllSearchResultsPage/SongsSearchResults";
-import CategorySearchResult from "@/components/AllSearchResultsPage/CategorySearchResult";
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
+import { SongsSearchResults, CategorySearchResults } from "@/components";
 
 const AllSearchResultsPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -46,7 +45,7 @@ const AllSearchResultsPage: React.FC = () => {
             </Head>
 
             <div className="px-[var(--content-spacing)]">
-                {result?.tracks && <SongsSearchResult result={result.tracks} />}
+                {result?.tracks && <SongsSearchResults result={result.tracks} />}
 
                 {result &&
                     categoriesOrder.map(category => {
@@ -57,7 +56,7 @@ const AllSearchResultsPage: React.FC = () => {
                         }
 
                         return (
-                            <CategorySearchResult
+                            <CategorySearchResults
                                 key={category}
                                 heading={category}
                                 result={res}

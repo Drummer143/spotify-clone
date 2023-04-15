@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { MotionValue } from "framer-motion";
 
-import UserMenu from "./UserMenu/UserMenu";
+import UserMenu from "./UserMenu";
 import HeaderLink from "./HeaderLink";
 import Background from "./Background";
-import MobileMenu from "./MobileMenu/MobileMenu";
+import MobileMenu from "./MobileMenu";
 import PlaylistBar from "./PlaylistBar";
 import SearchInput from "./SearchInput";
 import LoginButton from "../LoginButton";

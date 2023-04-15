@@ -1,8 +1,8 @@
+import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/router";
 
-import PlayButton from "./PlayButton";
-import Image from "next/image";
+import { CardImagePlaceholder, PlayButton } from ".";
 
 type ItemCardProps = {
     type: ItemType;
@@ -26,7 +26,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ type, id, imageURL, description, na
                 .concat(" hover:bg-[#282828]")}
         >
             <div className="relative w-full aspect-square overflow-hidden mb-4">
-                {imageURL && (
+                {imageURL ? (
                     <Image
                         width={200}
                         height={200}
@@ -37,9 +37,11 @@ const ItemCard: React.FC<ItemCardProps> = ({ type, id, imageURL, description, na
                             type === "artist" ? "rounded-full" : "rounded-[clamp(4px,32px_*_0.025,8px)]"
                         )}
                     />
+                ) : (
+                    <CardImagePlaceholder />
                 )}
 
-                {type !== "episode" && type !== "show" && (
+                {["episode", "show"].includes(type) && (
                     <PlayButton
                         size={3}
                         className={"absolute bottom-2 right-2 translate-y-1/2 opacity-0 duration-300"

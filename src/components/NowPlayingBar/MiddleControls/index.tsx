@@ -1,7 +1,7 @@
 import React from "react";
 
-import PlaylistControls from "./PlaylistControls/PlaylistControls";
-import SongTimeDisplayer from "./SongTimeDisplayer/SongTimeDisplayer";
+import PlaylistControls from "./PlaylistControls";
+import SongTimeDisplayer from "./SongTimeDisplayer";
 
 const MiddleControls: React.FC = () => {
     return (

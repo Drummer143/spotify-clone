@@ -18,3 +18,11 @@ export const defaultHeadersBGColors: { [key in "authentificated" | "nonAuthentif
 };
 
 export const headerCollectionSwitchButtons = ["playlists", "podcasts", "artists", "albums"];
+
+export const searchTypesOrder: Exclude<keyof SearchForItemResponse, "tracks">[] = [
+    "artists",
+    "albums",
+    "playlists",
+    "shows",
+    "episodes"
+];

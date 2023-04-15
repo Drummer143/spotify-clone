@@ -1,11 +1,9 @@
 import Head from "next/head";
 import React, { useEffect } from "react";
 
-import Loader from "@/components/Loader";
-import ItemCard from "@/components/ItemCard";
-import ListingOfAuthors from "@/components/ListingOfAuthors";
 import { changeHeadBGColor, spotifyApi } from "@/redux";
 import { useAppDispatch, useAppSelector } from "@/hooks";
+import { Loader, ItemCard, ListingOfAuthors } from "@/components";
 
 const AlbumPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);

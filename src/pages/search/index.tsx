@@ -1,9 +1,9 @@
 import Head from "next/head";
 import React, { useEffect, useRef } from "react";
 
+import { GenreCard } from "@/components";
 import { useAppSelector, useAppDispatch } from "@/hooks";
 import { spotifyApi, changeHeadBGColor, setTitle } from "@/redux";
-import GenreCard from "@/components/GenreCard";
 
 const DefaultSearchPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);

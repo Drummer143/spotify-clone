@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-import GoogleMaterialIcon from "./GoogleMaterialIcon";
+import { GoogleMaterialIcon } from ".";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 
 type SonglistHeadProps = {

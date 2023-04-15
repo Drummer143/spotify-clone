@@ -1,43 +1,17 @@
-import React, { useCallback } from "react";
+import React from "react";
 
-import PlayButton from "./PlayButton";
-import GoogleMaterialIcon from "./GoogleMaterialIcon";
-import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
+import { GoogleMaterialIcon, PlayButton } from ".";
 
-const ActionBar: React.FC<{ playlistId: string }> = ({ playlistId }) => {
-    const {
-        auth: { accessToken = "" },
-        app: { headerBGColor }
-    } = useAppSelector(state => state);
+type ActionBarProps = {
+    userInfo?: {
+        isFollowing: boolean;
+        onFollowToggle: React.MouseEventHandler<HTMLSpanElement>;
+    };
+};
 
-    const [unfollowPlaylist] = spotifyApi.useUnfollowPlaylistMutation();
-    const [followPlaylist] = spotifyApi.useFollowPlaylistMutation();
-    const { currentData: user } = spotifyApi.useGetCurrentUserQuery(accessToken, {
-        skip: !accessToken
-    });
-    const { data: followInfo } = spotifyApi.useIsUserFollowsPlaylistQuery(
-        {
-            accessToken: accessToken,
-            playlistId: playlistId,
-            usersIds: user?.id || ""
-        },
-        {
-            skip: !playlistId || !accessToken || !user
-        }
-    );
-
-    const handleAddPlaylistToFavorite = useCallback(() => {
-        if (!playlistId || !accessToken) {
-            return;
-        }
-
-        if (followInfo && followInfo[0]) {
-            unfollowPlaylist({ accessToken, playlistId });
-        } else {
-            followPlaylist({ accessToken, playlistId });
-        }
-    }, [accessToken, followInfo, followPlaylist, playlistId, unfollowPlaylist]);
+const ActionBar: React.FC<ActionBarProps> = ({ userInfo }) => {
+    const headerBGColor = useAppSelector(state => state.app.headerBGColor);
 
     return (
         <div className="relative z-[0]">
@@ -51,16 +25,18 @@ const ActionBar: React.FC<{ playlistId: string }> = ({ playlistId }) => {
             <div className="px-[var(--content-spacing)] py-6 bg-transparent flex items-center gap-8">
                 <PlayButton />
 
-                <GoogleMaterialIcon
-                    iconName="favorite"
-                    size={2.4}
-                    FILL={followInfo && followInfo[0] ? 1 : 0}
-                    onClick={handleAddPlaylistToFavorite}
-                    className={"cursor-pointer transition-[color]".concat(
-                        " ",
-                        followInfo && followInfo[0] ? "text-[#1ed760]" : "text-[hsla(0,0%,100%,.7)] hover:text-white"
-                    )}
-                />
+                {userInfo && (
+                    <GoogleMaterialIcon
+                        iconName="favorite"
+                        size={2.4}
+                        FILL={userInfo.isFollowing ? 1 : 0}
+                        onClick={userInfo.onFollowToggle}
+                        className={"cursor-pointer transition-[color]".concat(
+                            " ",
+                            userInfo.isFollowing ? "text-[#1ed760]" : "text-[hsla(0,0%,100%,.7)] hover:text-white"
+                        )}
+                    />
+                )}
             </div>
         </div>
     );

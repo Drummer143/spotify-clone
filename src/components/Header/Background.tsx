@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import dynamic from "next/dynamic";
 import { MotionValue, motion, useTransform } from "framer-motion";
 
 import { useAppSelector } from "@/hooks";
 import { getDarkenColor } from "@/utils";
-import dynamic from "next/dynamic";
 
 type BackgroundProps = {
     scrollY: MotionValue<number>;

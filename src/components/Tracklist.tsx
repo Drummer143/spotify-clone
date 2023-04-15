@@ -1,10 +1,9 @@
 import React from "react";
 
-import SongCard from "./SongCard";
-import SonglistHead from "./SonglistHead";
+import { SongCard, SonglistHead } from ".";
 
 type TracklistProps = {
-    tracks: TrackInPlaylistInfo[];
+    tracks: TrackInPlaylistInfo[] | LikedTrackInfo[];
 };
 
 const Tracklist: React.FC<TracklistProps> = ({ tracks }) => {
