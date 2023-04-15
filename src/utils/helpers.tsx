@@ -112,3 +112,17 @@ export const createDescription = (item: ArtistInfo | AlbumInfo | PlaylistInfo | 
             return item.description;
     }
 };
+
+export const isURL = (urlToCheck: string) => {
+    try {
+        const url = new URL(urlToCheck);
+
+        if(url.host) {
+            return true;
+        }
+
+        return false;
+    } catch (_) {
+        return false;
+    }
+};

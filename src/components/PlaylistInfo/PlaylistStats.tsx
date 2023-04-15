@@ -25,7 +25,16 @@ const PlaylistStats: React.FC<PlaylistStatsProps> = ({
     return (
         <div className="flex mt-2 text-sm items-center">
             <Link href={`/user/${ownerId}`} className="flex gap-1 items-center hover:underline">
-                {ownerImageUrl && <Image src={ownerImageUrl} width={30} alt="owner avatar" height={30} className="h-6 w-6 rounded-full" />}
+                {ownerImageUrl && (
+                    <Image
+                        src={`/api/image_proxy?uri=${ownerImageUrl}`}
+                        width={30}
+                        height={30}
+                        alt="owner avatar"
+                        className="h-6 w-6 rounded-full"
+                    />
+                )}
+
                 <p className="font-bold">{ownerDisplayName}</p>
             </Link>
 

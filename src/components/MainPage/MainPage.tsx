@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 import CategoryPlaylistsCollection from "./CategoryPlaylistsCollection";
 import { spotifyApi } from "../../redux/query/spotifyApi";
@@ -22,8 +22,8 @@ const MainPage: React.FC = () => {
                 limit: 5,
                 locale: Intl.DateTimeFormat().resolvedOptions().locale
             }
-        })
-    }, [accessToken, getCategories])
+        });
+    }, [accessToken, getCategories]);
 
     return (
         <div ref={mainPageContainerRef} className={"pt-16 px-[var(--content-spacing)] flex flex-col gap-10 max-h-full"}>

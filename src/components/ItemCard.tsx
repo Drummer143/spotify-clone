@@ -2,6 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 
 import PlayButton from "./PlayButton";
+import Image from "next/image";
 
 type ItemCardProps = {
     type: ItemType;
@@ -25,13 +26,18 @@ const ItemCard: React.FC<ItemCardProps> = ({ type, id, imageURL, description, na
                 .concat(" hover:bg-[#282828]")}
         >
             <div className="relative w-full aspect-square overflow-hidden mb-4">
-                <img
-                    src={imageURL}
-                    className={"w-full aspect-square".concat(
-                        " ",
-                        type === "artist" ? "rounded-full" : "rounded-[clamp(4px,32px_*_0.025,8px)]"
-                    )}
-                />
+                {imageURL && (
+                    <Image
+                        width={200}
+                        height={200}
+                        alt={`${type} image`}
+                        src={`/api/image_proxy?uri=${imageURL}`}
+                        className={"w-full aspect-square".concat(
+                            " ",
+                            type === "artist" ? "rounded-full" : "rounded-[clamp(4px,32px_*_0.025,8px)]"
+                        )}
+                    />
+                )}
 
                 {type !== "episode" && type !== "show" && (
                     <PlayButton

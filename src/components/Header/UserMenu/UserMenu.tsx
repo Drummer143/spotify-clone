@@ -22,8 +22,16 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
     return (
         <div className="relative" ref={menuContainerRef}>
             <UserButton onClick={onToggle}>
-                <Image src={user.images[0].url} width={30} height={30} alt="avatar" className="h-full rounded-full"></Image>
+                <Image
+                    src={`/api/image_proxy?uri=${user.images[0].url}`}
+                    width={30}
+                    height={30}
+                    alt="avatar"
+                    className="h-full rounded-full"
+                />
+
                 <span className="text-sm leading-none max-[870px]:hidden">{user.display_name}</span>
+
                 <GoogleMaterialIcon iconName="arrow_drop_down" size={1.5} className="max-[870px]:hidden" GRAD={200} />
             </UserButton>
 

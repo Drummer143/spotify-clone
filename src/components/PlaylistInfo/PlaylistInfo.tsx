@@ -29,6 +29,8 @@ const PlaylistInfo: React.FC<PlaylistInfoProps> = ({ description, imageUrl, name
     const containerRef = useRef<HTMLDivElement>(null);
     const playlistNameRef = useRef<HTMLHeadingElement>(null);
 
+    console.log(imageUrl);
+
     const getBGColor = useCallback(async () => {
         const bgColor = await colorDetector.getColorAsync(imageUrl);
 
@@ -48,7 +50,14 @@ const PlaylistInfo: React.FC<PlaylistInfoProps> = ({ description, imageUrl, name
                 .concat(" ", styles.gradient)}
             style={{ backgroundColor: bgColor }}
         >
-            <Image width={192} height={192} alt="cover image" className="w-48 h-48 shadow-playlist-cover-image" src={imageUrl} />
+            <Image
+                width={192}
+                height={192}
+                alt="cover image"
+                className="w-48 h-48 shadow-playlist-cover-image"
+                src={`/api/image_proxy?uri=${imageUrl}`}
+            />
+            
             <div ref={containerRef} className={"flex h-full flex-col justify-end"}>
                 <p className="font-bold text-sm">Playlist</p>
 

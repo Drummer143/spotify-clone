@@ -66,7 +66,13 @@ const SongCard: React.FC<SongCardProps> = ({
             </div>
 
             <div className="flex gap-4">
-                <Image width={200} height={200} alt="album cover" src={imageURL} className="w-10 h-10" />
+                <Image
+                    width={200}
+                    height={200}
+                    alt="album cover"
+                    src={`/api/image_proxy?uri=${imageURL}`}
+                    className="w-10 h-10"
+                />
 
                 <div>
                     <Link href={`/track/${songId}`} className="line-clamp-1 hover:underline w-fit">

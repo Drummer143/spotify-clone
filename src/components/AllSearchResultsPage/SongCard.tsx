@@ -16,7 +16,13 @@ const SongCard: React.FC<SongCardProps> = ({ song }) => {
                 .concat(" hover:bg-[hsla(0,0%,100%,.1)] focus:bg-[hsla(0,0%,100%,.3)]")}
         >
             <div className="relative">
-                <Image width={40} height={40} alt="song cover" className="h-10 w-10" src={song.album.images[0].url} />
+                <Image
+                    width={40}
+                    height={40}
+                    alt="song cover"
+                    className="h-10 w-10"
+                    src={`/api/image_proxy?uri=${song.album.images[0].url}`}
+                />
 
                 <div
                     className={"absolute top-0 left-0 w-full h-full items-center justify-center"
