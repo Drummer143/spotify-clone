@@ -15,20 +15,21 @@ const NavPanelLink: React.FC<NavPanelLinkProps> = ({ iconName, href, children, c
     return (
         <Link
             className={"group flex items-center gap-4 h-10 w-full px-4 text-sm font-bold duration-300"
+                .concat(" transition-[color,_transform]")
                 .concat(" active:scale-[0.98]")
+                .concat(" ", href === asPath ? "text-white" : "text-[#d3d3d3] hover:text-white")
                 .concat(className ? ` ${className}` : "")}
             href={href}
             {...linkProps}
         >
-            <GoogleMaterialIcon iconName={iconName} size={1.8} FILL={href === asPath ? 1 : 0} />
+            <GoogleMaterialIcon
+                iconName={iconName}
+                size={1.8}
+                FILL={href === asPath ? 1 : 0}
+                className="text-inherit"
+            />
 
-            <span
-                className={"transition-[color] leading-4 mt-0.5"
-                    .concat(" group-hover:text-white")
-                    .concat(" ", href === asPath ? "text-white" : "text-[#d3d3d3]")}
-            >
-                {children}
-            </span>
+            <span className=" leading-4 mt-0.5 text-inherit">{children}</span>
         </Link>
     );
 };

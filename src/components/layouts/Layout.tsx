@@ -2,8 +2,9 @@ import React, { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { useScroll } from "framer-motion";
 
-import styles from "@/styles/Layout.module.css";
 import { Header, NavPanel, NowPlayingBar, ResizeDetector } from "..";
+
+import styles from "@/styles/Layout.module.css";
 
 type LayoutProps = {
     children?: React.ReactNode

@@ -41,10 +41,10 @@ const ItemCard: React.FC<ItemCardProps> = ({ type, id, imageURL, description, na
                     <CardImagePlaceholder />
                 )}
 
-                {["episode", "show"].includes(type) && (
+                {!["episode", "show"].includes(type) && (
                     <PlayButton
                         size={3}
-                        className={"absolute bottom-2 right-2 translate-y-1/2 opacity-0 duration-300"
+                        className={"absolute bottom-2 right-2 translate-y-[20%] opacity-0 duration-300"
                             .concat(" transition-[transform,_opacity,_box-shadow]")
                             .concat(" group-hover:translate-y-0 group-hover:opacity-100")
                             .concat(" group-hover:shadow-playlist-card")}

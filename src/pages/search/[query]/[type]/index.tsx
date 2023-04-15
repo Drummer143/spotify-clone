@@ -1,3 +1,4 @@
+import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
@@ -42,28 +43,38 @@ const CertainSearchResultsPage: React.FC = () => {
         const items = result[searchType]?.items;
 
         return (
-            <div
-                className={"max-w-full w-full px-[var(--content-spacing)] grid gap-[var(--collection-gap)]".concat(
-                    " grid-cols-[repeat(var(--cards-count),_minmax(0,_1fr))]"
-                )}
-            >
-                {items?.length &&
-                    items.map(item => (
-                        <ItemCard
-                            key={item.id}
-                            id={item.id}
-                            name={item.name}
-                            type={item.type}
-                            description={createDescription(item)}
-                            imageURL={item.images[0]?.url}
-                        />
-                    ))}
-            </div>
+            <>
+                <Head>
+                    <title>Spotify Clone - Search</title>
+                </Head>
+
+                <div
+                    className={"max-w-full w-full px-[var(--content-spacing)] grid gap-[var(--collection-gap)]".concat(
+                        " grid-cols-[repeat(var(--cards-count),_minmax(0,_1fr))]"
+                    )}
+                >
+                    {items?.length &&
+                        items.map(item => (
+                            <ItemCard
+                                key={item.id}
+                                id={item.id}
+                                name={item.name}
+                                type={item.type}
+                                description={createDescription(item)}
+                                imageURL={item.images[0]?.url}
+                            />
+                        ))}
+                </div>
+            </>
         );
     }
 
     return (
         <>
+            <Head>
+                <title>Spotify Clone - Search</title>
+            </Head>
+
             <SonglistHead hiddenFields={{ dateAdded: true }} stickyX={108} />
 
             <div className="px-[var(--content-spacing)]">

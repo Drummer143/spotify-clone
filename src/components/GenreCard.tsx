@@ -27,7 +27,7 @@ const GenreCard: React.FC<GenreCardProps> = ({ category }) => {
         <Link
             href={`/genre/${category.id}`}
             key={category.id}
-            className={"w-full aspect-square relative rounded-lg overflow-hidden"}
+            className={"w-full aspect-square relative z-[0] rounded-lg overflow-hidden"}
             style={{
                 backgroundColor: bgColor
             }}
@@ -35,6 +35,7 @@ const GenreCard: React.FC<GenreCardProps> = ({ category }) => {
             <p className="text-white absolute bottom-0 z-[1] text-xl break-words w-full font-bold p-4">
                 {category.name}
             </p>
+
             <Image
                 width={128}
                 height={128}

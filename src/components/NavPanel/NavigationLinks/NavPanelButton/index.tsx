@@ -39,7 +39,8 @@ const NavPanelButton: React.FC<NavPanelButtonProps> = ({
             <button
                 onClick={handleClick}
                 className={"group flex items-center gap-4 h-10 w-full px-4 text-sm font-bold relative"
-                    .concat(" text-[#d3d3d3] transition-[color] leading-4 hover:text-white duration-300")
+                    .concat(" transition-[color] leading-4 duration-300")
+                    .concat(" ", router.asPath === to ? "text-white" : "text-[#d3d3d3] hover:text-white")
                     .concat(` ${className}` || "")}
                 {...buttonProps}
             >

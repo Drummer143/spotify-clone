@@ -10,8 +10,8 @@ const CreatePlaylistButton: React.FC = () => {
             modalHeading="Create playlist"
             modalMessage="Log in to create and share playlists."
         >
-            <GoogleMaterialIcon iconName="add_box" FILL={1} size={1.8} />
-            <span>Create playlist</span>
+            <GoogleMaterialIcon iconName="add_box" className="text-inherit fill-current" FILL={1} size={1.8} />
+            <span className="text-inherit">Create playlist</span>
         </NavPanelButton>
     );
 };

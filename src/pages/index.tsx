@@ -1,3 +1,4 @@
+import Head from "next/head";
 import React, { useEffect, useRef } from "react";
 
 import { CategoryPlaylistsCollection } from "@/components";
@@ -32,12 +33,18 @@ const MainPage: React.FC = () => {
     }, [accessToken, getCategories]);
 
     return (
+        <>
+        <Head>
+            <title>Spotify Clone</title>
+        </Head>
+
         <div ref={mainPageContainerRef} className={"pt-16 px-[var(--content-spacing)] flex flex-col gap-10 max-h-full"}>
             {browseCategories &&
                 browseCategories.categories.items.map(category => (
                     <CategoryPlaylistsCollection key={category.id} {...category} />
                 ))}
         </div>
+        </>
     );
 };
 
