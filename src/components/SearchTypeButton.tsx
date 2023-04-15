@@ -12,14 +12,14 @@ const SearchTypeButton: React.FC<SearchTypeButtonProps> = ({ href, ...props }) =
             href={href}
             className={"text-sm px-3 py-1 rounded-[2rem] inline-block"
                 .concat(" transition-[background-color] first-letter:uppercase")
-                .concat(" ", asPath === href ?
-                    "bg-white text-[#121212]" :
-                    "bg-[hsla(0,0%,100%,.07)] hover:bg-[hsla(0,0%,100%,.1)] active:bg-[hsla(0,0%,100%,.04)]"
-                )
-            }
+                .concat(
+                    " ",
+                    asPath === href
+                        ? "bg-white text-[#121212]"
+                        : "bg-[hsla(0,0%,100%,.07)] hover:bg-[hsla(0,0%,100%,.1)] active:bg-[hsla(0,0%,100%,.04)]"
+                )}
             {...props}
-        >
-        </Link>
+        ></Link>
     );
 };
 

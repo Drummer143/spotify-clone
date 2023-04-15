@@ -15,7 +15,9 @@ const SearchInput: React.FC = () => {
     const resetInput = () => setInput("");
 
     useEffect(() => {
-        router.push({ pathname: `/search/${debouncedInput}${router.query.type && debouncedInput ? `/${router.query.type}` : ""}` });
+        router.push({
+            pathname: `/search/${debouncedInput}${router.query.type && debouncedInput ? `/${router.query.type}` : ""}`
+        });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [debouncedInput]);
 

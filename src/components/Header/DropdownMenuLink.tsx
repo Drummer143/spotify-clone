@@ -3,10 +3,11 @@ import React from "react";
 
 import GoogleMaterialIcon from "../GoogleMaterialIcon";
 
-type DropdownMenuLinkProps = LinkProps & Omit<React.HTMLProps<HTMLAnchorElement>, "ref"> & {
-    internal?: boolean
-    children?: React.ReactNode
-};
+type DropdownMenuLinkProps = LinkProps &
+    Omit<React.HTMLProps<HTMLAnchorElement>, "ref"> & {
+        internal?: boolean;
+        children?: React.ReactNode;
+    };
 
 const DropdownMenuLink: React.FC<DropdownMenuLinkProps> = ({ children, internal, ...linkProps }) => {
     return (

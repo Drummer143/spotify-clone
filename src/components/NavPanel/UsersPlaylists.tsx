@@ -20,18 +20,19 @@ const UsersPlaylists: React.FC = () => {
     });
 
     useEffect(() => {
-        setIsBrowser(true)
+        setIsBrowser(true);
     }, []);
 
-    if(!isBrowser) {
+    if (!isBrowser) {
         return <></>;
     }
 
     if (!accessToken) {
         return (
             <div
-                className={"text-[0.6875rem] text-[#b3b3b3] flex content-end flex-1 flex-wrap gap-x-4 px-6 my-8"
-                    .concat(" scroll-smooth")}
+                className={"text-[0.6875rem] text-[#b3b3b3] flex content-end flex-1 flex-wrap gap-x-4 px-6 my-8".concat(
+                    " scroll-smooth"
+                )}
             >
                 {navBarBottomLinks.map(({ to, text }) => (
                     <Link
@@ -53,8 +54,9 @@ const UsersPlaylists: React.FC = () => {
     return (
         <>
             <hr
-                className={"bg-[#282828] mr-[var(--left-sidebar-padding-right)]"
-                    .concat(" ml-[var(--left-sidebar-padding-right)] mt-2 mb-4 h-[1px]")}
+                className={"bg-[#282828] mr-[var(--left-sidebar-padding-right)]".concat(
+                    " ml-[var(--left-sidebar-padding-right)] mt-2 mb-4 h-[1px]"
+                )}
             />
 
             <div className={"overflow-y-auto flex-1 overflow-x-hidden"}>

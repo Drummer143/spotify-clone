@@ -1,18 +1,20 @@
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import React, { useEffect } from "react";
+import { useRouter } from "next/router";
 
-import Loader from '@/components/Loader';
-import { spotifyApi } from '@/redux';
-import { useAppSelector } from '@/hooks';
-import ItemCard from '@/components/ItemCard';
-import Head from 'next/head';
+import Loader from "@/components/Loader";
+import { spotifyApi } from "@/redux";
+import { useAppSelector } from "@/hooks";
+import ItemCard from "@/components/ItemCard";
+import Head from "next/head";
 
 const GenreCollection: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
     const router = useRouter();
 
-    const [getPlaylists, { data: playlists, isFetching: playlistsIsFetching }] = spotifyApi.useLazyGetCategoryPlaylistsQuery();
-    const [getCategoryInfo, { currentData: categoryInfo, isFetching: categoryInfoIsFetching }] = spotifyApi.useLazyGetSingleBrowseCategoryQuery();
+    const [getPlaylists, { data: playlists, isFetching: playlistsIsFetching }] =
+        spotifyApi.useLazyGetCategoryPlaylistsQuery();
+    const [getCategoryInfo, { currentData: categoryInfo, isFetching: categoryInfoIsFetching }] =
+        spotifyApi.useLazyGetSingleBrowseCategoryQuery();
 
     useEffect(() => {
         let id = router.query.id;
@@ -27,11 +29,9 @@ const GenreCollection: React.FC = () => {
 
         const locale = Intl.DateTimeFormat().resolvedOptions().locale;
 
-        console.log(locale);
-
         getPlaylists({ accessToken, categoryId: id });
-        getCategoryInfo({ accessToken, categoryId: id, searchParams: { locale } })
-    }, [accessToken, router.query]);
+        getCategoryInfo({ accessToken, categoryId: id, searchParams: { locale } });
+    }, [accessToken, getCategoryInfo, getPlaylists, router.query]);
 
     if (playlistsIsFetching || categoryInfoIsFetching) {
         return <Loader />;
@@ -64,6 +64,7 @@ const GenreCollection: React.FC = () => {
                 </div>
             </section>
         </>
-    )
-}
+    );
+};
+
 export default GenreCollection;

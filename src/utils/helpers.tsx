@@ -117,7 +117,7 @@ export const isURL = (urlToCheck: string) => {
     try {
         const url = new URL(urlToCheck);
 
-        if(url.host) {
+        if (url.host) {
             return true;
         }
 

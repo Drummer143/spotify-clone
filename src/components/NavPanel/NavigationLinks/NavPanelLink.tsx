@@ -4,9 +4,10 @@ import { useRouter } from "next/router";
 
 import GoogleMaterialIcon from "../../GoogleMaterialIcon";
 
-type NavPanelLinkProps = LinkProps & Omit<React.HTMLProps<HTMLAnchorElement>, "ref"> & {
-    iconName: string;
-};
+type NavPanelLinkProps = LinkProps &
+    Omit<React.HTMLProps<HTMLAnchorElement>, "ref"> & {
+        iconName: string;
+    };
 
 const NavPanelLink: React.FC<NavPanelLinkProps> = ({ iconName, href, children, className, ...linkProps }) => {
     const { asPath } = useRouter();
@@ -28,7 +29,7 @@ const NavPanelLink: React.FC<NavPanelLinkProps> = ({ iconName, href, children, c
                 {children}
             </span>
         </Link>
-    )
+    );
 };
 
 export default NavPanelLink;

@@ -16,8 +16,9 @@ const CategorySearchResult: React.FC<CategorySearchResultProps> = ({ heading, re
             <h2 className="text-2xl font-bold mb-4 mt-[var(--collection-gap)] first-letter:uppercase">{heading}</h2>
 
             <div
-                className={"grid grid-cols-[repeat(var(--cards-count),_minmax(0,_1fr))] grid-rows-1"
-                    .concat(" gap-[var(--collection-gap)]")}
+                className={"grid grid-cols-[repeat(var(--cards-count),_minmax(0,_1fr))] grid-rows-1".concat(
+                    " gap-[var(--collection-gap)]"
+                )}
             >
                 {result.items.slice(0, countOfCards).map(item => (
                     <ItemCard

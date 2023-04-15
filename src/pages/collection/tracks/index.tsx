@@ -1,16 +1,17 @@
-import Head from 'next/head';
-import React, { useEffect } from 'react';
+import Head from "next/head";
+import React, { useEffect } from "react";
 
-import ActionBar from '@/components/LikedSongsPage/ActionBar';
-import Tracklist from '@/components/LikedSongsPage/Tracklist';
-import PlaylistInfo from '@/components/PlaylistInfo/PlaylistInfo';
-import { spotifyApi } from '@/redux';
-import { useAppSelector } from '@/hooks';
+import ActionBar from "@/components/LikedSongsPage/ActionBar";
+import Tracklist from "@/components/LikedSongsPage/Tracklist";
+import PlaylistInfo from "@/components/PlaylistInfo/PlaylistInfo";
+import { spotifyApi } from "@/redux";
+import { useAppSelector } from "@/hooks";
 
 const LikeSongPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
 
-    const [getSavedTracks, { currentData: savedTracks, isFetching: trackIsFetching }] = spotifyApi.useLazyGetCurrentUserSavedTracksQuery();
+    const [getSavedTracks, { currentData: savedTracks, isFetching: tracksIsFetching }] =
+        spotifyApi.useLazyGetCurrentUserSavedTracksQuery();
     const [getCurrentUser, { currentData: user, isFetching: userIsFetching }] = spotifyApi.useLazyGetCurrentUserQuery();
 
     useEffect(() => {
@@ -18,12 +19,16 @@ const LikeSongPage: React.FC = () => {
             return;
         }
 
-        getCurrentUser(accessToken)
+        getCurrentUser(accessToken);
         getSavedTracks({ accessToken });
     }, [accessToken, getCurrentUser, getSavedTracks]);
 
-    if (!savedTracks || !user) {
+    if (!tracksIsFetching || !userIsFetching) {
         return <div>loading...</div>;
+    }
+
+    if(!savedTracks || !user) {
+        return <div>Error</div>;
     }
 
     return (
@@ -48,6 +53,6 @@ const LikeSongPage: React.FC = () => {
             </section>
         </>
     );
-}
+};
 
 export default LikeSongPage;

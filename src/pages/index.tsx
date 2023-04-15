@@ -13,9 +13,7 @@ const MainPageWrapper: React.FC = () => {
         dispatch(changeHeadBGColor(accessToken ? "authentificated" : "nonAuthentificated"));
     }, [accessToken, dispatch]);
 
-    return (
-        <MainPage />
-    );
+    return <MainPage />;
 };
 
 export default MainPageWrapper;

@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { MotionValue, motion, useTransform } from 'framer-motion';
+import React, { useState } from "react";
+import { MotionValue, motion, useTransform } from "framer-motion";
 
-import { useAppSelector } from '@/hooks';
-import { getDarkenColor } from '@/utils';
-import dynamic from 'next/dynamic';
+import { useAppSelector } from "@/hooks";
+import { getDarkenColor } from "@/utils";
+import dynamic from "next/dynamic";
 
 type BackgroundProps = {
-    scrollY: MotionValue<number>
+    scrollY: MotionValue<number>;
 };
 
 const Background: React.FC<BackgroundProps> = ({ scrollY }) => {
@@ -22,9 +22,8 @@ const Background: React.FC<BackgroundProps> = ({ scrollY }) => {
             style={{
                 backgroundColor: bgColor
             }}
-        >
+        ></motion.div>
+    );
+};
 
-        </motion.div>
-    )
-}
 export default dynamic(() => Promise.resolve(Background), { ssr: false });

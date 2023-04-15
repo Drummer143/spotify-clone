@@ -10,15 +10,15 @@ import Image from "next/image";
 
 type SongCardProps = {
     imageURL: string;
-    songId: string
-    duration: number
-    artists: ShortArtistInfo[]
-    name: string
+    songId: string;
+    duration: number;
+    artists: ShortArtistInfo[];
+    name: string;
 
-    number?: number
-    albumId?: string
-    albumName?: string
-    dateAdded?: string
+    number?: number;
+    albumId?: string;
+    albumName?: string;
+    dateAdded?: string;
 };
 
 // eslint-disable-next-line camelcase
@@ -47,9 +47,10 @@ const SongCard: React.FC<SongCardProps> = ({
             className={"group grid h-14 gap-4 items-center text-[#b3b3b3] px-4 cursor-default rounded text-start"
                 .concat(" hover:bg-[hsla(0,0%,100%,.1)]")
                 .concat(" focus:bg-[hsla(0,0%,100%,.3)]")
-                .concat(countOfHiddenFields === 0 ?
-                    " grid-cols-tracklist-5 max-lg:grid-cols-tracklist-4 max-md:grid-cols-tracklist-3" :
-                    ""
+                .concat(
+                    countOfHiddenFields === 0
+                        ? " grid-cols-tracklist-5 max-lg:grid-cols-tracklist-4 max-md:grid-cols-tracklist-3"
+                        : ""
                 )
                 .concat(countOfHiddenFields === 1 ? " grid-cols-tracklist-4 max-md:grid-cols-tracklist-3" : "")
                 .concat(countOfHiddenFields === 2 ? " grid-cols-tracklist-3" : "")
@@ -94,10 +95,7 @@ const SongCard: React.FC<SongCardProps> = ({
             )}
 
             <span className="text-[#b3b3b3] justify-self-end mr-8">
-                {moment
-                    .utc(moment.duration(duration, "milliseconds").asMilliseconds())
-                    .format("mm:ss")
-                    .toString()}
+                {moment.utc(moment.duration(duration, "milliseconds").asMilliseconds()).format("mm:ss").toString()}
             </span>
         </button>
     );

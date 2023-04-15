@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+
 import { HYDRATE } from "next-redux-wrapper";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -9,7 +11,7 @@ export const spotifyApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: "https://api.spotify.com/v1" }),
     extractRehydrationInfo: (action, { reducerPath }) => {
         if (action.type === HYDRATE) {
-            return action.payload[reducerPath]
+            return action.payload[reducerPath];
         }
     },
     endpoints: build => ({
@@ -33,10 +35,10 @@ export const spotifyApi = createApi({
             {
                 accessToken: string;
                 searchParams?: {
-                    limit?: number
-                    offset?: number
-                    market?: string
-                }
+                    limit?: number;
+                    offset?: number;
+                    market?: string;
+                };
             }
         >({
             query: ({ accessToken, searchParams }) => ({
@@ -48,44 +50,44 @@ export const spotifyApi = createApi({
         getCurrentUserSavedEpisodes: build.query<
             GetCurrentUserSavedEpisodes,
             {
-                accessToken: string
+                accessToken: string;
                 searchParams?: {
-                    limit?: number
-                    offset?: number
-                    market?: string
-                }
+                    limit?: number;
+                    offset?: number;
+                    market?: string;
+                };
             }
         >({
             query: ({ accessToken, searchParams }) => ({
                 url: "/me/episodes?" + stringifySearchParams(searchParams),
                 headers: spotifyApiHeaders(accessToken)
-            }),
+            })
         }),
 
         getCurrentUserSavedShows: build.query<
             GetCurrentUserSavedShows,
             {
-                accessToken: string
+                accessToken: string;
                 searchParams?: {
-                    limit?: number
-                    offset?: number
-                }
+                    limit?: number;
+                    offset?: number;
+                };
             }
         >({
             query: ({ accessToken, searchParams }) => ({
                 url: "/me/shows?" + stringifySearchParams(searchParams),
                 headers: spotifyApiHeaders(accessToken)
-            }),
+            })
         }),
 
         getFollowedArtists: build.query<
             GetFollowedArtists,
             {
-                accessToken: string
+                accessToken: string;
                 searchParams?: {
-                    limit?: number
-                    after?: string
-                }
+                    limit?: number;
+                    after?: string;
+                };
             }
         >({
             query: ({ accessToken, searchParams }) => ({
@@ -97,12 +99,12 @@ export const spotifyApi = createApi({
         getUserSavedAlbums: build.query<
             GetUserSavedAlbums,
             {
-                accessToken: string
+                accessToken: string;
                 searchParams?: {
-                    limit?: number
-                    after?: string
-                    market?: string
-                }
+                    limit?: number;
+                    after?: string;
+                    market?: string;
+                };
             }
         >({
             query: ({ accessToken, searchParams }) => ({

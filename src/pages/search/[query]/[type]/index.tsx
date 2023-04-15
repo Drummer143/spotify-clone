@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import ItemCard from "@/components/ItemCard";
 import SongCard from "@/components/SongCard";
 import SonglistHead from "@/components/SonglistHead";
-import SearchResultsPageLayout from "@/components/SearchResultsPageLayout";
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
 import { createDescription } from "@/utils";
@@ -38,20 +37,20 @@ const CertainSearchResultsPage: React.FC = () => {
     }, [accessToken, getSearchResult, query.query, searchType]);
 
     if (!result || !query.type || Array.isArray(query.type)) {
-        return (
-            <div>Loading...</div>
-        );
+        return <div>Loading...</div>;
     }
 
     if (searchType !== "tracks") {
         const items = result[searchType]?.items;
 
         return (
-                <div
-                    className={"max-w-full w-full px-[var(--content-spacing)] grid gap-[var(--collection-gap)]"
-                        .concat(" grid-cols-[repeat(var(--cards-count),_minmax(0,_1fr))]")}
-                >
-                    {items?.length && items.map(item => (
+            <div
+                className={"max-w-full w-full px-[var(--content-spacing)] grid gap-[var(--collection-gap)]".concat(
+                    " grid-cols-[repeat(var(--cards-count),_minmax(0,_1fr))]"
+                )}
+            >
+                {items?.length &&
+                    items.map(item => (
                         <ItemCard
                             key={item.id}
                             id={item.id}
@@ -61,7 +60,7 @@ const CertainSearchResultsPage: React.FC = () => {
                             imageURL={item.images[0]?.url}
                         />
                     ))}
-                </div>
+            </div>
         );
     }
 
@@ -70,19 +69,20 @@ const CertainSearchResultsPage: React.FC = () => {
             <SonglistHead hiddenFields={{ dateAdded: true }} stickyX={108} />
 
             <div className="px-[var(--content-spacing)]">
-                {result?.tracks?.items.length && result.tracks.items.map((track, i) => (
-                    <SongCard
-                        key={track.id}
-                        albumId={track.album.id}
-                        albumName={track.album.name}
-                        artists={track.artists}
-                        duration={track.duration_ms}
-                        imageURL={track.album.images[2]?.url}
-                        name={track.name}
-                        number={i + 1}
-                        songId={track.id}
-                    />
-                ))}
+                {result?.tracks?.items.length &&
+                    result.tracks.items.map((track, i) => (
+                        <SongCard
+                            key={track.id}
+                            albumId={track.album.id}
+                            albumName={track.album.name}
+                            artists={track.artists}
+                            duration={track.duration_ms}
+                            imageURL={track.album.images[2]?.url}
+                            name={track.name}
+                            number={i + 1}
+                            songId={track.id}
+                        />
+                    ))}
             </div>
         </>
     );

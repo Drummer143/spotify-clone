@@ -8,7 +8,3 @@ interface PlaylistDuration {
 type ColorPair = [string, string];
 
 type SearchItemTypes = keyof SearchForItemResponse;
-
-type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
-    getLayout?: (page: ReactElement) => ReactNode
-}

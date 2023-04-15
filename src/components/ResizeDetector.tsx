@@ -1,8 +1,8 @@
-import { useResizeObserver } from '@/hooks';
-import { setCountOfCardsInColumn } from '@/redux';
-import dynamic from 'next/dynamic';
-import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useResizeObserver } from "@/hooks";
+import { setCountOfCardsInColumn } from "@/redux";
+import dynamic from "next/dynamic";
+import React, { useRef } from "react";
+import { useDispatch } from "react-redux";
 
 const ResizeDetector: React.FC = () => {
     const resizeDetectorRef = useRef<HTMLDivElement>(null);
@@ -11,7 +11,7 @@ const ResizeDetector: React.FC = () => {
 
     useResizeObserver({
         targetRef: resizeDetectorRef,
-        onResize: (e) => {
+        onResize: e => {
             const lastEntry = e.at(-1);
 
             if (!lastEntry) {
@@ -34,6 +34,6 @@ const ResizeDetector: React.FC = () => {
             className="absolute top-0 left-0 right-0 bottom-0 -z-50 invisible pointer-events-none"
         />
     );
-}
+};
 
 export default dynamic(() => Promise.resolve(ResizeDetector), { ssr: false });

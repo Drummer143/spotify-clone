@@ -4,7 +4,7 @@ import { defaultHeadersBGColors } from "../../utils";
 interface AppState {
     title: string;
     headerBGColor: ColorPair;
-    countOfCardsInColumn: number
+    countOfCardsInColumn: number;
 }
 
 const initialState: AppState = {
@@ -27,7 +27,7 @@ const appSlice = createSlice({
                 state.headerBGColor = defaultHeadersBGColors[action.payload];
             }
         },
-    
+
         setTitle: (state, action: PayloadAction<AppState["title"] | undefined>) => {
             state.title = action.payload || initialState.title;
         },

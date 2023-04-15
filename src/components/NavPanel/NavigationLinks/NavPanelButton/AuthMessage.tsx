@@ -25,12 +25,14 @@ const AuthMessage: React.FC<AuthMessageProps> = ({ modalHeading, modalMessage, o
 
     return (
         <div
-            className={"h-40 w-[20.75rem] bg-[#0d72ea] p-4 rounded-lg"
-                .concat(" flex flex-col justify-between select-none")}
+            className={"h-40 w-[20.75rem] bg-[#0d72ea] p-4 rounded-lg".concat(
+                " flex flex-col justify-between select-none"
+            )}
         >
             <div
-                className={"absolute top-0 left-0 translate-y-3 -translate-x-full border-8"
-                    .concat(" border-l-0 border-solid border-transparent border-r-[#0d72ea]")}
+                className={"absolute top-0 left-0 translate-y-3 -translate-x-full border-8".concat(
+                    " border-l-0 border-solid border-transparent border-r-[#0d72ea]"
+                )}
             ></div>
 
             <div>

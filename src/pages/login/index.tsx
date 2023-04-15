@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import LoginButton from '@/components/LoginButton';
+import LoginButton from "@/components/LoginButton";
 
 const LoginPage: React.FC = () => {
     return (
@@ -8,7 +8,7 @@ const LoginPage: React.FC = () => {
             <p className="text-xl">Log in to Spotify listen music</p>
             <LoginButton />
         </div>
-    )
-}
+    );
+};
 
 export default LoginPage;

@@ -12,10 +12,10 @@ import ResizeDetector from "./ResizeDetector";
 import styles from "@/styles/Layout.module.css";
 
 type LayoutProps = {
-    title?: string
-    isLoading?: boolean
-    children?: React.ReactNode
-}
+    title?: string;
+    isLoading?: boolean;
+    children?: React.ReactNode;
+};
 
 const Layout: React.FC<LayoutProps> = ({ children, isLoading = false, title = "Spotify Clone" }) => {
     const scrollRef = useRef<HTMLElement>(null);
@@ -40,12 +40,13 @@ const Layout: React.FC<LayoutProps> = ({ children, isLoading = false, title = "S
 
                 <main
                     ref={scrollRef}
-                    className={"h-full relative w-full bg-[#121212] overflow-y-auto overflow-x-hidden".concat(" ", styles.main)}
+                    className={"h-full relative w-full bg-[#121212] overflow-y-auto overflow-x-hidden".concat(
+                        " ",
+                        styles.main
+                    )}
                 >
                     <ResizeDetector />
-                    {isLoading ? (
-                        <Loader />
-                    ) : children}
+                    {isLoading ? <Loader /> : children}
                 </main>
 
                 <NowPlayingBar />

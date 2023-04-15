@@ -39,16 +39,19 @@ const CategoryPlaylistsCollection: React.FC<CategoryPlaylistsCollectionProps> = 
             </div>
 
             <div className="grid gap-dynamic grid-cols-dynamic grid-rows-1">
-                {playlists && playlists.playlists.items.slice(0, countOfCardsInColumn).map(playlist => (
-                    <ItemCard
-                        key={playlist.id}
-                        id={playlist.id}
-                        description={playlist.description}
-                        imageURL={playlist.images[0].url}
-                        name={playlist.name}
-                        type={playlist.type}
-                    />
-                ))}
+                {playlists &&
+                    playlists.playlists.items
+                        .slice(0, countOfCardsInColumn)
+                        .map(playlist => (
+                            <ItemCard
+                                key={playlist.id}
+                                id={playlist.id}
+                                description={playlist.description}
+                                imageURL={playlist.images[0].url}
+                                name={playlist.name}
+                                type={playlist.type}
+                            />
+                        ))}
             </div>
         </section>
     );

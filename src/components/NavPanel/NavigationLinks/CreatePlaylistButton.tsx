@@ -1,10 +1,7 @@
-import Link from "next/link";
 import React from "react";
-import { useRouter } from "next/router";
 
 import NavPanelButton from "./NavPanelButton/NavPanelButton";
 import GoogleMaterialIcon from "@/components/GoogleMaterialIcon";
-import { useAppSelector } from "@/hooks";
 
 const CreatePlaylistButton: React.FC = () => {
     return (

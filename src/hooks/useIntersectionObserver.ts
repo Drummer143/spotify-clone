@@ -11,7 +11,7 @@ export const useIntersectionObserver = ({ onIntersection, targetRef }: UseInters
     const observer = useMemo(() => new IntersectionObserver(onIntersection), [onIntersection]);
 
     useEffect(() => {
-        const target = targetRef.current
+        const target = targetRef.current;
 
         if (target) {
             observer.observe(target);

@@ -19,10 +19,7 @@ type HeaderProps = {
     scrollY: MotionValue<number>;
 };
 
-const pathWhenPlayButtonVisible = [
-    "v1/playlist/",
-    "/collection"
-];
+const pathWhenPlayButtonVisible = ["v1/playlist/", "/collection"];
 
 const Header: React.FC<HeaderProps> = ({ scrollY }) => {
     const accessToken = useAppSelector(state => state.auth.accessToken);

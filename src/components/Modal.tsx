@@ -30,7 +30,7 @@ const Modal: React.FC<ModalProps> = ({
 
     useEffect(() => {
         setIsBrowser(true);
-    }, [])
+    }, []);
 
     useCloseInOuterClick({
         onOuterClick: onClose,
@@ -38,7 +38,7 @@ const Modal: React.FC<ModalProps> = ({
         active: visible || false
     });
 
-    if (unmountOnHide && !visible || !isBrowser) {
+    if ((unmountOnHide && !visible) || !isBrowser) {
         return <></>;
     }
 

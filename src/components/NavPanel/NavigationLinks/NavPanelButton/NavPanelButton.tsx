@@ -8,7 +8,7 @@ import { useAppSelector, useDisclosure } from "@/hooks";
 type NavPanelButtonProps = JSX.IntrinsicElements["button"] & {
     modalHeading: string;
     modalMessage: string;
-    to: string
+    to: string;
 };
 
 const NavPanelButton: React.FC<NavPanelButtonProps> = ({
@@ -28,11 +28,11 @@ const NavPanelButton: React.FC<NavPanelButtonProps> = ({
 
     const handleClick = () => {
         if (isAuthentificated) {
-            router.push({ pathname: to })
+            router.push({ pathname: to });
         } else {
             onOpen();
         }
-    }
+    };
 
     return (
         <div ref={containerRef} className="relative">
@@ -48,8 +48,10 @@ const NavPanelButton: React.FC<NavPanelButtonProps> = ({
 
             {isAuthentificated && (
                 <Modal
-                    className={"transition-[transform,_opacity]"
-                        .concat(" ", isOpen ? "translate-x-[-0.5rem]" : "opacity-0")}
+                    className={"transition-[transform,_opacity]".concat(
+                        " ",
+                        isOpen ? "translate-x-[-0.5rem]" : "opacity-0"
+                    )}
                     visible={isOpen}
                     onClose={onClose}
                     targetRef={containerRef}

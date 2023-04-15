@@ -10,8 +10,9 @@ const ActionBar: React.FC = () => {
         <div className="relative z-[0]">
             <div
                 style={{ backgroundColor: headerBGColor[1] }}
-                className={"absolute top-0 z-[-1] bg-action-bar-gradient h-[14.5rem] w-full"
-                    .concat(" transition-[background-color] duration-500 pointer-events-none")}
+                className={"absolute top-0 z-[-1] bg-action-bar-gradient h-[14.5rem] w-full".concat(
+                    " transition-[background-color] duration-500 pointer-events-none"
+                )}
             />
 
             <div className="px-[var(--content-spacing)] py-6 bg-transparent flex items-center gap-8">

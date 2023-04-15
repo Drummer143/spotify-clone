@@ -2,6 +2,7 @@ import Head from "next/head";
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 
+import Loader from "@/components/Loader";
 import ActionBar from "@/components/ActionBar";
 import Tracklist from "@/components/Tracklist";
 import PlaylistInfo from "@/components/PlaylistInfo/PlaylistInfo";
@@ -25,7 +26,7 @@ const PlaylistPage: React.FC = () => {
 
             getPlaylist({ accessToken, playlistId: id });
         }
-    }, [query, accessToken, getPlaylist])
+    }, [query, accessToken, getPlaylist]);
 
     useEffect(() => {
         if (playlistInfo?.owner.id && accessToken) {
@@ -40,6 +41,10 @@ const PlaylistPage: React.FC = () => {
 
         dispatch(setTitle(`${playlistInfo.name} | Spotify Clone`));
     }, [dispatch, playlistInfo]);
+
+    if(playlistIsFetching || ownerIsFetching) {
+        return <Loader />;
+    }
 
     return (
         <>
@@ -60,7 +65,7 @@ const PlaylistPage: React.FC = () => {
                         tracksCount={playlistInfo.tracks.total}
                     />
 
-                    <ActionBar playlistId={Array.isArray(query.id) ? query.id[0] : (query.id || "")} />
+                    <ActionBar playlistId={Array.isArray(query.id) ? query.id[0] : query.id || ""} />
 
                     <Tracklist tracks={playlistInfo.tracks.items} />
                 </section>

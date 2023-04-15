@@ -6,7 +6,7 @@ import Image from "next/image";
 
 type PlaylistStatsProps = {
     ownerDisplayName: string;
-    ownerId: string
+    ownerId: string;
     tracksCount: number;
 
     followersCount?: number;

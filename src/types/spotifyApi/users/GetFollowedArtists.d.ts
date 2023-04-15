@@ -1,12 +1,12 @@
 interface GetFollowedArtists {
     artists: {
-        href: string
-        limit: number,
-        next: string
+        href: string;
+        limit: number;
+        next: string;
         cursors: {
-            after: string
-        },
-        total: number,
-        items: ArtistInfo[]
-    }
+            after: string;
+        };
+        total: number;
+        items: ArtistInfo[];
+    };
 }

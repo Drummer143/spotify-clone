@@ -17,9 +17,4 @@ export const defaultHeadersBGColors: { [key in "authentificated" | "nonAuthentif
     authentificated: ["#4820B000", "#4820B0"]
 };
 
-export const headerCollectionSwitchButtons = [
-    "playlists",
-    "podcasts",
-    "artists",
-    "albums"
-]
+export const headerCollectionSwitchButtons = ["playlists", "podcasts", "artists", "albums"];

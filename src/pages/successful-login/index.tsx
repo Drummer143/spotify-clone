@@ -1,14 +1,14 @@
+import React from "react";
 import { useEffect } from "react";
-
-import Layout from "@/components/Layout";
 import { useRouter } from "next/router";
+
 import { getAccessToken } from "@/redux";
 import { useAppSelector, useAppDispatch } from "@/hooks";
 
 export default function SuccessfulLogin() {
     const { accessToken } = useAppSelector(state => state.auth);
 
-    const { isReady, ...router } = useRouter();
+    const { isReady, push, query } = useRouter();
 
     const dispatch = useAppDispatch();
 
@@ -18,23 +18,20 @@ export default function SuccessfulLogin() {
         }
 
         if (accessToken) {
-            router.push({ pathname: "/" });
+            push({ pathname: "/" });
             return;
         }
 
-        let code = router.query.code;
+        let code = query.code;
 
         if (code) {
             if (Array.isArray(code)) {
                 code = code.join("");
             }
 
-            dispatch(getAccessToken(code))
-                .then(() => router.push({ pathname: "/" }));
+            dispatch(getAccessToken(code)).then(() => push({ pathname: "/" }));
         }
-    }, [accessToken, dispatch, isReady]);
+    }, [accessToken, dispatch, isReady, push, query.code]);
 
-    return (
-        <div className="w-screen h-screen flex items-center justify-center text-black text-3xl">Loading...</div>
-    );
+    return <div className="w-screen h-screen flex items-center justify-center text-black text-3xl">Loading...</div>;
 }

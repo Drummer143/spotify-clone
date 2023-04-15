@@ -26,7 +26,7 @@ export default async function image_proxy(req: NextApiRequest, res: NextApiRespo
 
     const passThrough = new Stream.PassThrough();
 
-    stream.pipeline(image.body as unknown as NodeJS.ReadableStream, passThrough, (error) => {
+    stream.pipeline(image.body as unknown as NodeJS.ReadableStream, passThrough, error => {
         if (error) {
             res.status(422).send({ message: "Couldn't fetch the image" });
             return;

@@ -12,8 +12,9 @@ type SongCardProps = {
 const SongCard: React.FC<SongCardProps> = ({ song }) => {
     return (
         <button
-            className={"group flex items-center gap-4 p-2 w-full rounded text-start cursor-default"
-                .concat(" hover:bg-[hsla(0,0%,100%,.1)] focus:bg-[hsla(0,0%,100%,.3)]")}
+            className={"group flex items-center gap-4 p-2 w-full rounded text-start cursor-default".concat(
+                " hover:bg-[hsla(0,0%,100%,.1)] focus:bg-[hsla(0,0%,100%,.3)]"
+            )}
         >
             <div className="relative">
                 <Image
