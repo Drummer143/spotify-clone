@@ -92,7 +92,7 @@ const PlaylistEditModal: React.FC<PlaylistEditModalProps> = ({
             overlayClassName="bg-[rgba(0,0,0,.7)] w-screen h-screen absolute top-0 left-0 z-[10]"
             shouldCloseOnOverlayClick={true}
             onRequestClose={onClose}
-            className={"w-fit h-fit bg-[#282828] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2".concat(
+            className={"h-fit bg-[#282828] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2".concat(
                 " rounded-lg w-[524px] min-h-[384px] shadow-edit-playlist-modal p-6"
             )}
         >
