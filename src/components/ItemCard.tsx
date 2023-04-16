@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/router";
 
-import { CardImagePlaceholder, PlayButton } from ".";
+import { ImagePlaceholder, PlayButton } from ".";
 
 type ItemCardProps = {
     type: ItemType;
@@ -38,7 +38,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ type, id, imageURL, description, na
                         )}
                     />
                 ) : (
-                    <CardImagePlaceholder type={type} />
+                    <ImagePlaceholder type={type} />
                 )}
 
                 {!["episode", "show"].includes(type) && (
