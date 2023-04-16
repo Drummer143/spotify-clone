@@ -2,23 +2,26 @@ import Head from "next/head";
 import React, { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import { spotifyApi } from "@/redux";
-import { useAppSelector } from "@/hooks";
-import { Loader, ActionBar, Tracklist, PlaylistInfo } from "@/components";
+import { setCurrentModal, spotifyApi } from "@/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { Loader, ActionBar, Tracklist, PlaylistInfo, PlaylistEditModal } from "@/components";
 
 const PlaylistPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
+    const currentModal = useAppSelector(state => state.app.currentModal);
 
     const [playlistId, setPlaylistId] = useState<string>();
 
+    const dispatch = useAppDispatch();
+
     const { query } = useRouter();
 
-    const [getPlaylist, { data: playlistInfo, isFetching: playlistIsFetching }] = spotifyApi.useLazyGetPlaylistQuery();
-    const [getOwnerInfo, { data: ownerInfo, isFetching: ownerIsFetching }] = spotifyApi.useLazyGetUserQuery();
-    const [unfollowPlaylist] = spotifyApi.useUnfollowPlaylistMutation();
     const [followPlaylist] = spotifyApi.useFollowPlaylistMutation();
+    const [unfollowPlaylist] = spotifyApi.useUnfollowPlaylistMutation();
     const [getCurrentUser, { currentData: user }] = spotifyApi.useLazyGetCurrentUserQuery();
     const [checkFollow, { data: followInfo }] = spotifyApi.useLazyIsUserFollowsPlaylistQuery();
+    const [getOwnerInfo, { data: ownerInfo, isFetching: ownerIsFetching }] = spotifyApi.useLazyGetUserQuery();
+    const [getPlaylist, { data: playlistInfo, isFetching: playlistIsFetching }] = spotifyApi.useLazyGetPlaylistQuery();
 
     const handleAddPlaylistToFavorite = useCallback(() => {
         if (!playlistId || !accessToken) {
@@ -31,6 +34,8 @@ const PlaylistPage: React.FC = () => {
             followPlaylist({ accessToken, playlistId });
         }
     }, [accessToken, followInfo, followPlaylist, playlistId, unfollowPlaylist]);
+
+    const handleCloseModal = () => dispatch(setCurrentModal());
 
     useEffect(() => {
         if (!query.id) {
@@ -84,7 +89,7 @@ const PlaylistPage: React.FC = () => {
                 <PlaylistInfo
                     description={playlistInfo.description}
                     followersCount={playlistInfo.followers.total}
-                    imageUrl={playlistInfo.images[0].url}
+                    imageUrl={playlistInfo.images[0]?.url}
                     name={playlistInfo.name}
                     ownerDisplayName={ownerInfo?.display_name}
                     ownerId={ownerInfo?.id}
@@ -96,15 +101,26 @@ const PlaylistPage: React.FC = () => {
                     userInfo={
                         followInfo
                             ? {
-                                  isFollowing: followInfo[0],
-                                  onFollowToggle: handleAddPlaylistToFavorite
-                              }
+                                isFollowing: followInfo[0],
+                                onFollowToggle: handleAddPlaylistToFavorite
+                            }
                             : undefined
                     }
                 />
 
                 <Tracklist tracks={playlistInfo.tracks.items} />
             </section>
+
+            {playlistInfo.owner.id === user?.id && (
+                <PlaylistEditModal
+                    onClose={handleCloseModal}
+                    isOpen={currentModal === "playlist"}
+                    playlistName={playlistInfo.name}
+                    imageURL={playlistInfo.images[0]?.url}
+                    playlistDescription={playlistInfo.description}
+                    playlistId={playlistInfo.id}
+                />
+            )}
         </>
     );
 };

@@ -2,7 +2,6 @@ import { useCallback, useEffect } from "react";
 
 type UseCloseInOuterClickProps = {
     active: boolean;
-    // eslint-disable-next-line no-unused-vars
     onOuterClick: (e: MouseEvent) => void;
 
     target?: HTMLElement | null;
@@ -13,7 +12,7 @@ export const useCloseInOuterClick = ({ onOuterClick, target, active }: UseCloseI
         (e: MouseEvent) => {
             if (target && !e.composedPath().includes(target)) {
                 onOuterClick(e);
-                document.removeEventListener("click", hide);
+                document.removeEventListener("mousedown", hide);
             }
         },
         [onOuterClick, target]
@@ -21,11 +20,11 @@ export const useCloseInOuterClick = ({ onOuterClick, target, active }: UseCloseI
 
     useEffect(() => {
         if (active) {
-            document.addEventListener("click", hide);
+            document.addEventListener("mousedown", hide);
         }
 
         return () => {
-            document.removeEventListener("click", hide);
+            document.removeEventListener("mousedown", hide);
         };
     }, [active, hide]);
 };

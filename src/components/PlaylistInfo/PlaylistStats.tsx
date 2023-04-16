@@ -38,7 +38,7 @@ const PlaylistStats: React.FC<PlaylistStatsProps> = ({
                 <p className="font-bold">{ownerDisplayName}</p>
             </Link>
 
-            {followersCount && (
+            {!!followersCount && (
                 <>
                     <span className="mx-1 text-base">•</span>
 
@@ -46,11 +46,13 @@ const PlaylistStats: React.FC<PlaylistStatsProps> = ({
                 </>
             )}
 
-            <span className="mx-1 text-base">•</span>
+            {!!(followersCount && tracksCount) && <span className="mx-1 text-base">•</span>}
 
-            <p>
-                <span>{tracksCount} songs</span>
-            </p>
+            {!!tracksCount && (
+                <p>
+                    <span>{tracksCount} songs</span>
+                </p>
+            )}
         </div>
     );
 };

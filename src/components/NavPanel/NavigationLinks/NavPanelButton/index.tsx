@@ -47,12 +47,13 @@ const NavPanelButton: React.FC<NavPanelButtonProps> = ({
                 {children}
             </button>
 
-            {isAuthentificated && (
+            {!isAuthentificated && (
                 <Modal
                     className={"transition-[transform,_opacity]".concat(
                         " ",
                         isOpen ? "translate-x-[-0.5rem]" : "opacity-0"
                     )}
+                    displayOnHide
                     visible={isOpen}
                     onClose={onClose}
                     targetRef={containerRef}

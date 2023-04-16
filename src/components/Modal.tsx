@@ -1,52 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef } from "react";
+import dynamic from "next/dynamic";
 import { createPortal } from "react-dom";
 
 import { useCloseInOuterClick } from "@/hooks";
 
 type ModalProps = Pick<JSX.IntrinsicElements["div"], "children" | "className"> & {
+    onClose: (e: MouseEvent) => void;
+
+    targetRef?: React.RefObject<HTMLElement>;
     top?: number;
     right?: number;
     bottom?: number;
     left?: number;
     visible?: boolean;
-    unmountOnHide?: boolean;
-    targetRef: React.RefObject<HTMLElement>;
-    onClose: (e: MouseEvent) => void;
+    displayOnHide?: boolean;
 };
 
 const Modal: React.FC<ModalProps> = ({
-    bottom,
     children,
+    bottom,
     left,
     right,
     top,
-    visible,
+    visible = false,
     className,
-    unmountOnHide,
+    displayOnHide = false,
     onClose,
     targetRef
 }) => {
-    const [isBrowser, setIsBrowser] = useState(false);
-
-    useEffect(() => {
-        setIsBrowser(true);
-    }, []);
+    const modalRef = useRef<HTMLDivElement>(null);
 
     useCloseInOuterClick({
         onOuterClick: onClose,
-        target: targetRef?.current,
+        target: targetRef?.current ? targetRef.current : modalRef.current,
         active: visible || false
     });
 
-    if ((unmountOnHide && !visible) || !isBrowser) {
-        return <></>;
-    }
-
     return createPortal(
         <div
+            ref={modalRef}
             className={"absolute"
                 .concat(className ? ` ${className}` : "")
-                .concat(visible ? "" : " opacity-0 pointer-events-none")}
+                .concat(visible ? "" : displayOnHide ? " opacity-0 pointer-events-none" : " hidden")}
             style={{
                 bottom,
                 left: !left && !right ? "50%" : left,
@@ -60,4 +55,4 @@ const Modal: React.FC<ModalProps> = ({
     );
 };
 
-export default Modal;
+export default dynamic(() => Promise.resolve(Modal), { ssr: false });

@@ -7,8 +7,8 @@ import { Header, NavPanel, NowPlayingBar, ResizeDetector } from "..";
 import styles from "@/styles/Layout.module.css";
 
 type LayoutProps = {
-    children?: React.ReactNode
-}
+    children?: React.ReactNode;
+};
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
     const scrollRef = useRef<HTMLElement>(null);

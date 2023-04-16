@@ -8,7 +8,8 @@ module.exports = {
             boxShadow: {
                 "header-menu": "0 16px 24px rgb(0 0 0 / 30%), 0 6px 8px rgb(0 0 0 / 20%)",
                 "playlist-card": "0 8px 8px rgb(0 0 0 / 30%)",
-                "playlist-cover-image": "0 4px 60px rgb(0 0 0 / 50%)"
+                "playlist-cover-image": "0 4px 60px rgb(0 0 0 / 50%)",
+                "edit-playlist-modal": "0 4px 4px rgb(0 0 0 / 30%)"
             },
             backgroundImage: {
                 "action-bar-gradient": "linear-gradient(rgba(0, 0, 0, 0.6) 0, #121212 100%), var(--background-noise)",

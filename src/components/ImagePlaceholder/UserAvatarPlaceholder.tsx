@@ -1,8 +1,16 @@
 import React from "react";
 
-const CardImagePlaceholder: React.FC = () => {
+type UserAvatarPlaceholderProps = JSX.IntrinsicElements["svg"];
+
+const UserAvatarPlaceholder: React.FC<UserAvatarPlaceholderProps> = ({
+    width = 24,
+    height = 24,
+    viewBox = "0 0 24 24",
+    role = "img",
+    ...otherProps
+}) => {
     return (
-        <svg role="img" height="64" width="64" viewBox="0 0 24 24" data-encore-id="icon">
+        <svg role={role} height={height} width={width} viewBox={viewBox} {...otherProps}>
             <path
                 d="m13.363 10.474-.521.625a2.499 2.499 0 0 0 .67 3.766l.285.164a5.998 5.998 0 0 1 
                     1.288-1.565l-.573-.33a.5.5 0 0 1-.134-.754l.52-.624a7.372 7.372 0 0 0 1.837-4.355 7.221 7.221 
@@ -18,4 +26,4 @@ const CardImagePlaceholder: React.FC = () => {
     );
 };
 
-export default CardImagePlaceholder;
+export default UserAvatarPlaceholder;

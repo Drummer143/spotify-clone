@@ -1,7 +1,7 @@
 export { default as ActionBar } from "./ActionBar";
-export { default as CardImagePlaceholder } from "./CardImagePlaceholder";
 export { default as CategoryPlaylistsCollection } from "./CategoryPlaylistsCollection";
 export { default as CategorySearchResults } from "./CategorySearchResults";
+export { default as ImagePlaceholder } from "./ImagePlaceholder";
 export { default as GenreCard } from "./GenreCard";
 export { default as GoogleMaterialIcon } from "./GoogleMaterialIcon";
 export { default as Header } from "./Header";
@@ -13,6 +13,7 @@ export { default as Modal } from "./Modal";
 export { default as NavPanel } from "./NavPanel";
 export { default as NowPlayingBar } from "./NowPlayingBar";
 export { default as PlayButton } from "./PlayButton";
+export { default as PlaylistEditModal } from "./PlaylistEditModal";
 export { default as PlaylistInfo } from "./PlaylistInfo";
 export { default as ResizeDetector } from "./ResizeDetector";
 export { default as SavedSongsIcon } from "./SavedSongsIcon";

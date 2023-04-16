@@ -7,7 +7,7 @@ import { spotifyApiHeaders, stringifySearchParams } from "@/utils";
 
 export const spotifyApi = createApi({
     reducerPath: "spotifyApi",
-    tagTypes: ["CurrentUsersPlaylists", "FollowCheck"],
+    tagTypes: ["CurrentUsersPlaylists", "FollowCheck", "PlaylistInfo"],
     baseQuery: fetchBaseQuery({ baseUrl: "https://api.spotify.com/v1" }),
     extractRehydrationInfo: (action, { reducerPath }) => {
         if (action.type === HYDRATE) {
@@ -197,7 +197,8 @@ export const spotifyApi = createApi({
             query: ({ accessToken, playlistId }) => ({
                 url: `/playlists/${playlistId}`,
                 headers: spotifyApiHeaders(accessToken)
-            })
+            }),
+            providesTags: ["PlaylistInfo"]
         }),
 
         isUserFollowsPlaylist: build.query<
@@ -234,6 +235,41 @@ export const spotifyApi = createApi({
                 headers: spotifyApiHeaders(accessToken)
             }),
             invalidatesTags: ["CurrentUsersPlaylists", "FollowCheck"]
+        }),
+
+        addCustomPlaylistCoverImage: build.mutation<"", { playlistId: string; accessToken: string; image: string }>({
+            query: ({ accessToken, image, playlistId }) => ({
+                url: `/playlists/${playlistId}/images`,
+                method: "PUT",
+                body: image,
+                headers: {
+                    ...spotifyApiHeaders(accessToken),
+                    "Content-Type": "image/jpeg"
+                }
+            }),
+            invalidatesTags: ["PlaylistInfo"]
+        }),
+
+        changePlaylistDetails: build.mutation<
+            "",
+            {
+                playlistId: string;
+                accessToken: string;
+                body: {
+                    name?: string;
+                    description?: string;
+                    public?: boolean;
+                    collaborative?: boolean;
+                };
+            }
+        >({
+            query: ({ accessToken, playlistId, body }) => ({
+                url: `/playlists/${playlistId}`,
+                body,
+                method: "PUT",
+                headers: spotifyApiHeaders(accessToken)
+            }),
+            invalidatesTags: ["PlaylistInfo"]
         })
     })
 });

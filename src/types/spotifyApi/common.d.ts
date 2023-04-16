@@ -29,7 +29,7 @@ interface FollowersInfo {
     total: number;
 }
 
-type ItemType = "album" | "artist" | "playlist" | "track" | "show" | "episode" /* | "audiobook" */;
+type ItemType = "album" | "artist" | "playlist" | "track" | "show" | "episode" | "user" /* | "audiobook" */;
 
 interface CategoryInfo {
     href: string;

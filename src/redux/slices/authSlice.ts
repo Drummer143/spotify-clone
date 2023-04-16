@@ -1,12 +1,12 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { PERSIST_KEY, RootState } from "..";
-import { getAccessToken as spotifyGetAccessToken } from "../../utils";
+import { getAccessToken as spotifyGetAccessToken } from "@/utils";
 
 interface AuthState {
     codeVerifier?: string;
     accessToken?: string;
-    user?: User;
+    currentUserId?: string | undefined;
 }
 
 type State = { state: RootState };
@@ -38,13 +38,19 @@ const authSlice = createSlice({
             state.accessToken = action.payload;
             state.codeVerifier = undefined;
         },
+
         setCodeVerifier: (state, action: PayloadAction<string>) => {
             state.codeVerifier = action.payload;
         },
+
+        setCurrentUserId: (state, action: PayloadAction<string>) => {
+            state.currentUserId = action.payload;
+        },
+
         logOut: state => {
             state.accessToken = undefined;
             state.codeVerifier = undefined;
-            state.user = undefined;
+            state.currentUserId = undefined;
             localStorage.removeItem(`persist:${PERSIST_KEY}`);
         }
     },
@@ -58,4 +64,4 @@ const authSlice = createSlice({
 
 export default authSlice;
 
-export const { setAccessToken, setCodeVerifier, logOut } = authSlice.actions;
+export const { setAccessToken, setCodeVerifier, logOut, setCurrentUserId } = authSlice.actions;

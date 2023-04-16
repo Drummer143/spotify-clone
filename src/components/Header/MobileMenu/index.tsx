@@ -17,7 +17,6 @@ const MobileMenu: React.FC = () => {
             <MobileMenuButton isMenuOpened={isOpen} onClick={onToggle} />
 
             <Modal
-                unmountOnHide
                 onClose={onClose}
                 targetRef={menuRef}
                 visible={isOpen}

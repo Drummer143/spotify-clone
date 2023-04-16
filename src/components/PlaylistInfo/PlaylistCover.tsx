@@ -1,0 +1,49 @@
+import React from "react";
+import Image from "next/image";
+
+import EditImageSVG from "./EditImageSVG";
+import ImagePlaceholder from "../ImagePlaceholder";
+
+type PlaylistCoverProps = {
+    onClick?: React.MouseEventHandler<HTMLButtonElement>;
+    className?: string;
+    imageURL?: string;
+    editable?: boolean;
+    cacheImage?: boolean;
+};
+
+const PlaylistCover: React.FC<PlaylistCoverProps> = ({ imageURL, className, editable, onClick, cacheImage = true }) => {
+    return (
+        <div className={"group z-0 relative shadow-playlist-cover-image".concat(className ? ` ${className}` : "")}>
+            {imageURL ? (
+                <Image
+                    width={192}
+                    height={192}
+                    alt="cover image"
+                    className="w-full h-full"
+                    src={cacheImage ? `/api/image_proxy?uri=${imageURL}` : imageURL}
+                />
+            ) : (
+                <div className="w-full h-full bg-[#282828] flex items-center justify-center">
+                    <ImagePlaceholder width={48} height={48} fill="#7f7f7f" type="playlist" className="hover:hidden" />
+                </div>
+            )}
+
+            {editable && (
+                <button
+                    onClick={onClick}
+                    type="button"
+                    className={"w-full h-full absolute top-0 left-0 z-[1] items-center justify-center hidden"
+                        .concat(" text-white flex-col gap-1")
+                        .concat(" ", imageURL ? "bg-[rgba(0,0,0,.7)]" : "bg-[#282828]")
+                        .concat(" group-hover:flex")}
+                >
+                    <EditImageSVG fill="currentColor" className="mt-7" />
+                    <p>Edit playlist</p>
+                </button>
+            )}
+        </div>
+    );
+};
+
+export default PlaylistCover;

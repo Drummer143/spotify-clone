@@ -8,12 +8,12 @@ import Background from "./Background";
 import MobileMenu from "./MobileMenu";
 import PlaylistBar from "./PlaylistBar";
 import SearchInput from "./SearchInput";
-import LoginButton from "../LoginButton";
 import CollectionButtons from "./CollectionButtons";
 import HistoryNavigationButtons from "./HistoryNavigationButtons";
-import { spotifyApi } from "@/redux";
+import { spotifyApi, setCurrentUserId } from "@/redux";
+import { LoginButton } from "..";
 import { headerLinks } from "@/utils";
-import { useAppSelector } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 
 type HeaderProps = {
     scrollY: MotionValue<number>;
@@ -26,6 +26,8 @@ const Header: React.FC<HeaderProps> = ({ scrollY }) => {
 
     const router = useRouter();
 
+    const dispatch = useAppDispatch();
+
     const [getCurrentUser, { currentData: user }] = spotifyApi.useLazyGetCurrentUserQuery();
 
     useEffect(() => {
@@ -33,6 +35,12 @@ const Header: React.FC<HeaderProps> = ({ scrollY }) => {
             getCurrentUser(accessToken);
         }
     }, [accessToken, getCurrentUser]);
+
+    useEffect(() => {
+        if (user) {
+            dispatch(setCurrentUserId(user.id));
+        }
+    }, [dispatch, user]);
 
     return (
         <header

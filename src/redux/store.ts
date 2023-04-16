@@ -15,7 +15,7 @@ const persistentReducer = persistCombineReducers(
     {
         key: PERSIST_KEY,
         storage,
-        blacklist: [spotifyApi.reducerPath]
+        blacklist: [spotifyApi.reducerPath, "app"]
     },
     {
         app: appSlice.reducer,
@@ -34,7 +34,7 @@ const store = configureStore({
                 warnAfter: 128
             },
             immutableCheck: {
-                ignoredPaths: ["spotifyApi"],
+                ignoredPaths: ["persist/PERSIST", "spotifyApi"],
                 warnAfter: 128
             }
         }).concat(spotifyApi.middleware, rtkQueryErrorLogger)

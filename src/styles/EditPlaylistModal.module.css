@@ -1,0 +1,7 @@
+.inputLabel {
+    opacity: 0;
+}
+
+.input:focus ~ .inputLabel {
+    opacity: 1;
+}

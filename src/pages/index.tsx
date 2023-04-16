@@ -34,16 +34,19 @@ const MainPage: React.FC = () => {
 
     return (
         <>
-        <Head>
-            <title>Spotify Clone</title>
-        </Head>
+            <Head>
+                <title>Spotify Clone</title>
+            </Head>
 
-        <div ref={mainPageContainerRef} className={"pt-16 px-[var(--content-spacing)] flex flex-col gap-10 max-h-full"}>
-            {browseCategories &&
-                browseCategories.categories.items.map(category => (
-                    <CategoryPlaylistsCollection key={category.id} {...category} />
-                ))}
-        </div>
+            <div
+                ref={mainPageContainerRef}
+                className={"pt-16 px-[var(--content-spacing)] flex flex-col gap-10 max-h-full"}
+            >
+                {browseCategories &&
+                    browseCategories.categories.items.map(category => (
+                        <CategoryPlaylistsCollection key={category.id} {...category} />
+                    ))}
+            </div>
         </>
     );
 };
