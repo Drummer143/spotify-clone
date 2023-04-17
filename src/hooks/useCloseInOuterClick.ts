@@ -12,7 +12,7 @@ export const useCloseInOuterClick = ({ onOuterClick, target, active }: UseCloseI
         (e: MouseEvent) => {
             if (target && !e.composedPath().includes(target)) {
                 onOuterClick(e);
-                document.removeEventListener("mousedown", hide);
+                document.removeEventListener("click", hide);
             }
         },
         [onOuterClick, target]
@@ -20,11 +20,11 @@ export const useCloseInOuterClick = ({ onOuterClick, target, active }: UseCloseI
 
     useEffect(() => {
         if (active) {
-            document.addEventListener("mousedown", hide);
+            document.addEventListener("click", hide);
         }
 
         return () => {
-            document.removeEventListener("mousedown", hide);
+            document.removeEventListener("click", hide);
         };
     }, [active, hide]);
 };

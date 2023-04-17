@@ -37,7 +37,8 @@ const store = configureStore({
                 ignoredPaths: ["persist/PERSIST", "spotifyApi"],
                 warnAfter: 128
             }
-        }).concat(spotifyApi.middleware, rtkQueryErrorLogger)
+        }).concat(spotifyApi.middleware, rtkQueryErrorLogger),
+    devTools: process.env.NODE_ENV === "development"
 });
 
 setupListeners(store.dispatch);

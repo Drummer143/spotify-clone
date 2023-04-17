@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ColorThief from "color-thief-ts";
+import { useRouter } from "next/router";
 
 import PlaylistStats from "./PlaylistStats";
 import PlaylistCover from "./PlaylistCover";
@@ -20,13 +21,15 @@ type PlaylistInfoProps = {
     ownerImageUrl?: string;
 };
 
-const PlaylistInfo: React.FC<PlaylistInfoProps> = ({ description, imageUrl, name, ...stats }) => {
+const PlaylistInfo: React.FC<PlaylistInfoProps> = ({ description, imageUrl, name, ...otherProps }) => {
     const bgColor = useAppSelector(state => state.app.headerBGColor[1]);
     const currentUserId = useAppSelector(state => state.auth.currentUserId);
 
     const [colorDetector] = useState(new ColorThief());
 
     const dispatch = useAppDispatch();
+
+    const { asPath } = useRouter();
 
     const containerRef = useRef<HTMLDivElement>(null);
     const playlistNameRef = useRef<HTMLHeadingElement>(null);
@@ -64,7 +67,7 @@ const PlaylistInfo: React.FC<PlaylistInfoProps> = ({ description, imageUrl, name
                     onClick={handleOpenModal}
                     className="w-48 h-48"
                     imageURL={imageUrl}
-                    editable={currentUserId === stats.ownerId}
+                    editable={!asPath.includes("collection") && currentUserId === otherProps.ownerId}
                 />
 
                 <div ref={containerRef} className={"flex h-full flex-col justify-end"}>
@@ -83,7 +86,7 @@ const PlaylistInfo: React.FC<PlaylistInfoProps> = ({ description, imageUrl, name
 
                     <p className="text-[hsla(0,0%,100%,.7)] text-sm">{description}</p>
 
-                    <PlaylistStats {...stats} />
+                    <PlaylistStats {...otherProps} />
                 </div>
             </div>
         </>

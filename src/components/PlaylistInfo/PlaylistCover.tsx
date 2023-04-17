@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import EditImageSVG from "./EditImageSVG";
 import ImagePlaceholder from "../ImagePlaceholder";
+import { isURL } from "@/utils";
 
 type PlaylistCoverProps = {
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -21,7 +22,7 @@ const PlaylistCover: React.FC<PlaylistCoverProps> = ({ imageURL, className, edit
                     height={192}
                     alt="cover image"
                     className="w-full h-full"
-                    src={cacheImage ? `/api/image_proxy?uri=${imageURL}` : imageURL}
+                    src={cacheImage && isURL(imageURL) ? `/api/image_proxy?uri=${imageURL}` : imageURL}
                 />
             ) : (
                 <div className="w-full h-full bg-[#282828] flex items-center justify-center">

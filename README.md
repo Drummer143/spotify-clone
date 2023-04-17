@@ -25,3 +25,7 @@ Implements almost all features available in [original app](open.spotify.com).
 - [ ] Refreshing access token - ?
 - [ ] Download desktop app page - ?
 - [ ] Rewrite all styles from tailwindCSS to Sass - ?
+
+## Bugs ##
+Editable liked songs playlist cover
+Liked songs image isn't displaying
