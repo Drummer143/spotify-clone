@@ -13,15 +13,20 @@ Implements almost all features available in [original app](open.spotify.com).
 - [x] User page
     - [x]  Follow/Unfollow user
 - [ ] Artist page
-- [ ] User search
+- [ ] Album page
+- [ ] Track page
+- [ ] Episode page
+- [ ] Podcast page
 - [ ] Music Player
-- [ ] Mobile version
+- [ ] Setting button in item pages
 - [ ] Playlist creation
 - [ ] History navigation
-- [ ] Save episodes page 
+- [ ] Saved episodes page
 - [ ] Finish Now Playing Bar
 - [ ] Infinite scroll everywhere
-- [ ] Proxy nxt server - ?
+- [x] User search - no api for it
+- [ ] Mobile version - ?
+- [ ] Proxy next server - ?
 - [ ] Custom scrollbars - ?
 - [ ] Refreshing access token - ?
 - [ ] Download desktop app page - ?
@@ -31,3 +36,5 @@ Implements almost all features available in [original app](open.spotify.com).
 - [ ] Incorrect placeholder displaying in Item Card
 - [ ] Use proxy for all images
 - [ ] Fix Warnings called by Image tags
+- [ ] Fix bottom paddings in all page
+- [ ] Fix "0" error
