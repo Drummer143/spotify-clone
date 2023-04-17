@@ -43,7 +43,8 @@ const SongCard: React.FC<SongCardProps> = ({
 
     return (
         <button
-            className={"group grid h-14 gap-4 items-center w-full text-[#b3b3b3] px-4 cursor-default rounded text-start"
+            className={"group grid h-14 gap-4 items-center w-full text-[#b3b3b3] px-4 cursor-default"
+                .concat(" rounded text-start text-sm")
                 .concat(" hover:bg-[hsla(0,0%,100%,.1)] focus:bg-[hsla(0,0%,100%,.3)]")
                 .concat(
                     countOfHiddenFields === 0

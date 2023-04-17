@@ -26,7 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 </Layout>
             </Provider>
 
-            <Analytics />
+            <Analytics mode="production" />
         </>
     );
 }

@@ -12,7 +12,7 @@ Implements almost all features available in [original app](open.spotify.com).
 ## TODO: ##
 - [x] User page
     - [x] Follow/Unfollow user
-    - [ ] Top user's tracks page
+    - [x] Top user's tracks page
     - [ ] Current user's following page
     - [ ] User's Playlists
     - [ ] Statistic period toggler
@@ -24,6 +24,7 @@ Implements almost all features available in [original app](open.spotify.com).
 - [ ] Episode page
 - [ ] Podcast page
 - [ ] Music Player
+- [ ] Drag'n'Drop
 - [ ] Setting button in item pages
 - [ ] Playlist creation
 - [ ] History navigation
@@ -31,6 +32,7 @@ Implements almost all features available in [original app](open.spotify.com).
 - [ ] Finish Now Playing Bar
 - [ ] Infinite scroll everywhere
 - [x] User search - no api for it
+- [ ] Tests - ?
 - [ ] Mobile version - ?
 - [ ] Proxy next server - ?
 - [ ] Custom scrollbars - ?
