@@ -29,7 +29,7 @@ const SonglistHead: React.FC<SonglistHeadProps> = ({ stickyX = 64, hiddenFields 
 
     return (
         <div
-            className={" mb-4 sticky transition-[background-color] px-[var(--content-spacing)]".concat(
+            className={" mb-4 sticky z-[1] transition-[background-color] px-content-spacing".concat(
                 " ",
                 isSticky ? "bg-[#18181800]" : "bg-[#181818]"
             )}

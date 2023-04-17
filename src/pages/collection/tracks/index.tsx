@@ -3,7 +3,8 @@ import React, { useEffect } from "react";
 
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
-import { Tracklist, ActionBar, PlaylistInfo } from "@/components";
+import { Tracklist, ActionBar, ItemPageTopSection } from "@/components";
+import PlaylistStats from "@/components/ItemPageTopSection/PlaylistStats";
 
 const LikeSongPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -36,14 +37,19 @@ const LikeSongPage: React.FC = () => {
             </Head>
 
             <section className="max-h-full">
-                <PlaylistInfo
+                <ItemPageTopSection
                     name="Liked songs"
                     ownerId={user.id}
+                    type="playlist"
                     imageUrl="/likedSongsImage.png"
-                    tracksCount={savedTracks.total}
-                    ownerImageUrl={user.images[0]?.url}
-                    ownerDisplayName={user.display_name}
-                />
+                >
+                    <PlaylistStats
+                        ownerDisplayName={user.display_name}
+                        ownerId={user.id}
+                        tracksCount={savedTracks.total}
+                        ownerImageUrl={user.images[0]?.url}
+                    />
+                </ItemPageTopSection>
 
                 <ActionBar />
 

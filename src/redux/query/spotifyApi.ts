@@ -7,7 +7,7 @@ import { spotifyApiHeaders, stringifySearchParams } from "@/utils";
 
 export const spotifyApi = createApi({
     reducerPath: "spotifyApi",
-    tagTypes: ["CurrentUsersPlaylists", "FollowCheck", "PlaylistInfo"],
+    tagTypes: ["CurrentUsersPlaylists", "PlaylistFollowInfo", "PlaylistInfo", "UserFollowInfo"],
     baseQuery: fetchBaseQuery({ baseUrl: "https://api.spotify.com/v1" }),
     extractRehydrationInfo: (action, { reducerPath }) => {
         if (action.type === HYDRATE) {
@@ -113,6 +113,48 @@ export const spotifyApi = createApi({
             })
         }),
 
+        getUserTopArtists: build.query<GetUserTopItems<"artists">, {
+            accessToken: string
+            searchParams?: {
+                time_range?: "long_term" | "medium_term" | "short_term"
+                limit?: number;
+                after?: string;
+            };
+        }>({
+            query: ({ accessToken, searchParams }) => ({
+                url: `/me/top/artists?${stringifySearchParams(searchParams)}`,
+                headers: spotifyApiHeaders(accessToken)
+            })
+        }),
+
+        getUserTopTracks: build.query<GetUserTopItems<"tracks">, {
+            accessToken: string
+            searchParams?: {
+                time_range?: "long_term" | "medium_term" | "short_term"
+                limit?: number;
+                after?: string;
+            };
+        }>({
+            query: ({ accessToken, searchParams }) => ({
+                url: `/me/top/tracks?${stringifySearchParams(searchParams)}`,
+                headers: spotifyApiHeaders(accessToken)
+            })
+        }),
+
+        checkIfUserFollowsUsers: build.query<boolean[], {
+            accessToken: string
+            searchParams: {
+                type: "artist" | "user"
+                ids: string[]
+            }
+        }>({
+            query: ({ accessToken, searchParams }) => ({
+                url: "/me/following/contains?" + stringifySearchParams(searchParams),
+                headers: spotifyApiHeaders(accessToken)
+            }),
+            providesTags: ["UserFollowInfo"]
+        }),
+
         getSeveralBrowseCategories: build.query<
             GetSeveralBrowseCategoriesResponse,
             {
@@ -173,6 +215,20 @@ export const spotifyApi = createApi({
             })
         }),
 
+        getUserPlaylists: build.query<GetUserPlaylistsResponse, {
+            accessToken: string
+            userId: string
+            searchParams?: {
+                limit?: number;
+                offset?: number;
+            };
+        }>({
+            query: ({ accessToken, userId, searchParams }) => ({
+                url: `/users/${userId}/playlists?${stringifySearchParams(searchParams)}`,
+                headers: spotifyApiHeaders(accessToken)
+            })
+        }),
+
         searchForItem: build.query<
             SearchForItemResponse,
             {
@@ -213,7 +269,7 @@ export const spotifyApi = createApi({
                     headers: spotifyApiHeaders(accessToken)
                 };
             },
-            providesTags: ["FollowCheck"]
+            providesTags: ["PlaylistFollowInfo"]
         }),
 
         followPlaylist: build.mutation<"", { playlistId: string; accessToken: string }>({
@@ -225,7 +281,7 @@ export const spotifyApi = createApi({
                     public: true
                 }
             }),
-            invalidatesTags: ["CurrentUsersPlaylists", "FollowCheck"]
+            invalidatesTags: ["CurrentUsersPlaylists", "PlaylistFollowInfo"]
         }),
 
         unfollowPlaylist: build.mutation<"", { playlistId: string; accessToken: string }>({
@@ -234,7 +290,7 @@ export const spotifyApi = createApi({
                 method: "DELETE",
                 headers: spotifyApiHeaders(accessToken)
             }),
-            invalidatesTags: ["CurrentUsersPlaylists", "FollowCheck"]
+            invalidatesTags: ["CurrentUsersPlaylists", "PlaylistFollowInfo"]
         }),
 
         addCustomPlaylistCoverImage: build.mutation<"", { playlistId: string; accessToken: string; image: string }>({
@@ -270,6 +326,36 @@ export const spotifyApi = createApi({
                 headers: spotifyApiHeaders(accessToken)
             }),
             invalidatesTags: ["PlaylistInfo"]
+        }),
+
+        followUsers: build.mutation<"", {
+            accessToken: string
+            searchParams: {
+                type: "artist" | "user"
+                ids: string[]
+            }
+        }>({
+            query: ({ accessToken, searchParams }) => ({
+                url: "/me/following?" + stringifySearchParams(searchParams),
+                headers: spotifyApiHeaders(accessToken),
+                method: "PUT"
+            }),
+            invalidatesTags: ["UserFollowInfo"]
+        }),
+
+        unFollowUsers: build.mutation<"", {
+            accessToken: string
+            searchParams: {
+                type: "artist" | "user"
+                ids: string[]
+            }
+        }>({
+            query: ({ accessToken, searchParams }) => ({
+                url: "/me/following?" + stringifySearchParams(searchParams),
+                headers: spotifyApiHeaders(accessToken),
+                method: "DELETE"
+            }),
+            invalidatesTags: ["UserFollowInfo"]
         })
     })
 });

@@ -75,24 +75,26 @@ const CertainSearchResultsPage: React.FC = () => {
                 <title>Spotify Clone - Search</title>
             </Head>
 
-            <SonglistHead hiddenFields={{ dateAdded: true }} stickyX={108} />
+            <section>
+                <SonglistHead hiddenFields={{ dateAdded: true }} stickyX={108} />
 
-            <div className="px-[var(--content-spacing)]">
-                {result?.tracks?.items.length &&
-                    result.tracks.items.map((track, i) => (
-                        <SongCard
-                            key={track.id}
-                            albumId={track.album.id}
-                            albumName={track.album.name}
-                            artists={track.artists}
-                            duration={track.duration_ms}
-                            imageURL={track.album.images[2]?.url}
-                            name={track.name}
-                            number={i + 1}
-                            songId={track.id}
-                        />
-                    ))}
-            </div>
+                <div className="px-content-spacing">
+                    {result?.tracks?.items.length &&
+                        result.tracks.items.map((track, i) => (
+                            <SongCard
+                                key={track.id}
+                                albumId={track.album.id}
+                                albumName={track.album.name}
+                                artists={track.artists}
+                                duration={track.duration_ms}
+                                imageURL={track.album.images[2]?.url}
+                                name={track.name}
+                                number={i + 1}
+                                songId={track.id}
+                            />
+                        ))}
+                </div>
+            </section>
         </>
     );
 };

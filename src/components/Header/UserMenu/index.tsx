@@ -39,7 +39,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
                 visible={isOpen}
                 top={(menuContainerRef.current?.getBoundingClientRect().bottom || 0) + 12}
                 left={menuContainerRef.current?.getBoundingClientRect().right}
-                className="-translate-x-full"
+                className="-translate-x-full z-[2]"
                 onClose={onClose}
             >
                 <DropdownMenu>

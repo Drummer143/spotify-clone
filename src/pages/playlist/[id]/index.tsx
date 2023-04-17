@@ -4,7 +4,8 @@ import { useRouter } from "next/router";
 
 import { setCurrentModal, spotifyApi } from "@/redux";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { Loader, ActionBar, Tracklist, PlaylistInfo, PlaylistEditModal } from "@/components";
+import { Loader, ActionBar, Tracklist, ItemPageTopSection, PlaylistEditModal } from "@/components";
+import PlaylistStats from "@/components/ItemPageTopSection/PlaylistStats";
 
 const PlaylistPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -86,16 +87,21 @@ const PlaylistPage: React.FC = () => {
             </Head>
 
             <section className="max-h-full">
-                <PlaylistInfo
+                <ItemPageTopSection
+                    type={playlistInfo.type}
                     description={playlistInfo.description}
-                    followersCount={playlistInfo.followers.total}
                     imageUrl={playlistInfo.images[0]?.url}
                     name={playlistInfo.name}
-                    ownerDisplayName={ownerInfo?.display_name}
                     ownerId={ownerInfo?.id}
-                    ownerImageUrl={ownerInfo?.images[0]?.url}
-                    tracksCount={playlistInfo.tracks.total}
-                />
+                >
+                    <PlaylistStats
+                        ownerDisplayName={playlistInfo.owner.display_name}
+                        ownerId={ownerInfo.id}
+                        ownerImageUrl={ownerInfo.images[0]?.url}
+                        tracksCount={playlistInfo.tracks.total}
+                        followersCount={ownerInfo.followers.total}
+                    />
+                </ItemPageTopSection>
 
                 <ActionBar
                     userInfo={

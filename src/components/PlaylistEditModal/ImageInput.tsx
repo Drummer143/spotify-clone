@@ -1,15 +1,16 @@
 import React, { useRef } from "react";
 
-import PlaylistCover from "../PlaylistInfo/PlaylistCover";
+import PlaylistCover from "../ItemPageTopSection/ItemImage";
 
 type ImageInputProps = {
     setCurrentCover: React.Dispatch<React.SetStateAction<string | undefined>>;
+    type: ItemType;
 
     currentCover?: string;
     isNewImage?: boolean;
 };
 
-const ImageInput: React.FC<ImageInputProps> = ({ setCurrentCover, currentCover, isNewImage }) => {
+const ImageInput: React.FC<ImageInputProps> = ({ setCurrentCover, currentCover, isNewImage, type }) => {
     const imageInputRef = useRef<HTMLInputElement>(null);
 
     const handleSelectImage: React.MouseEventHandler<HTMLButtonElement> = () => imageInputRef.current?.click();
@@ -47,6 +48,7 @@ const ImageInput: React.FC<ImageInputProps> = ({ setCurrentCover, currentCover, 
 
             <PlaylistCover
                 onClick={handleSelectImage}
+                type={type}
                 imageURL={currentCover}
                 className="h-full w-full"
                 editable

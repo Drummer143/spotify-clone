@@ -10,7 +10,8 @@ Implements almost all features available in [original app](open.spotify.com).
 5. TailwindCSS
 
 ## TODO: ##
-- [ ] User page
+- [x] User page
+    - [x]  Follow/Unfollow user
 - [ ] Artist page
 - [ ] User search
 - [ ] Music Player
@@ -26,6 +27,7 @@ Implements almost all features available in [original app](open.spotify.com).
 - [ ] Download desktop app page - ?
 - [ ] Rewrite all styles from tailwindCSS to Sass - ?
 
-## Bugs ##
-Editable liked songs playlist cover
-Liked songs image isn't displaying
+## BUGS: ##
+- [ ] Incorrect placeholder displaying in Item Card
+- [ ] Use proxy for all images
+- [ ] Fix Warnings called by Image tags

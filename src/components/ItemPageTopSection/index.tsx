@@ -2,26 +2,30 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import ColorThief from "color-thief-ts";
 import { useRouter } from "next/router";
 
-import PlaylistStats from "./PlaylistStats";
-import PlaylistCover from "./PlaylistCover";
+import ItemImage from "./ItemImage";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { changeHeadBGColor, setCurrentModal } from "@/redux";
 
-import styles from "@/styles/PlaylistInfo.module.css";
+import styles from "@/styles/ItemPageTopSection.module.css";
 
-type PlaylistInfoProps = {
-    tracksCount: number;
+type ItemPageTopSectionProps = {
+    type: ItemType;
     ownerId: string;
-    ownerDisplayName: string;
     name: string;
 
+    children?: React.ReactNode;
     imageUrl?: string;
     description?: string;
-    followersCount?: number;
-    ownerImageUrl?: string;
 };
 
-const PlaylistInfo: React.FC<PlaylistInfoProps> = ({ description, imageUrl, name, ...otherProps }) => {
+const ItemPageTopSection: React.FC<ItemPageTopSectionProps> = ({
+    description,
+    imageUrl,
+    name,
+    type,
+    ownerId,
+    children
+}) => {
     const bgColor = useAppSelector(state => state.app.headerBGColor[1]);
     const currentUserId = useAppSelector(state => state.auth.currentUserId);
 
@@ -63,34 +67,32 @@ const PlaylistInfo: React.FC<PlaylistInfoProps> = ({ description, imageUrl, name
                     .concat(" ", styles.gradient)}
                 style={{ backgroundColor: bgColor }}
             >
-                <PlaylistCover
+                <ItemImage
+                    type={type}
                     onClick={handleOpenModal}
-                    className="w-48 h-48"
+                    className="w-48 h-48 xl:w-[14.5rem] xl:h-[14.5rem]"
                     imageURL={imageUrl}
-                    editable={!asPath.includes("collection") && currentUserId === otherProps.ownerId}
+                    editable={!asPath.includes("collection") && currentUserId === ownerId}
                 />
 
                 <div ref={containerRef} className={"flex h-full flex-col justify-end"}>
-                    <p className="font-bold text-sm">Playlist</p>
+                    <p className="font-bold text-sm first-letter:uppercase">{type}</p>
 
-                    <div className="mt-2">
-                        <h1
-                            ref={playlistNameRef}
-                            className={"font-bold tracking-tighter w-fit mt-[0.08em] mb-[0.12em] line-clamp-1".concat(
-                                " text-[calc((100vw_-_30rem)/(80_-_30)_*_(1.5_-_1)_+_2rem)]"
-                            )}
-                        >
-                            {name}
-                        </h1>
-                    </div>
+                    <h1
+                        ref={playlistNameRef}
+                        className={"tracking-tighter w-fit mt-[calc(0.08em+0.5rem)] mb-[calc(0.12em+0.5rem)]"
+                            .concat(" font-bold line-clamp-1 text-[calc((100vw-30rem)/(80-30)*(1.5-1)+2rem)]")}
+                    >
+                        {name}
+                    </h1>
 
                     <p className="text-[hsla(0,0%,100%,.7)] text-sm">{description}</p>
 
-                    <PlaylistStats {...otherProps} />
+                    {children}
                 </div>
             </div>
         </>
     );
 };
 
-export default PlaylistInfo;
+export default ItemPageTopSection;

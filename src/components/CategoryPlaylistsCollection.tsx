@@ -1,9 +1,8 @@
 import React from "react";
-import Link from "next/link";
 
-import { ItemCard } from ".";
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
+import { ItemsCollectionRow, ItemsCollectionRowHeading } from ".";
 
 type CategoryPlaylistsCollectionProps = {
     id: string;
@@ -28,32 +27,20 @@ const CategoryPlaylistsCollection: React.FC<CategoryPlaylistsCollectionProps> = 
     );
 
     return (
-        <section>
-            <div className="flex justify-between items-center mb-4">
-                <Link href={`/genre/${id}`} className="text-2xl font-bold hover:underline">
-                    {name}
-                </Link>
-                <Link href={`/genre/${id}`} className="text-sm font-bold hover:underline text-[#b3b3b3]">
-                    Show all
-                </Link>
-            </div>
+        <>
+            {!!playlists?.playlists.items.length && (
+                <section>
+                    <ItemsCollectionRowHeading
+                        heading={name}
+                        hrefToFullCollection={`/genre/${id}`}
+                    />
 
-            <div className="grid gap-dynamic grid-cols-dynamic grid-rows-1">
-                {playlists &&
-                    playlists.playlists.items
-                        .slice(0, countOfCardsInColumn)
-                        .map(playlist => (
-                            <ItemCard
-                                key={playlist.id}
-                                id={playlist.id}
-                                description={playlist.description}
-                                imageURL={playlist.images[0].url}
-                                name={playlist.name}
-                                type={playlist.type}
-                            />
-                        ))}
-            </div>
-        </section>
+                    <ItemsCollectionRow
+                        items={playlists.playlists.items.slice(0, countOfCardsInColumn)}
+                    />
+                </section>
+            )}
+        </>
     );
 };
 

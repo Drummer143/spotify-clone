@@ -103,6 +103,7 @@ const PlaylistEditModal: React.FC<PlaylistEditModalProps> = ({
                 className="grid grid-cols-[180px,1fr] grid-rows-[40px,132px,48px] gap-4 text-sm"
             >
                 <ImageInput
+                    type="playlist"
                     currentCover={currentCover}
                     setCurrentCover={setCurrentCover}
                     isNewImage={currentCover === imageURL}

@@ -19,7 +19,7 @@ interface GetPlayListResponse {
         total: number;
         items: TrackInPlaylistInfo[];
     };
-    type: string;
+    type: "playlist";
     uri: string;
     primary_color: string | null;
 }

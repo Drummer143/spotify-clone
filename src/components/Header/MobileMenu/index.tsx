@@ -22,7 +22,7 @@ const MobileMenu: React.FC = () => {
                 visible={isOpen}
                 top={(menuRef.current?.getBoundingClientRect().bottom || 0) + 16}
                 left={menuRef.current?.getBoundingClientRect().right}
-                className="-translate-x-full"
+                className="-translate-x-full z-[2]"
             >
                 <DropdownMenu>
                     {headerLinks.map(({ text, to }) => (

@@ -5,6 +5,6 @@ interface GetUserResponse {
     href: string;
     id: string;
     images: ImageInfo[];
-    type: string;
+    type: "user";
     uri: string;
 }

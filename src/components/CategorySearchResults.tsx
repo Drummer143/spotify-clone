@@ -27,7 +27,7 @@ const CategorySearchResults: React.FC<CategorySearchResultsProps> = ({ heading, 
                         name={item.name}
                         type={item.type}
                         description={createDescription(item)}
-                        imageURL={item.images[0].url}
+                        imageURL={item.images[0]?.url}
                     />
                 ))}
             </div>
