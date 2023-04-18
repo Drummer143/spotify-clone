@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React, { useEffect, useRef } from "react";
 
-import { CategoryPlaylistsCollection } from "@/components";
+import { CategoryPlaylistsCollection, MainPageLoader } from "@/components";
 import { changeHeadBGColor, spotifyApi } from "@/redux";
 import { useAppSelector, useAppDispatch } from "@/hooks";
 
@@ -12,7 +12,7 @@ const MainPage: React.FC = () => {
 
     const dispatch = useAppDispatch();
 
-    const [getCategories, { data: browseCategories }] = spotifyApi.useLazyGetSeveralBrowseCategoriesQuery();
+    const [getCategories, { data: browseCategories, isLoading }] = spotifyApi.useLazyGetSeveralBrowseCategoriesQuery();
 
     useEffect(() => {
         dispatch(changeHeadBGColor("authentificated"));
@@ -32,6 +32,10 @@ const MainPage: React.FC = () => {
         });
     }, [accessToken, getCategories]);
 
+    if(isLoading) {
+        return <MainPageLoader />;
+    }
+
     return (
         <>
             <Head>
@@ -42,10 +46,9 @@ const MainPage: React.FC = () => {
                 ref={mainPageContainerRef}
                 className={"pt-16 px-[var(--content-spacing)] flex flex-col gap-10 max-h-full"}
             >
-                {browseCategories &&
-                    browseCategories.categories.items.map(category => (
-                        <CategoryPlaylistsCollection key={category.id} {...category} />
-                    ))}
+                {browseCategories?.categories.items.map(category => (
+                    <CategoryPlaylistsCollection key={category.id} {...category} />
+                ))}
             </div>
         </>
     );

@@ -17,6 +17,7 @@ Implements almost all features available in [original app](open.spotify.com).
     - [ ] User's Playlists
     - [ ] Statistic period toggler
     - [ ] Edit profile modal
+- [ ] Loader Components
 - [ ] Settings page
 - [ ] Artist page
 - [ ] Album page

@@ -11,7 +11,7 @@ import SearchInput from "./SearchInput";
 import CollectionButtons from "./CollectionButtons";
 import HistoryNavigationButtons from "./HistoryNavigationButtons";
 import { spotifyApi, setCurrentUserId } from "@/redux";
-import { LoginButton } from "..";
+import { HeaderLoader, LoginButton } from "..";
 import { headerLinks } from "@/utils";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 
@@ -28,7 +28,7 @@ const Header: React.FC<HeaderProps> = ({ scrollY }) => {
 
     const dispatch = useAppDispatch();
 
-    const [getCurrentUser, { currentData: user }] = spotifyApi.useLazyGetCurrentUserQuery();
+    const [getCurrentUser, { currentData: user, isLoading }] = spotifyApi.useLazyGetCurrentUserQuery();
 
     useEffect(() => {
         if (accessToken) {
@@ -41,6 +41,10 @@ const Header: React.FC<HeaderProps> = ({ scrollY }) => {
             dispatch(setCurrentUserId(user.id));
         }
     }, [dispatch, user]);
+
+    if(isLoading) {
+        return <HeaderLoader />;
+    }
 
     return (
         <header

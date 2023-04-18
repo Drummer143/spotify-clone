@@ -7,21 +7,28 @@ import LanguageButton from "./LanguageButton";
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
 import { navBarBottomLinks } from "@/utils";
-import { GoogleMaterialIcon } from "..";
+import { GoogleMaterialIcon, NavPanelUserPlaylistsLoader } from "..";
 
 const UsersPlaylists: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
     const { asPath } = useRouter();
     const [isBrowser, setIsBrowser] = useState(false);
 
-    const { data: playlists } = spotifyApi.useGetCurrentUserPlaylistsQuery(accessToken || "", {
-        refetchOnMountOrArgChange: true,
-        skip: !accessToken
-    });
+    const [getPlaylists, { data: playlists, isLoading }] = spotifyApi.useLazyGetCurrentUserPlaylistsQuery();
 
     useEffect(() => {
         setIsBrowser(true);
     }, []);
+
+    useEffect(() => {
+        if(accessToken) {
+            getPlaylists(accessToken);
+        }
+    }, [accessToken, getPlaylists]);
+
+    if(isLoading) {
+        return <NavPanelUserPlaylistsLoader />;
+    }
 
     if (!isBrowser) {
         return <></>;
