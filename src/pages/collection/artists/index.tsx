@@ -1,16 +1,16 @@
 import Head from "next/head";
 import React, { useEffect } from "react";
 
-import { Loader, ItemCard } from "@/components";
 import { changeHeadBGColor, spotifyApi } from "@/redux";
 import { useAppDispatch, useAppSelector } from "@/hooks";
+import { ItemCard, ItemsCollectionRowLoader } from "@/components";
 
 const ArtistsPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
 
     const dispatch = useAppDispatch();
 
-    const [getArtists, { data: artists, isFetching }] = spotifyApi.useLazyGetFollowedArtistsQuery();
+    const [getArtists, { data: artists, isLoading }] = spotifyApi.useLazyGetFollowedArtistsQuery();
 
     useEffect(() => {
         if (accessToken) {
@@ -22,8 +22,12 @@ const ArtistsPage: React.FC = () => {
         dispatch(changeHeadBGColor(["#121212", "#121212"]));
     });
 
-    if (isFetching) {
-        return <Loader />;
+    if (isLoading) {
+        return (
+            <div className="px-content-spacing pt-16">
+                <ItemsCollectionRowLoader />
+            </div>
+        );
     }
 
     if (!artists) {

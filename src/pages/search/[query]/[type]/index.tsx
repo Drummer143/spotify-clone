@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
 import { createDescription } from "@/utils";
-import { ItemCard, SongCard, SonglistHead } from "@/components";
+import { ItemCard, ItemsCollectionRowLoader, SongCard, SonglistHead } from "@/components";
 
 const CertainSearchResultsPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -14,7 +14,7 @@ const CertainSearchResultsPage: React.FC = () => {
 
     const { query } = useRouter();
 
-    const [getSearchResult, { currentData: result }] = spotifyApi.useLazySearchForItemQuery();
+    const [getSearchResult, { currentData: result, isLoading }] = spotifyApi.useLazySearchForItemQuery();
 
     useEffect(() => {
         setSearchType(query.type as SearchItemTypes);
@@ -35,8 +35,16 @@ const CertainSearchResultsPage: React.FC = () => {
         });
     }, [accessToken, getSearchResult, query.query, searchType]);
 
-    if (!result || !query.type || Array.isArray(query.type)) {
-        return <div>Loading...</div>;
+    if (isLoading) {
+        return (
+            <div className="px-content-spacing pt-16">
+                <ItemsCollectionRowLoader />
+            </div>
+        );
+    }
+
+    if(!result) {
+        return <div>Error</div>;
     }
 
     if (searchType !== "tracks") {

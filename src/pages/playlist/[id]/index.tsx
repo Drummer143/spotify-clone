@@ -2,10 +2,10 @@ import Head from "next/head";
 import React, { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
+import PlaylistStats from "@/components/ItemPageTopSection/PlaylistStats";
 import { setCurrentModal, spotifyApi } from "@/redux";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { Loader, ActionBar, Tracklist, ItemPageTopSection, PlaylistEditModal } from "@/components";
-import PlaylistStats from "@/components/ItemPageTopSection/PlaylistStats";
+import { ActionBar, Tracklist, ItemPageTopSection, PlaylistEditModal, ItemsCollectionRowLoader } from "@/components";
 
 const PlaylistPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -21,8 +21,8 @@ const PlaylistPage: React.FC = () => {
     const [unfollowPlaylist] = spotifyApi.useUnfollowPlaylistMutation();
     const [getCurrentUser, { currentData: user }] = spotifyApi.useLazyGetCurrentUserQuery();
     const [checkFollow, { data: followInfo }] = spotifyApi.useLazyIsUserFollowsPlaylistQuery();
-    const [getOwnerInfo, { data: ownerInfo, isFetching: ownerIsFetching }] = spotifyApi.useLazyGetUserQuery();
-    const [getPlaylist, { data: playlistInfo, isFetching: playlistIsFetching }] = spotifyApi.useLazyGetPlaylistQuery();
+    const [getOwnerInfo, { data: ownerInfo, isLoading: ownerIsLoading }] = spotifyApi.useLazyGetUserQuery();
+    const [getPlaylist, { data: playlistInfo, isLoading: playlistIsLoading }] = spotifyApi.useLazyGetPlaylistQuery();
 
     const handleAddPlaylistToFavorite = useCallback(() => {
         if (!playlistId || !accessToken) {
@@ -72,8 +72,12 @@ const PlaylistPage: React.FC = () => {
         }
     }, [accessToken, playlistId, user, checkFollow]);
 
-    if (playlistIsFetching || ownerIsFetching) {
-        return <Loader />;
+    if (ownerIsLoading || playlistIsLoading) {
+        return (
+            <div className="px-content-spacing pt-16">
+                <ItemsCollectionRowLoader />
+            </div>
+        );
     }
 
     if (!playlistInfo || !ownerInfo) {

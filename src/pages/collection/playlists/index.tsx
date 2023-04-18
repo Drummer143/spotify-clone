@@ -2,16 +2,16 @@ import Link from "next/link";
 import Head from "next/head";
 import React, { useEffect } from "react";
 
-import { Loader, ItemCard, PlayButton } from "@/components";
 import { changeHeadBGColor, spotifyApi } from "@/redux";
 import { useAppDispatch, useAppSelector } from "@/hooks";
+import { ItemCard, PlayButton, ItemsCollectionRowLoader } from "@/components";
 
 const PlaylistCollectionPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
 
-    const [getPlaylists, { data: playlists, isFetching: playlistsIsFetching }] =
+    const [getPlaylists, { data: playlists, isLoading: playlistsIsLoading }] =
         spotifyApi.useLazyGetCurrentUserPlaylistsQuery();
-    const [getSavedTracks, { data: savedTracks, isFetching: savedTracksIsFetching }] =
+    const [getSavedTracks, { data: savedTracks, isLoading: savedTracksIsLoading }] =
         spotifyApi.useLazyGetCurrentUserSavedTracksQuery();
 
     const dispatch = useAppDispatch();
@@ -27,8 +27,12 @@ const PlaylistCollectionPage: React.FC = () => {
         dispatch(changeHeadBGColor(["#121212", "#121212"]));
     });
 
-    if (playlistsIsFetching || savedTracksIsFetching) {
-        return <Loader />;
+    if (savedTracksIsLoading || playlistsIsLoading) {
+        return (
+            <div className="px-content-spacing pt-16">
+                <ItemsCollectionRowLoader />
+            </div>
+        );
     }
 
     if (!playlists) {

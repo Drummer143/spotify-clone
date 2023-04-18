@@ -4,15 +4,15 @@ import { useRouter } from "next/router";
 
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
-import { Loader, ItemCard } from "@/components";
+import { ItemCard, ItemsCollectionRowLoader } from "@/components";
 
 const GenreCollection: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
     const router = useRouter();
 
-    const [getPlaylists, { data: playlists, isFetching: playlistsIsFetching }] =
+    const [getPlaylists, { data: playlists, isLoading: playlistsIsLoading }] =
         spotifyApi.useLazyGetCategoryPlaylistsQuery();
-    const [getCategoryInfo, { currentData: categoryInfo, isFetching: categoryInfoIsFetching }] =
+    const [getCategoryInfo, { currentData: categoryInfo, isLoading: categoryInfoIsLoading }] =
         spotifyApi.useLazyGetSingleBrowseCategoryQuery();
 
     useEffect(() => {
@@ -32,8 +32,12 @@ const GenreCollection: React.FC = () => {
         getCategoryInfo({ accessToken, categoryId: id, searchParams: { locale } });
     }, [accessToken, getCategoryInfo, getPlaylists, router.query]);
 
-    if (playlistsIsFetching || categoryInfoIsFetching) {
-        return <Loader />;
+    if (playlistsIsLoading || categoryInfoIsLoading) {
+        return (
+            <div className="px-content-spacing pt-16">
+                <ItemsCollectionRowLoader />
+            </div>
+        );
     }
 
     if (!playlists || !categoryInfo) {
@@ -46,7 +50,7 @@ const GenreCollection: React.FC = () => {
                 <title>{categoryInfo.name} | Spotify Clone</title>
             </Head>
 
-            <section className="py-16 px-content-spacing">
+            <section className="px-content-spacing">
                 <h2 className="text-2xl font-bold mb-4">{categoryInfo.name}</h2>
 
                 <div className="grid gap-dynamic grid-cols-dynamic">

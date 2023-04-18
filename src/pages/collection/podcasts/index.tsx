@@ -2,15 +2,15 @@ import Link from "next/link";
 import Head from "next/head";
 import React, { useEffect } from "react";
 
-import { Loader, ItemCard, PlayButton } from "@/components";
 import { changeHeadBGColor, spotifyApi } from "@/redux";
 import { useAppDispatch, useAppSelector } from "@/hooks";
+import { ItemCard, PlayButton, ItemsCollectionRowLoader } from "@/components";
 
 const PodcastsCollectionPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
 
-    const [getShows, { data: shows, isFetching: showsIsFetching }] = spotifyApi.useLazyGetCurrentUserSavedShowsQuery();
-    const [getEpisodes, { data: episodes, isFetching: episodesIsFetching }] =
+    const [getShows, { data: shows, isLoading: showsIsLoading }] = spotifyApi.useLazyGetCurrentUserSavedShowsQuery();
+    const [getEpisodes, { data: episodes, isLoading: episodesIsLoading }] =
         spotifyApi.useLazyGetCurrentUserSavedEpisodesQuery();
 
     const dispatch = useAppDispatch();
@@ -26,8 +26,12 @@ const PodcastsCollectionPage: React.FC = () => {
         dispatch(changeHeadBGColor(["#121212", "#121212"]));
     });
 
-    if (showsIsFetching || episodesIsFetching) {
-        return <Loader />;
+    if (episodesIsLoading || showsIsLoading) {
+        return (
+            <div className="px-content-spacing pt-16">
+                <ItemsCollectionRowLoader />
+            </div>
+        );
     }
 
     if (!shows) {
@@ -40,7 +44,7 @@ const PodcastsCollectionPage: React.FC = () => {
                 <title>Spotify Clone - Your Library</title>
             </Head>
 
-            <section className="px-content-spacing py-16">
+            <section className="px-content-spacing">
                 <h2 className="text-2xl font-bold mb-4">Your playlists</h2>
 
                 <div className="grid grid-cols-dynamic gap-dynamic">

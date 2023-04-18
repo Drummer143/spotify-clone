@@ -3,14 +3,14 @@ import React, { useEffect } from "react";
 
 import { changeHeadBGColor, spotifyApi } from "@/redux";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { Loader, ItemCard, ListingOfAuthors } from "@/components";
+import { ItemCard, ListingOfAuthors, ItemsCollectionRowLoader } from "@/components";
 
 const AlbumPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
 
     const dispatch = useAppDispatch();
 
-    const [getAlbums, { data: albums, isFetching }] = spotifyApi.useLazyGetUserSavedAlbumsQuery();
+    const [getAlbums, { data: albums, isLoading }] = spotifyApi.useLazyGetUserSavedAlbumsQuery();
 
     useEffect(() => {
         if (accessToken) {
@@ -22,8 +22,12 @@ const AlbumPage: React.FC = () => {
         dispatch(changeHeadBGColor(["#121212", "#121212"]));
     });
 
-    if (isFetching) {
-        return <Loader />;
+    if (isLoading) {
+        return (
+            <div className="px-content-spacing pt-16">
+                <ItemsCollectionRowLoader />
+            </div>
+        );
     }
 
     if (!albums) {

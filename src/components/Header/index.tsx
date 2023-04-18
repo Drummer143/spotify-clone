@@ -10,9 +10,9 @@ import PlaylistBar from "./PlaylistBar";
 import SearchInput from "./SearchInput";
 import CollectionButtons from "./CollectionButtons";
 import HistoryNavigationButtons from "./HistoryNavigationButtons";
-import { spotifyApi, setCurrentUserId } from "@/redux";
-import { HeaderLoader, LoginButton } from "..";
 import { headerLinks } from "@/utils";
+import { HeaderLoader, LoginButton } from "..";
+import { spotifyApi, setCurrentUserId } from "@/redux";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 
 type HeaderProps = {
@@ -42,7 +42,7 @@ const Header: React.FC<HeaderProps> = ({ scrollY }) => {
         }
     }, [dispatch, user]);
 
-    if(isLoading) {
+    if(isLoading && !accessToken) {
         return <HeaderLoader />;
     }
 
