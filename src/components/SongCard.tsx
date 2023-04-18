@@ -93,7 +93,10 @@ const SongCard: React.FC<SongCardProps> = ({
             </div>
 
             {albumName && (
-                <Link href={`/album/${albumId}`} className="line-clamp-1 text-inherit w-fit hover:underline">
+                <Link
+                    href={`/album/${albumId}`}
+                    className="line-clamp-1 text-inherit w-fit max-md:hidden hover:underline"
+                >
                     {albumName}
                 </Link>
             )}
