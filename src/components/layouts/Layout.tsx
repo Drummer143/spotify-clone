@@ -36,6 +36,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <ResizeDetector />
 
                 {children}
+
+                <div className="pt-content-spacing"></div>
             </main>
 
             <NowPlayingBar />
