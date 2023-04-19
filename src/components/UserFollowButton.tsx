@@ -5,9 +5,10 @@ import { useAppSelector } from "@/hooks";
 
 type UserFollowButtonProps = {
     targetId: string
+    type: "user" | "artist"
 };
 
-const UserFollowButton: React.FC<UserFollowButtonProps> = ({ targetId }) => {
+const UserFollowButton: React.FC<UserFollowButtonProps> = ({ targetId, type }) => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
 
     const [checkFollow, { currentData: followInfo }] = spotifyApi.useLazyCheckIfUserFollowsUsersQuery();
@@ -20,17 +21,17 @@ const UserFollowButton: React.FC<UserFollowButtonProps> = ({ targetId }) => {
         }
 
         if (followInfo[0]) {
-            unfollowUser({ accessToken, searchParams: { ids: [targetId], type: "user" } });
+            unfollowUser({ accessToken, searchParams: { ids: [targetId], type: type } });
         } else {
-            followUser({ accessToken, searchParams: { ids: [targetId], type: "user" } });
+            followUser({ accessToken, searchParams: { ids: [targetId], type: type } });
         }
     };
 
     useEffect(() => {
         if (accessToken) {
-            checkFollow({ accessToken, searchParams: { type: "user", ids: [targetId] } });
+            checkFollow({ accessToken, searchParams: { type: type, ids: [targetId] } });
         }
-    }, [accessToken, checkFollow, targetId]);
+    }, [accessToken, checkFollow, targetId, type]);
 
     return (
         <button

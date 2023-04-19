@@ -1,0 +1,3 @@
+interface GetArtistRelatedArtistsResponse {
+    artists: ArtistInfo[]
+}

@@ -1,0 +1,70 @@
+import React, { useEffect } from "react";
+import { useRouter } from "next/router";
+
+import { spotifyApi } from "@/redux";
+import { useAppSelector } from "@/hooks";
+import { ItemCard, ItemsCollectionRowHeading } from ".";
+
+const ArtistPlaylistsAppearsOn: React.FC = () => {
+    const accessToken = useAppSelector(state => state.auth.accessToken);
+    const countOfCardsInColumn = useAppSelector(state => state.app.countOfCardsInColumn);
+
+    const { query } = useRouter();
+
+    const [getAlbums, { data: albums }] = spotifyApi.useLazyGetArtistAlbumsQuery();
+
+    useEffect(() => {
+        let artistId = query.id;
+
+        if (!accessToken || !artistId) {
+            return;
+        }
+
+        if (Array.isArray(artistId)) {
+            artistId = artistId[0];
+        }
+
+        getAlbums({
+            accessToken,
+            artistId,
+            searchParams: {
+                limit: countOfCardsInColumn,
+                // eslint-disable-next-line camelcase
+                include_groups: "appears_on"
+            }
+        });
+    }, [accessToken, countOfCardsInColumn, getAlbums, query.id]);
+
+    if (!albums) {
+        return <></>;
+    }
+
+    return (
+        <div>
+            <ItemsCollectionRowHeading
+                isLink={albums.total > countOfCardsInColumn}
+                hrefToFullCollection={`/artist/${query.id}/discography/appears_on`}
+                heading="Appears On"
+            />
+
+            <div className="grid grid-cols-dynamic gap-dynamic">
+                {albums.items.slice(0, countOfCardsInColumn).map(album => (
+                    <ItemCard
+                        {...album}
+                        key={album.id}
+                        imageURL={album.images[1]?.url}
+                        description={
+                            <p>
+                                <span>{new Date(album.release_date).getFullYear()}</span>
+                                <span className="mx-1 text-base">•</span>
+                                <span className="first-letter:uppercase">{album.album_type}</span>
+                            </p>
+                        }
+                    />
+                ))}
+            </div>
+        </div>
+    );
+};
+
+export default ArtistPlaylistsAppearsOn;

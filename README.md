@@ -21,8 +21,10 @@ Implements almost all features available in [original app](open.spotify.com).
     - [ ] TrackLoader
     - [ ] ItemPageTopSectionLoader
 - [ ] Error pages
-- [ ] Settings page
-- [ ] Artist page
+- [ ] Settings page - ?
+- [x] Artist page
+    - [ ] Discography pages
+    - [ ] Related artists page
 - [ ] Album page
 - [ ] Track page
 - [ ] Episode page

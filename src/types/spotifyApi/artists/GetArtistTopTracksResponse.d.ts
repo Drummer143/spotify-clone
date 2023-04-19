@@ -1,0 +1,3 @@
+interface GetArtistTopTracksResponse {
+    tracks: TrackInfo[]
+}

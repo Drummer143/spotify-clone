@@ -1,4 +1,6 @@
 export { default as ActionBar } from "./ActionBar";
+export { default as ArtistsAlbums } from "./ArtistsAlbums";
+export { default as ArtistPlaylistsAppearsOn } from "./ArtistPlaylistsAppearsOn";
 export { default as CategoryPlaylistsCollection } from "./CategoryPlaylistsCollection";
 export { default as CategorySearchResults } from "./CategorySearchResults";
 export { default as CurrentUserPagePart } from "./CurrentUserPagePart";
@@ -18,6 +20,8 @@ export { default as NavPanel } from "./NavPanel";
 export { default as NowPlayingBar } from "./NowPlayingBar";
 export { default as PlayButton } from "./PlayButton";
 export { default as PlaylistEditModal } from "./PlaylistEditModal";
+export { default as PopularArtistTracks } from "./PopularArtistTracks";
+export { default as RelatedArtists } from "./RelatedArtists";
 export { default as ResizeDetector } from "./ResizeDetector";
 export { default as SavedSongsIcon } from "./SavedSongsIcon";
 export { default as SearchTypeButton } from "./SearchTypeButton";
@@ -26,6 +30,7 @@ export { default as SonglistHead } from "./SonglistHead";
 export { default as SongsSearchResults } from "./SongsSearchResults";
 export { default as SpotifyLogo } from "./SpotifyLogo";
 export { default as Tracklist } from "./Tracklist";
+export { default as UserFollowButton } from "./UserFollowButton";
 
 export * from "./layouts";
 export * from "./loaders";

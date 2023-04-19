@@ -74,7 +74,7 @@ const UserPage: NextPage = () => {
 
                 <div className="px-content-spacing flex gap-10 flex-col">
                     <div className="pt-6">
-                        {userInfo.id !== currentUserId && <UserFollowButton targetId={userInfo.id} />}
+                        {userInfo.id !== currentUserId && <UserFollowButton type="user" targetId={userInfo.id} />}
                     </div>
 
                     {currentUserId === userInfo.id && <CurrentUserPagePart user={userInfo} />}

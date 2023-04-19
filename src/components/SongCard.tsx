@@ -11,7 +11,7 @@ type SongCardProps = {
     imageURL: string;
     songId: string;
     duration: number;
-    artists: ShortArtistInfo[];
+    artists?: ShortArtistInfo[];
     name: string;
 
     number?: number;
@@ -67,7 +67,7 @@ const SongCard: React.FC<SongCardProps> = ({
                 </div>
             )}
 
-            <div className="flex gap-4">
+            <div className="flex gap-4 items-center">
                 <div className="relative w-10 h-10">
                     <Image width={40} height={40} alt="album cover" src={`/api/image_proxy?uri=${imageURL}`} />
 
@@ -88,7 +88,7 @@ const SongCard: React.FC<SongCardProps> = ({
                         {name}
                     </Link>
 
-                    <ListingOfAuthors artists={artists} />
+                    {!!artists?.length && <ListingOfAuthors artists={artists} />}
                 </div>
             </div>
 

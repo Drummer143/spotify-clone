@@ -139,6 +139,8 @@ interface ShortArtistInfo {
     uri: string;
 }
 
+type AlbumType = "album" | "single" | "appears_on" | "compilation";
+
 interface AlbumInfo {
     album_type: string;
     total_tracks: number;
@@ -152,7 +154,7 @@ interface AlbumInfo {
     release_date_precision: string;
     type: "album";
     uri: string;
-    album_group: string;
+    album_group: AlbumType;
     artists: ShortArtistInfo[];
     is_playable: boolean;
 }
@@ -189,7 +191,7 @@ interface FullAlbumInfo {
             total: number;
             items: TrackInfo[];
         };
-        album_group: string;
+        album_group: AlbumType;
         is_playable: boolean;
     };
 }

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable max-lines */
 
 import { HYDRATE } from "next-redux-wrapper";
@@ -259,7 +260,11 @@ export const spotifyApi = createApi({
 
         isUserFollowsPlaylist: build.query<
             boolean[],
-            { accessToken: string; playlistId: string; usersIds: string | string[] }
+            {
+                accessToken: string;
+                playlistId: string;
+                usersIds: string | string[]
+            }
         >({
             query: ({ accessToken, playlistId, usersIds }) => {
                 usersIds = Array.isArray(usersIds) ? usersIds.join(",") : usersIds;
@@ -270,6 +275,59 @@ export const spotifyApi = createApi({
                 };
             },
             providesTags: ["PlaylistFollowInfo"]
+        }),
+
+        getArtist: build.query<GetArtistResponse, {
+            accessToken: string
+            artistId: string
+        }>({
+            query: ({ accessToken, artistId }) => ({
+                url: "/artists/" + artistId,
+                headers: spotifyApiHeaders(accessToken)
+            })
+        }),
+
+        getArtistTopTrack: build.query<GetArtistTopTracksResponse, {
+            accessToken: string
+            artistId: string
+            market: string
+        }>({
+            query: ({ accessToken, artistId, market }) => ({
+                url: `/artists/${artistId}/top-tracks?market=${market}`,
+                headers: spotifyApiHeaders(accessToken)
+            })
+        }),
+
+        getArtistAlbums: build.query<GetArtistAlbumsResponse, {
+            accessToken: string
+            artistId: string,
+            searchParams?: {
+                market?: string;
+                limit?: number;
+                offset?: number;
+                include_groups?: AlbumType | AlbumType[]
+            };
+        }>({
+            query: ({
+                accessToken,
+                artistId,
+                searchParams = {
+                    include_groups: ["album", "appears_on", "single"]
+                }
+            }) => ({
+                url: `/artists/${artistId}/albums?${stringifySearchParams(searchParams)}`,
+                headers: spotifyApiHeaders(accessToken)
+            })
+        }),
+
+        getArtistRelatedArtists: build.query<GetArtistRelatedArtistsResponse, {
+            accessToken: string
+            artistId: string,
+        }>({
+            query: ({ accessToken, artistId }) => ({
+                url: `/artists/${artistId}/related-artists`,
+                headers: spotifyApiHeaders(accessToken)
+            })
         }),
 
         followPlaylist: build.mutation<"", { playlistId: string; accessToken: string }>({
