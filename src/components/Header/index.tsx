@@ -12,7 +12,7 @@ import CollectionButtons from "./CollectionButtons";
 import HistoryNavigationButtons from "./HistoryNavigationButtons";
 import { headerLinks } from "@/utils";
 import { HeaderLoader, LoginButton } from "..";
-import { spotifyApi, setCurrentUserId } from "@/redux";
+import { spotifyApi, setCurrentUserInfo } from "@/redux";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 
 type HeaderProps = {
@@ -38,11 +38,11 @@ const Header: React.FC<HeaderProps> = ({ scrollY }) => {
 
     useEffect(() => {
         if (user) {
-            dispatch(setCurrentUserId(user.id));
+            dispatch(setCurrentUserInfo({ id: user.id, name: user.display_name }));
         }
     }, [dispatch, user]);
 
-    if(isLoading && !accessToken) {
+    if (isLoading && !accessToken) {
         return <HeaderLoader />;
     }
 

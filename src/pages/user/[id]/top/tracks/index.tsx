@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { NextPage } from "next";
 import { useEffect } from "react";
 
@@ -7,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 
 const TopTrackPage: NextPage = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
+    const currentUserName = useAppSelector(state => state.auth.currentUserInfo?.name);
 
     const [getTopTracks, { data: topTracks, isLoading, isError }] = spotifyApi.useLazyGetUserTopTracksQuery();
 
@@ -31,6 +33,11 @@ const TopTrackPage: NextPage = () => {
     }
 
     return (
+        <>
+        <Head>
+            <title>{currentUserName} - Spotify Clone</title>
+        </Head>
+
         <section className="pt-20">
             <h1 className="text-2xl font-bold mb-4 px-content-spacing">Top tracks this month</h1>
 
@@ -52,6 +59,7 @@ const TopTrackPage: NextPage = () => {
                 ))}
             </div>
         </section>
+        </>
     );
 };
 

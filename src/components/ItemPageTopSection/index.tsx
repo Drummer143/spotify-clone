@@ -27,7 +27,7 @@ const ItemPageTopSection: React.FC<ItemPageTopSectionProps> = ({
     children
 }) => {
     const bgColor = useAppSelector(state => state.app.headerBGColor[1]);
-    const currentUserId = useAppSelector(state => state.auth.currentUserId);
+    const currentUserId = useAppSelector(state => state.auth.currentUserInfo?.id);
 
     const [colorDetector] = useState(new ColorThief());
 

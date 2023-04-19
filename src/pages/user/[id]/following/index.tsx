@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { NextPage } from "next";
 import { useEffect } from "react";
 
@@ -7,6 +8,7 @@ import { ItemCard, ItemsCollectionRowLoader } from "@/components";
 
 const Index: NextPage = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
+    const currentUserName = useAppSelector(state => state.auth.currentUserInfo?.name);
 
     const dispatch = useAppDispatch();
 
@@ -34,7 +36,11 @@ const Index: NextPage = () => {
 
     return (
         <>
-            <div className="px-content-spacing pt-16">
+            <Head>
+                <title>{currentUserName} - Spotify Clone</title>
+            </Head>
+
+            <section className="px-content-spacing pt-16">
                 <h2 className="text-2xl mb-4 font-bold">Following</h2>
 
                 <div className="grid grid-cols-dynamic gap-dynamic">
@@ -49,7 +55,7 @@ const Index: NextPage = () => {
                         />
                     ))}
                 </div>
-            </div>
+            </section>
         </>
     );
 };

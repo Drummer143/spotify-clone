@@ -17,7 +17,8 @@ import UserFollowButton from "@/components/UserFollowButton";
 
 const UserPage: NextPage = () => {
     const countOfCardsInColumn = useAppSelector(state => state.app.countOfCardsInColumn);
-    const { accessToken, currentUserId } = useAppSelector(state => state.auth);
+    const accessToken = useAppSelector(state => state.auth.accessToken);
+    const currentUserId = useAppSelector(state => state.auth.currentUserInfo?.id);
 
     const router = useRouter();
 
@@ -83,12 +84,13 @@ const UserPage: NextPage = () => {
                         <section>
                             <ItemsCollectionRowHeading
                                 heading={`${userInfo.id !== currentUserId ? "public" : ""} playlists`}
-                                hrefToFullCollection={`user/${userInfo.id}/playlists`}
+                                hrefToFullCollection={playlists.total > countOfCardsInColumn
+                                    ? `/user/${userInfo.id}/playlists` :
+                                    ""
+                                }
                             />
 
-                            <ItemsCollectionRow
-                                items={playlists.items}
-                            />
+                            <ItemsCollectionRow items={playlists.items} />
                         </section>
                     )}
                 </div>

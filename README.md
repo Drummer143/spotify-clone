@@ -14,12 +14,13 @@ Implements almost all features available in [original app](open.spotify.com).
     - [x] Follow/Unfollow user
     - [x] Top user's tracks page
     - [x] Current user's following page
-    - [ ] User's Playlists page
+    - [x] User's Playlists page
     - [ ] Statistic period toggler
     - [ ] Edit profile modal
 - [x] Loader Components
     - [ ] TrackLoader
     - [ ] ItemPageTopSectionLoader
+- [ ] Error pages
 - [ ] Settings page
 - [ ] Artist page
 - [ ] Album page

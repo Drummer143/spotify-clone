@@ -3,7 +3,7 @@ import React from "react";
 
 type ItemsCollectionRowHeadingProps = {
     heading: string
-    hrefToFullCollection: string
+    hrefToFullCollection?: string
 };
 
 const ItemsCollectionRowHeading: React.FC<ItemsCollectionRowHeadingProps> = ({
@@ -12,12 +12,21 @@ const ItemsCollectionRowHeading: React.FC<ItemsCollectionRowHeadingProps> = ({
 }) => {
     return (
         <div className="flex justify-between items-center mb-4">
-            <Link href={hrefToFullCollection} className="text-2xl font-bold first-letter:uppercase hover:underline">
-                {heading}
-            </Link>
-            <Link href={hrefToFullCollection} className="text-sm font-bold hover:underline text-[#b3b3b3]">
-                Show all
-            </Link>
+            {hrefToFullCollection ? (
+                <>
+                    <Link
+                        href={hrefToFullCollection}
+                        className="text-2xl font-bold first-letter:uppercase hover:underline"
+                    >
+                        {heading}
+                    </Link>
+                    <Link href={hrefToFullCollection} className="text-sm font-bold hover:underline text-[#b3b3b3]">
+                        Show all
+                    </Link>
+                </>
+            ) : (
+                <p className="text-2xl font-bold first-letter:uppercase">{heading}</p>
+            )}
         </div>
     );
 };

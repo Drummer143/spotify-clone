@@ -6,7 +6,10 @@ import { getAccessToken as spotifyGetAccessToken } from "@/utils";
 interface AuthState {
     codeVerifier?: string;
     accessToken?: string;
-    currentUserId?: string | undefined;
+    currentUserInfo?: {
+        id: string
+        name: string
+    };
 }
 
 type State = { state: RootState };
@@ -43,14 +46,14 @@ const authSlice = createSlice({
             state.codeVerifier = action.payload;
         },
 
-        setCurrentUserId: (state, action: PayloadAction<string>) => {
-            state.currentUserId = action.payload;
+        setCurrentUserInfo: (state, action: PayloadAction<{ id: string, name: string }>) => {
+            state.currentUserInfo = action.payload;
         },
 
         logOut: state => {
             state.accessToken = undefined;
             state.codeVerifier = undefined;
-            state.currentUserId = undefined;
+            state.currentUserInfo = undefined;
             localStorage.removeItem(`persist:${PERSIST_KEY}`);
         }
     },
@@ -64,4 +67,4 @@ const authSlice = createSlice({
 
 export default authSlice;
 
-export const { setAccessToken, setCodeVerifier, logOut, setCurrentUserId } = authSlice.actions;
+export const { setAccessToken, setCodeVerifier, logOut, setCurrentUserInfo } = authSlice.actions;
