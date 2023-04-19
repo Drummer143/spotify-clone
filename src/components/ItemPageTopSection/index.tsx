@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ColorThief from "color-thief-ts";
-import { useRouter } from "next/router";
 
 import ItemImage from "./ItemImage";
 import { useAppDispatch, useAppSelector } from "@/hooks";
@@ -10,12 +9,12 @@ import styles from "@/styles/ItemPageTopSection.module.css";
 
 type ItemPageTopSectionProps = {
     type: ItemType;
-    ownerId: string;
     name: string;
 
     children?: React.ReactNode;
     imageUrl?: string;
     description?: string;
+    editable?: boolean
 };
 
 const ItemPageTopSection: React.FC<ItemPageTopSectionProps> = ({
@@ -23,17 +22,14 @@ const ItemPageTopSection: React.FC<ItemPageTopSectionProps> = ({
     imageUrl,
     name,
     type,
-    ownerId,
-    children
+    children,
+    editable
 }) => {
     const bgColor = useAppSelector(state => state.app.headerBGColor[1]);
-    const currentUserId = useAppSelector(state => state.auth.currentUserInfo?.id);
 
     const [colorDetector] = useState(new ColorThief());
 
     const dispatch = useAppDispatch();
-
-    const { asPath } = useRouter();
 
     const containerRef = useRef<HTMLDivElement>(null);
     const playlistNameRef = useRef<HTMLHeadingElement>(null);
@@ -72,7 +68,7 @@ const ItemPageTopSection: React.FC<ItemPageTopSectionProps> = ({
                     onClick={handleOpenModal}
                     className="w-48 h-48 xl:w-[14.5rem] xl:h-[14.5rem]"
                     imageURL={imageUrl}
-                    editable={!asPath.includes("collection") && currentUserId === ownerId}
+                    editable={editable}
                 />
 
                 <div ref={containerRef} className={"flex h-full flex-col justify-end"}>

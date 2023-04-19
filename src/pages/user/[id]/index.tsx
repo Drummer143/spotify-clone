@@ -62,7 +62,6 @@ const UserPage: NextPage = () => {
             <section className="relative">
                 <ItemPageTopSection
                     name={userInfo.display_name}
-                    ownerId={userInfo.id}
                     type={userInfo.type}
                     imageUrl={userInfo.images[0]?.url}
                 >

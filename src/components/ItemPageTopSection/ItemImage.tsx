@@ -31,9 +31,13 @@ const ItemImage: React.FC<ItemImageProps> = ({ imageURL, className, editable, on
                     src={cacheImage && isURL(imageURL) ? `/api/image_proxy?uri=${imageURL}` : imageURL}
                 />
             ) : (
-                <div className="w-full h-full bg-[#282828] flex items-center justify-center">
-                    <ImagePlaceholder width={48} height={48} fill="#7f7f7f" type="playlist" className="hover:hidden" />
-                </div>
+                <ImagePlaceholder
+                    width={48}
+                    height={48}
+                    fill="#7f7f7f"
+                    type={type}
+                    className={editable ? "hover:hidden" : ""}
+                />
             )}
 
             {editable && (

@@ -38,7 +38,13 @@ const ItemCard: React.FC<ItemCardProps> = ({ type, id, imageURL, description, na
                         )}
                     />
                 ) : (
-                    <ImagePlaceholder type={type} />
+                    <ImagePlaceholder
+                        fill="#7f7f7f"
+                        width={48}
+                        height={48}
+                        className="max-w-[48px] aspect-square w-[25%]"
+                        type={type}
+                    />
                 )}
 
                 {!["episode", "show"].includes(type) && (

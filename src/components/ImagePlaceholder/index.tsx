@@ -8,18 +8,26 @@ type ImagePlaceholderProps = JSX.IntrinsicElements["svg"] & {
 };
 
 const ImagePlaceholder: React.FC<ImagePlaceholderProps> = ({ type, ...svgProps }) => {
-    switch (type) {
-        case "playlist":
-        case "track":
-        case "album":
-        case "episode":
-        case "show":
-            return <PlaylistCoverPlaceHolder {...svgProps} />;
-        case "artist":
-        case "user":
-        default:
-            return <UserAvatarPlaceholder {...svgProps} />;
-    }
+    const selectImage = () => {
+        switch (type) {
+            case "playlist":
+            case "track":
+            case "album":
+            case "episode":
+            case "show":
+                return <PlaylistCoverPlaceHolder {...svgProps} />;
+            case "artist":
+            case "user":
+            default:
+                return <UserAvatarPlaceholder {...svgProps} />;
+        }
+    };
+
+    return (
+        <div className="w-full h-full bg-[#282828] flex items-center justify-center">
+            {selectImage()}
+        </div>
+    );
 };
 
 export default ImagePlaceholder;

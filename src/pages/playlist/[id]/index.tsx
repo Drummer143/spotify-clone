@@ -10,6 +10,7 @@ import { ActionBar, Tracklist, ItemPageTopSection, PlaylistEditModal, ItemsColle
 const PlaylistPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
     const currentModal = useAppSelector(state => state.app.currentModal);
+    const currentUserId = useAppSelector(state => state.auth.currentUserInfo?.id);
 
     const [playlistId, setPlaylistId] = useState<string>();
 
@@ -96,7 +97,8 @@ const PlaylistPage: React.FC = () => {
                     description={playlistInfo.description}
                     imageUrl={playlistInfo.images[0]?.url}
                     name={playlistInfo.name}
-                    ownerId={ownerInfo?.id}
+                    editable={currentUserId === ownerInfo.id}
+
                 >
                     <PlaylistStats
                         ownerDisplayName={playlistInfo.owner.display_name}

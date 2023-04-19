@@ -15,8 +15,8 @@ Implements almost all features available in [original app](open.spotify.com).
     - [x] Top user's tracks page
     - [x] Current user's following page
     - [x] User's Playlists page
-    - [ ] Statistic period toggler
-    - [ ] Edit profile modal
+    - [ ] Statistic period toggler - ?
+    - [x] Edit profile modal - no api for it
 - [x] Loader Components
     - [ ] TrackLoader
     - [ ] ItemPageTopSectionLoader
@@ -43,10 +43,10 @@ Implements almost all features available in [original app](open.spotify.com).
 - [ ] Refreshing access token - ?
 - [ ] Download desktop app page - ?
 - [ ] Rewrite all styles from tailwindCSS to Sass - ?
+- [ ] Use proxy for all images
 
 ## BUGS: ##
-- [ ] Incorrect placeholder displaying in Item Card
-- [ ] Use proxy for all images
+- [x] Incorrect placeholder displaying in Item Card
 - [ ] Fix Warnings called by Image tags
-- [ ] Fix bottom paddings in all page
-- [ ] Fix "0" error
+- [x] Fix bottom paddings in all page
+- [ ] Fix falsy displaying in JSX
