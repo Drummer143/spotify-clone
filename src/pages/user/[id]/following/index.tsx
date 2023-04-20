@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 import { changeHeadBGColor, spotifyApi } from "@/redux";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { ItemCard, ItemsCollectionRowLoader } from "@/components";
+import { Grid, ItemCard, ItemsCollectionRowLoader } from "@/components";
 
 const Index: NextPage = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -43,7 +43,7 @@ const Index: NextPage = () => {
             <section className="px-content-spacing pt-16">
                 <h2 className="text-2xl mb-4 font-bold">Following</h2>
 
-                <div className="grid grid-cols-dynamic gap-dynamic">
+                <Grid>
                     {artists.artists.items.map(artist => (
                         <ItemCard
                             id={artist.id}
@@ -54,7 +54,7 @@ const Index: NextPage = () => {
                             key={artist.id}
                         />
                     ))}
-                </div>
+                </Grid>
             </section>
         </>
     );

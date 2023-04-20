@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
-import { ItemCard, ItemsCollectionRowHeading } from ".";
+import { Grid, ItemCard, ItemsCollectionRowHeading } from ".";
 
 const RelatedArtists: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -44,7 +44,7 @@ const RelatedArtists: React.FC = () => {
                 heading="Fans Also Likes"
             />
 
-            <div className="grid grid-cols-dynamic gap-dynamic">
+            <Grid>
                 {artists.slice(0, countOfCardsInColumn).map(artist => (
                     <ItemCard
                         {...artist}
@@ -53,7 +53,7 @@ const RelatedArtists: React.FC = () => {
                         description="Artist"
                     />
                 ))}
-            </div>
+            </Grid>
         </div>
     );
 };

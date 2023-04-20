@@ -14,10 +14,10 @@ const SearchResultsPageLayout: React.FC<SearchResultsPageLayoutProps> = ({ child
     const containerRef = useRef<HTMLDivElement>(null);
 
     return (
-        <div ref={containerRef} className="pb-[var(--content-spacing)] pt-[calc(5rem_+_var(--content-spacing))]">
+        <div ref={containerRef} className="pb-content-spacing pt-[calc(5rem_+_var(--content-spacing))]">
             <div
                 className={"flex gap-2 fixed top-16 left-[var(--navbar-width)] z-[1] bg-[#121212]".concat(
-                    " px-[var(--content-spacing)] py-2 w-full"
+                    " px-content-spacing py-2 w-full"
                 )}
             >
                 <SearchTypeButton href={`/search/${query.query}`}>All</SearchTypeButton>

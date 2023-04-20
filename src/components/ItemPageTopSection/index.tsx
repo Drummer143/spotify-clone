@@ -59,7 +59,7 @@ const ItemPageTopSection: React.FC<ItemPageTopSectionProps> = ({
         <>
             <div
                 className={"h-[30vh] min-h-[340px] max-h-[500px] transition-[background-color] duration-500 ease-in-out"
-                    .concat(" flex items-end px-[var(--content-spacing)] pb-6 gap-6")
+                    .concat(" flex items-end px-content-spacing pb-6 gap-6")
                     .concat(" ", styles.gradient)}
                 style={{ backgroundColor: bgColor }}
             >

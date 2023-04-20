@@ -1,11 +1,11 @@
+import Head from "next/head";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
-import { ItemCard, Loader } from "@/components";
-import Head from "next/head";
+import { Grid, ItemCard, Loader } from "@/components";
 
 const Index: NextPage = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -50,7 +50,7 @@ const Index: NextPage = () => {
             <div className="pt-20 px-content-spacing">
                 <h2 className="text-2xl font-bold mb-4">Fans also like</h2>
 
-                <div className="grid grid-cols-dynamic gap-dynamic">
+                <Grid>
                     {relatedArtists.artists.map(artist => (
                         <ItemCard
                             {...artist}
@@ -59,7 +59,7 @@ const Index: NextPage = () => {
                             imageURL={artist.images[0]?.url}
                         />
                     ))}
-                </div>
+                </Grid>
             </div>
         </>
     );

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ItemCard } from ".";
+import { Grid, ItemCard } from ".";
 import { createDescription } from "@/utils";
 
 type CategorySearchResultsProps = {
@@ -15,11 +15,7 @@ const CategorySearchResults: React.FC<CategorySearchResultsProps> = ({ heading, 
         <div>
             <h2 className="text-2xl font-bold mb-4 mt-[var(--collection-gap)] first-letter:uppercase">{heading}</h2>
 
-            <div
-                className={"grid grid-cols-[repeat(var(--cards-count),_minmax(0,_1fr))] grid-rows-1".concat(
-                    " gap-[var(--collection-gap)]"
-                )}
-            >
+            <Grid className="grid-rows-1">
                 {result.items.slice(0, countOfCards).map(item => (
                     <ItemCard
                         key={item.id}
@@ -30,7 +26,7 @@ const CategorySearchResults: React.FC<CategorySearchResultsProps> = ({ heading, 
                         imageURL={item.images[0]?.url}
                     />
                 ))}
-            </div>
+            </Grid>
         </div>
     );
 };

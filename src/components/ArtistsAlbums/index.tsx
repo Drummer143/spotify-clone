@@ -5,7 +5,7 @@ import GroupToggleButton from "./GroupToggleButton";
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
 import { albumSortComparator } from "@/utils";
-import { ItemCard, ItemsCollectionRowHeading } from "..";
+import { Grid, ItemCard, ItemsCollectionRowHeading } from "..";
 
 const ArtistsAlbums: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -85,7 +85,7 @@ const ArtistsAlbums: React.FC = () => {
                 </GroupToggleButton>
             </div>
 
-            <div className="grid grid-cols-dynamic gap-dynamic">
+            <Grid>
                 {albums.items.slice(0, countOfCardsInColumn).map(album => (
                     <ItemCard
                         {...album}
@@ -100,7 +100,7 @@ const ArtistsAlbums: React.FC = () => {
                         }
                     />
                 ))}
-            </div>
+            </Grid>
         </div>
     );
 };

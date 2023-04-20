@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 
 import { changeHeadBGColor, spotifyApi } from "@/redux";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { ItemCard, PlayButton, ItemsCollectionRowLoader } from "@/components";
+import { ItemCard, PlayButton, ItemsCollectionRowLoader, Grid } from "@/components";
 
 const PodcastsCollectionPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -47,7 +47,7 @@ const PodcastsCollectionPage: React.FC = () => {
             <section className="px-content-spacing">
                 <h2 className="text-2xl font-bold mb-4">Your playlists</h2>
 
-                <div className="grid grid-cols-dynamic gap-dynamic">
+                <Grid>
                     <Link
                         href="/collection/tracks"
                         className={"group col-span-2 rounded-[clamp(4px,32px_*_0.025,8px)] flex flex-col gap-5".concat(
@@ -85,7 +85,7 @@ const PodcastsCollectionPage: React.FC = () => {
                     {shows.items.map(({ show }) => (
                         <ItemCard {...show} description={show.publisher} key={show.id} imageURL={show.images[0]?.url} />
                     ))}
-                </div>
+                </Grid>
             </section>
         </>
     );

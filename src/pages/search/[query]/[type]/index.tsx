@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
 import { createDescription } from "@/utils";
-import { ItemCard, ItemsCollectionRowLoader, SongCard, SonglistHead } from "@/components";
+import { Grid, ItemCard, ItemsCollectionRowLoader, SongCard, SonglistHead } from "@/components";
 
 const CertainSearchResultsPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -56,11 +56,7 @@ const CertainSearchResultsPage: React.FC = () => {
                     <title>Spotify Clone - Search</title>
                 </Head>
 
-                <div
-                    className={"max-w-full w-full px-[var(--content-spacing)] grid gap-[var(--collection-gap)]".concat(
-                        " grid-cols-[repeat(var(--cards-count),_minmax(0,_1fr))]"
-                    )}
-                >
+                <Grid className="max-w-full w-full px-content-spacing]">
                     {items?.length &&
                         items.map(item => (
                             <ItemCard
@@ -72,7 +68,7 @@ const CertainSearchResultsPage: React.FC = () => {
                                 imageURL={item.images[0]?.url}
                             />
                         ))}
-                </div>
+                </Grid>
             </>
         );
     }

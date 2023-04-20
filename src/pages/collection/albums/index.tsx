@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 
 import { changeHeadBGColor, spotifyApi } from "@/redux";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { ItemCard, ListingOfAuthors, ItemsCollectionRowLoader } from "@/components";
+import { ItemCard, ListingOfAuthors, ItemsCollectionRowLoader, Grid } from "@/components";
 
 const AlbumPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -43,7 +43,7 @@ const AlbumPage: React.FC = () => {
             <section className="px-content-spacing py-16">
                 <h2 className="text-2xl font-bold mb-4">Your playlists</h2>
 
-                <div className="grid grid-cols-dynamic gap-dynamic">
+                <Grid>
                     {albums.items.map(({ album }) => (
                         <ItemCard
                             {...album}
@@ -52,7 +52,7 @@ const AlbumPage: React.FC = () => {
                             imageURL={album.images[0]?.url}
                         />
                     ))}
-                </div>
+                </Grid>
             </section>
         </>
     );

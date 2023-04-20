@@ -1,11 +1,11 @@
+import Head from "next/head";
 import { NextPage } from "next";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
-import { useRouter } from "next/router";
-import { ItemCard, ItemsCollectionRowLoader } from "@/components";
-import Head from "next/head";
+import { Grid, ItemCard, ItemsCollectionRowLoader } from "@/components";
 
 const UserPlaylistsPage: NextPage = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -50,7 +50,7 @@ const UserPlaylistsPage: NextPage = () => {
             <section className="px-content-spacing pt-16">
                 <h2 className="text-2xl mb-4 font-bold">Playlists</h2>
 
-                <div className="grid grid-cols-dynamic gap-dynamic">
+                <Grid>
                     {playlists.items.map(playlist => (
                         <ItemCard
                             id={playlist.id}
@@ -61,7 +61,7 @@ const UserPlaylistsPage: NextPage = () => {
                             key={playlist.id}
                         />
                     ))}
-                </div>
+                </Grid>
             </section>
         </>
     );

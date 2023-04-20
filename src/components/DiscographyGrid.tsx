@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ItemCard } from "@/components";
+import { Grid, ItemCard } from "@/components";
 
 type DiscographyGridProps = {
     albums: AlbumInfo[]
@@ -8,7 +8,7 @@ type DiscographyGridProps = {
 
 const DiscographyGrid: React.FC<DiscographyGridProps> = ({ albums }) => {
     return (
-        <div className="grid grid-cols-dynamic gap-dynamic px-content-spacing">
+        <Grid className="px-content-spacing">
             {albums.map((album) => (
                 <ItemCard
                     {...album}
@@ -23,7 +23,7 @@ const DiscographyGrid: React.FC<DiscographyGridProps> = ({ albums }) => {
                     }
                 />
             ))}
-        </div>
+        </Grid>
     );
 };
 

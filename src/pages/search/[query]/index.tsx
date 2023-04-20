@@ -44,7 +44,7 @@ const AllSearchResultsPage: React.FC = () => {
                 <title>Spotify Clone - Search</title>
             </Head>
 
-            <div className="px-[var(--content-spacing)]">
+            <div className="px-content-spacing">
                 {result?.tracks && <SongsSearchResults result={result.tracks} />}
 
                 {result &&

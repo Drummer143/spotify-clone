@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ItemCard } from ".";
+import { Grid, ItemCard } from ".";
 import { createDescription } from "@/utils";
 
 type ItemsCollectionRowProps = {
@@ -11,7 +11,7 @@ const ItemsCollectionRow: React.FC<ItemsCollectionRowProps> = ({
     items
 }) => {
     return (
-        <div className="grid gap-dynamic grid-cols-dynamic grid-rows-1">
+        <Grid className="grid-rows-1">
             {items.map(item => (
                 <ItemCard
                     key={item.id}
@@ -22,7 +22,7 @@ const ItemsCollectionRow: React.FC<ItemsCollectionRowProps> = ({
                     type={item.type}
                 />
             ))}
-        </div>
+        </Grid>
     );
 };
 

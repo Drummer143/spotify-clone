@@ -1,9 +1,9 @@
 import Head from "next/head";
 import React, { useEffect, useRef } from "react";
 
-import { GenreCard } from "@/components";
-import { useAppSelector, useAppDispatch } from "@/hooks";
+import { GenreCard, Grid } from "@/components";
 import { spotifyApi, changeHeadBGColor } from "@/redux";
+import { useAppSelector, useAppDispatch } from "@/hooks";
 
 const DefaultSearchPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -35,19 +35,14 @@ const DefaultSearchPage: React.FC = () => {
                 <title>Spotify Clone - Search</title>
             </Head>
 
-            <section ref={defaultSearchPageContainerRef} className="pt-28 px-[var(--content-spacing)]">
+            <section ref={defaultSearchPageContainerRef} className="pt-28 px-content-spacing">
                 <h2 className="text-2xl font-bold mb-4">Browse all</h2>
 
-                <div
-                    className={"grid grid-cols-[repeat(var(--cards-count),_minmax(0,_1fr))]".concat(
-                        " gap-[var(--collection-gap)]"
-                    )}
-                >
-                    {categories &&
-                        categories.categories.items.map(category => (
-                            <GenreCard key={category.id} category={category} />
-                        ))}
-                </div>
+                <Grid>
+                    {categories?.categories.items.map(category => (
+                        <GenreCard key={category.id} category={category} />
+                    ))}
+                </Grid>
             </section>
         </>
     );

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
-import { ItemCard, ItemsCollectionRowLoader } from "@/components";
+import { Grid, ItemCard, ItemsCollectionRowLoader } from "@/components";
 
 const GenreCollection: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -53,7 +53,7 @@ const GenreCollection: React.FC = () => {
             <section className="px-content-spacing">
                 <h2 className="text-2xl font-bold mb-4">{categoryInfo.name}</h2>
 
-                <div className="grid gap-dynamic grid-cols-dynamic">
+                <Grid>
                     {playlists.playlists.items.map(playlist => (
                         <ItemCard
                             id={playlist.id}
@@ -64,7 +64,7 @@ const GenreCollection: React.FC = () => {
                             key={playlist.id}
                         />
                     ))}
-                </div>
+                </Grid>
             </section>
         </>
     );

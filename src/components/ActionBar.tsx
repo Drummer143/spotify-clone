@@ -22,7 +22,7 @@ const ActionBar: React.FC<ActionBarProps> = ({ userInfo }) => {
                 )}
             />
 
-            <div className="px-[var(--content-spacing)] py-6 bg-transparent flex items-center gap-8">
+            <div className="px-content-spacing py-6 bg-transparent flex items-center gap-8">
                 <PlayButton />
 
                 {userInfo && (
