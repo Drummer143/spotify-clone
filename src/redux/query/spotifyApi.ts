@@ -156,6 +156,21 @@ export const spotifyApi = createApi({
             providesTags: ["UserFollowInfo"]
         }),
 
+        getAlbumTracks: build.query<GetAlumTracksResponse, {
+            accessToken: string;
+            albumId: string;
+            searchParams?: {
+                market: string;
+                limit?: number;
+                after?: string;
+            };
+        }>({
+            query: ({ accessToken, searchParams, albumId }) => ({
+                url: `/albums/${albumId}/tracks` + stringifySearchParams(searchParams),
+                headers: spotifyApiHeaders(accessToken)
+            })
+        }),
+
         getSeveralBrowseCategories: build.query<
             GetSeveralBrowseCategoriesResponse,
             {

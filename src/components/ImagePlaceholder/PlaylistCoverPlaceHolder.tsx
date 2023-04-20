@@ -1,8 +1,8 @@
 import React from "react";
 
-type PlaylistCoverPlaceHolderProps = JSX.IntrinsicElements["svg"];
+type PlaylistCoverPlaceholderProps = JSX.IntrinsicElements["svg"];
 
-const PlaylistCoverPlaceHolder: React.FC<PlaylistCoverPlaceHolderProps> = ({
+const PlaylistCoverPlaceholder: React.FC<PlaylistCoverPlaceholderProps> = ({
     width = 24,
     height = 24,
     viewBox = "0 0 24 24",
@@ -19,4 +19,4 @@ const PlaylistCoverPlaceHolder: React.FC<PlaylistCoverPlaceHolderProps> = ({
     );
 };
 
-export default PlaylistCoverPlaceHolder;
+export default PlaylistCoverPlaceholder;

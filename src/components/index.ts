@@ -4,6 +4,8 @@ export { default as ArtistPlaylistsAppearsOn } from "./ArtistPlaylistsAppearsOn"
 export { default as CategoryPlaylistsCollection } from "./CategoryPlaylistsCollection";
 export { default as CategorySearchResults } from "./CategorySearchResults";
 export { default as CurrentUserPagePart } from "./CurrentUserPagePart";
+export { default as DiscographyGrid } from "./DiscographyGrid";
+export { default as DiscographyList } from "./DiscographyList";
 export { default as ImagePlaceholder } from "./ImagePlaceholder";
 export { default as GenreCard } from "./GenreCard";
 export { default as GoogleMaterialIcon } from "./GoogleMaterialIcon";

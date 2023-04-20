@@ -1,10 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { GoogleMaterialIcon } from ".";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 
 type SonglistHeadProps = {
     stickyX?: number;
+    isSticky?: boolean;
 
     hiddenFields?: {
         number?: boolean;
@@ -13,14 +14,23 @@ type SonglistHeadProps = {
     };
 };
 
-const SonglistHead: React.FC<SonglistHeadProps> = ({ stickyX = 64, hiddenFields = {} }) => {
+const SonglistHead: React.FC<SonglistHeadProps> = ({ stickyX, hiddenFields = {} }) => {
     const [countOfHiddenFields] = useState(Object.values(hiddenFields).filter(f => f).length);
+    const [skip, setSkip] = useState(typeof stickyX === "undefined");
     const [isSticky, setIsSticky] = useState(false);
 
     const headRef = useRef<HTMLDivElement>(null);
 
+    useEffect(() => {
+        setSkip(typeof stickyX === "undefined");
+    }, [stickyX]);
+
     useIntersectionObserver({
-        onIntersection: ([e]) => setIsSticky(e.isIntersecting),
+        onIntersection: ([e]) => {
+            if (!skip) {
+                setIsSticky(!e.isIntersecting);
+            }
+        },
         targetRef: headRef,
         options: {
             threshold: [1]
@@ -29,15 +39,17 @@ const SonglistHead: React.FC<SonglistHeadProps> = ({ stickyX = 64, hiddenFields 
 
     return (
         <div
-            className={" mb-4 sticky z-[1] transition-[background-color] px-content-spacing".concat(
-                " ",
-                isSticky ? "bg-[#18181800]" : "bg-[#181818]"
-            )}
+            className={" mb-4 z-[1] transition-[background-color] px-content-spacing"
+                .concat(!skip ? " sticky" : "")
+                .concat(" ", isSticky ? "bg-[#181818]" : "bg-[#18181800]")}
             style={{
                 top: `${stickyX}px`
             }}
         >
-            <div ref={headRef} className="w-[1px] absolute invisible" style={{ top: `${-1 * stickyX - 1}px` }} />
+            {typeof stickyX === "number" && (
+                <div ref={headRef} className="w-[1px] absolute invisible" style={{ top: `${-1 * stickyX - 1}px` }} />
+            )}
+
             <div
                 className={"px-4 grid h-8 place-items-start items-center gap-4 text-[#b3b3b3]"
                     .concat(" border-0 border-b border-solid border-[hsla(0,0%,100%,.1)]")

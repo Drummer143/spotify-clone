@@ -142,7 +142,7 @@ interface ShortArtistInfo {
 type AlbumType = "album" | "single" | "appears_on" | "compilation";
 
 interface AlbumInfo {
-    album_type: string;
+    album_type: AlbumType;
     total_tracks: number;
     available_markets: string[];
     external_urls: ExternalUrlsInfo;

@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
+import { albumSortComparator } from "@/utils";
 import { ItemCard, ItemsCollectionRowHeading } from ".";
 
 const ArtistPlaylistsAppearsOn: React.FC = () => {
@@ -11,7 +12,23 @@ const ArtistPlaylistsAppearsOn: React.FC = () => {
 
     const { query } = useRouter();
 
-    const [getAlbums, { data: albums }] = spotifyApi.useLazyGetArtistAlbumsQuery();
+    const [getAlbums, { data: albums }] = spotifyApi.useLazyGetArtistAlbumsQuery({
+        selectFromResult: result => {
+            if (!result.currentData) {
+                return result;
+            }
+
+            const sortedAlbums = result.currentData.items.slice().sort(albumSortComparator);
+
+            return {
+                ...result,
+                currentData: {
+                    ...result.currentData,
+                    items: sortedAlbums
+                }
+            };
+        }
+    });
 
     useEffect(() => {
         let artistId = query.id;

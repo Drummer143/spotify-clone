@@ -52,7 +52,7 @@ const Index: NextPage = () => {
                 <title>{artist.name} | Spotify Clone</title>
             </Head>
 
-            <div>
+            <section>
                 <ItemPageTopSection
                     name={artist.name}
                     type={artist.type}
@@ -74,7 +74,7 @@ const Index: NextPage = () => {
 
                     <RelatedArtists />
                 </div>
-            </div>
+            </section>
         </>
     );
 };

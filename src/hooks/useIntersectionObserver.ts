@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 interface UseIntersectionObserverProps {
     targetRef: React.RefObject<HTMLElement>;

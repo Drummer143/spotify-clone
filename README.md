@@ -23,8 +23,10 @@ Implements almost all features available in [original app](open.spotify.com).
 - [ ] Error pages
 - [ ] Settings page - ?
 - [x] Artist page
-    - [ ] Discography pages
-    - [ ] Related artists page
+    - [x] Discography pages
+        - [ ] Dropdown album type switcher
+        - [ ] Follow album by clicking follow button
+    - [x] Related artists page
 - [ ] Album page
 - [ ] Track page
 - [ ] Episode page

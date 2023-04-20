@@ -9,7 +9,7 @@ type TracklistProps = {
 const Tracklist: React.FC<TracklistProps> = ({ tracks }) => {
     return (
         <div className="relative z-[0] text-sm">
-            <SonglistHead />
+            <SonglistHead stickyX={64} />
 
             <div className="px-content-spacing">
                 {tracks &&

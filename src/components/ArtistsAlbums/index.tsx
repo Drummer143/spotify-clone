@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import { useAppSelector } from "@/hooks";
-import { spotifyApi } from "@/redux";
-import { ItemCard, ItemsCollectionRowHeading } from "..";
 import GroupToggleButton from "./GroupToggleButton";
-
-type GroupType = "all" | "album" | "single";
+import { spotifyApi } from "@/redux";
+import { useAppSelector } from "@/hooks";
+import { albumSortComparator } from "@/utils";
+import { ItemCard, ItemsCollectionRowHeading } from "..";
 
 const ArtistsAlbums: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -16,28 +15,13 @@ const ArtistsAlbums: React.FC = () => {
 
     const { query } = useRouter();
 
-    const sortComparator = (a: AlbumInfo, b: AlbumInfo) => {
-        const aReleaseDate = new Date(a.release_date);
-        const bReleaseDate = new Date(b.release_date);
-
-        if (aReleaseDate > bReleaseDate) {
-            return -1;
-        }
-
-        if (bReleaseDate > aReleaseDate) {
-            return 1;
-        }
-
-        return 0;
-    };
-
     const [getAlbums, { data: albums }] = spotifyApi.useLazyGetArtistAlbumsQuery({
         selectFromResult: result => {
             if (!result.currentData) {
                 return result;
             }
 
-            const sortedAlbums = result.currentData.items.slice().sort(sortComparator);
+            const sortedAlbums = result.currentData.items.slice().sort(albumSortComparator);
 
             return {
                 ...result,

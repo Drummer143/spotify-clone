@@ -1,17 +1,17 @@
 import Head from "next/head";
 import React, { useEffect } from "react";
 
+import PlaylistStats from "@/components/ItemPageTopSection/PlaylistStats";
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
-import { Tracklist, ActionBar, ItemPageTopSection } from "@/components";
-import PlaylistStats from "@/components/ItemPageTopSection/PlaylistStats";
+import { Tracklist, ActionBar, ItemPageTopSection, Loader } from "@/components";
 
 const LikeSongPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
 
-    const [getSavedTracks, { currentData: savedTracks, isLoading: tracksIsFetching }] =
+    const [getSavedTracks, { currentData: savedTracks, isLoading: tracksIsLoading }] =
         spotifyApi.useLazyGetCurrentUserSavedTracksQuery();
-    const [getCurrentUser, { currentData: user, isLoading: userIsFetching }] = spotifyApi.useLazyGetCurrentUserQuery();
+    const [getCurrentUser, { currentData: user, isLoading: userIsLoading }] = spotifyApi.useLazyGetCurrentUserQuery();
 
     useEffect(() => {
         if (!accessToken) {
@@ -22,8 +22,8 @@ const LikeSongPage: React.FC = () => {
         getSavedTracks({ accessToken });
     }, [accessToken, getCurrentUser, getSavedTracks]);
 
-    if (tracksIsFetching || userIsFetching) {
-        return <div>loading...</div>;
+    if (tracksIsLoading || userIsLoading) {
+        return <Loader />;
     }
 
     if (!savedTracks || !user) {

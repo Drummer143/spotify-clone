@@ -31,6 +31,7 @@ const CategoryPlaylistsCollection: React.FC<CategoryPlaylistsCollectionProps> = 
             {!!playlists?.playlists.items.length && (
                 <section>
                     <ItemsCollectionRowHeading
+                        isLink={playlists.playlists.total > countOfCardsInColumn}
                         heading={name}
                         hrefToFullCollection={`/genre/${id}`}
                     />

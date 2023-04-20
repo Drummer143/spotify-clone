@@ -126,3 +126,18 @@ export const isURL = (urlToCheck: string) => {
         return false;
     }
 };
+
+export const albumSortComparator = (a: AlbumInfo, b: AlbumInfo) => {
+    const aReleaseDate = new Date(a.release_date);
+    const bReleaseDate = new Date(b.release_date);
+
+    if (aReleaseDate > bReleaseDate) {
+        return -1;
+    }
+
+    if (bReleaseDate > aReleaseDate) {
+        return 1;
+    }
+
+    return 0;
+};

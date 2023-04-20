@@ -41,7 +41,7 @@ const TopTrackPage: NextPage = () => {
         <section className="pt-20">
             <h1 className="text-2xl font-bold mb-4 px-content-spacing">Top tracks this month</h1>
 
-            <SonglistHead hiddenFields={{ dateAdded: true }} />
+            <SonglistHead stickyX={64} hiddenFields={{ dateAdded: true }} />
 
             <div className="px-content-spacing">
                 {topTracks.items.map((track, i) => (

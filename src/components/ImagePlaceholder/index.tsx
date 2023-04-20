@@ -1,13 +1,14 @@
 import React from "react";
 
 import UserAvatarPlaceholder from "./UserAvatarPlaceholder";
-import PlaylistCoverPlaceHolder from "./PlaylistCoverPlaceHolder";
+import PlaylistCoverPlaceholder from "./PlaylistCoverPlaceholder";
+import ArtistPlaceholder from "./ArtistPlaceholder";
 
 type ImagePlaceholderProps = JSX.IntrinsicElements["svg"] & {
     type: ItemType;
 };
 
-const ImagePlaceholder: React.FC<ImagePlaceholderProps> = ({ type, ...svgProps }) => {
+const ImagePlaceholder: React.FC<ImagePlaceholderProps> = ({ type, className, ...svgProps }) => {
     const selectImage = () => {
         switch (type) {
             case "playlist":
@@ -15,8 +16,9 @@ const ImagePlaceholder: React.FC<ImagePlaceholderProps> = ({ type, ...svgProps }
             case "album":
             case "episode":
             case "show":
-                return <PlaylistCoverPlaceHolder {...svgProps} />;
+                return <PlaylistCoverPlaceholder {...svgProps} />;
             case "artist":
+                return <ArtistPlaceholder {...svgProps} />;
             case "user":
             default:
                 return <UserAvatarPlaceholder {...svgProps} />;
