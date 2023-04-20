@@ -59,6 +59,7 @@ const CurrentUserPagePart: React.FC<CurrentUserPagePartProps> = ({ user }) => {
             {!!topTracks?.items.length && (
                 <section>
                     <ItemsCollectionRowHeading
+                        isLink
                         heading="Top tracks this month"
                         hrefToFullCollection={`/user/${user.id}/top/tracks`}
                     />
@@ -82,6 +83,7 @@ const CurrentUserPagePart: React.FC<CurrentUserPagePartProps> = ({ user }) => {
             {!!followedArtists?.artists.items.length && (
                 <section>
                     <ItemsCollectionRowHeading
+                        isLink
                         heading="following"
                         hrefToFullCollection={`/user/${user.id}/following`}
                     />

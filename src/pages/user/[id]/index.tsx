@@ -82,11 +82,9 @@ const UserPage: NextPage = () => {
                     {!!playlists?.items.length && (
                         <section>
                             <ItemsCollectionRowHeading
+                                isLink={playlists.total > countOfCardsInColumn}
                                 heading={`${userInfo.id !== currentUserId ? "public" : ""} playlists`}
-                                hrefToFullCollection={playlists.total > countOfCardsInColumn
-                                    ? `/user/${userInfo.id}/playlists` :
-                                    ""
-                                }
+                                hrefToFullCollection={`/user/${userInfo.id}/playlists`}
                             />
 
                             <ItemsCollectionRow items={playlists.items} />

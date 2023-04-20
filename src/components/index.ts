@@ -34,6 +34,7 @@ export { default as SpotifyLogo } from "./SpotifyLogo";
 export { default as Tracklist } from "./Tracklist";
 export { default as UserFollowButton } from "./UserFollowButton";
 export { default as Grid } from "./Grid";
+export { default as ImageWrapper } from "./ImageWrapper";
 
 export * from "./layouts";
 export * from "./loaders";

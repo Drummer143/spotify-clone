@@ -1,9 +1,7 @@
-import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/router";
 
-import { ImagePlaceholder, PlayButton } from ".";
-import ImageWrapper from "./ImageWrapper";
+import { PlayButton, ImageWrapper } from ".";
 
 type ItemCardProps = {
     type: ItemType;

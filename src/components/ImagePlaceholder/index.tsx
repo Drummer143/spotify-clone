@@ -8,7 +8,7 @@ type ImagePlaceholderProps = JSX.IntrinsicElements["svg"] & {
     type: ItemType;
 };
 
-const ImagePlaceholder: React.FC<ImagePlaceholderProps> = ({ type, className, ...svgProps }) => {
+const ImagePlaceholder: React.FC<ImagePlaceholderProps> = ({ type, ...svgProps }) => {
     const selectImage = () => {
         switch (type) {
             case "playlist":
