@@ -1,8 +1,8 @@
 import React from "react";
 
 import UserAvatarPlaceholder from "./UserAvatarPlaceholder";
-import PlaylistCoverPlaceholder from "./PlaylistCoverPlaceholder";
-import ArtistPlaceholder from "./ArtistPlaceholder";
+import ArtistImagePlaceholder from "./ArtistImagePlaceholder";
+import PlaylistImagePlaceholder from "./PlaylistImagePlaceholder";
 
 type ImagePlaceholderProps = JSX.IntrinsicElements["svg"] & {
     type: ItemType;
@@ -16,9 +16,9 @@ const ImagePlaceholder: React.FC<ImagePlaceholderProps> = ({ type, ...svgProps }
             case "album":
             case "episode":
             case "show":
-                return <PlaylistCoverPlaceholder {...svgProps} />;
+                return <PlaylistImagePlaceholder {...svgProps} />;
             case "artist":
-                return <ArtistPlaceholder {...svgProps} />;
+                return <ArtistImagePlaceholder {...svgProps} />;
             case "user":
             default:
                 return <UserAvatarPlaceholder {...svgProps} />;
