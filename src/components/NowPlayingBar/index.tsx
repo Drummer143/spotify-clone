@@ -1,6 +1,7 @@
 import React from "react";
 
 import LeftPart from "./LeftPart";
+import RightPart from "./RightPart";
 import MiddleControls from "./MiddleControls";
 
 import styles from "@/styles/NowPlayingBar.module.css";
@@ -14,8 +15,10 @@ const NowPlayingBar: React.FC = () => {
                 .concat(" ", styles.wrapper)}
         >
             <LeftPart />
+
             <MiddleControls />
-            <div className="min-w-[11.25rem] w-[30%]">right buttons</div>
+
+            <RightPart />
         </footer>
     );
 };

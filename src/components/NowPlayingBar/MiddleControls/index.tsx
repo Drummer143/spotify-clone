@@ -1,4 +1,5 @@
 import React from "react";
+import dynamic from "next/dynamic";
 
 import PlaylistControls from "./PlaylistControls";
 import SongTimeDisplayer from "./SongTimeDisplayer";
@@ -12,4 +13,4 @@ const MiddleControls: React.FC = () => {
     );
 };
 
-export default MiddleControls;
+export default dynamic(() => Promise.resolve(MiddleControls), { ssr: false });

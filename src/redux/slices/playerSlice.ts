@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 type RepeatValues = "no" | "playlist" | "single";
 
@@ -12,6 +12,8 @@ interface PlayerState {
     playlist: string[];
     playNextQueue: string[];
     paused: boolean
+    volume: number
+    muted: boolean
 
     prevSong?: string
     currentSong?: string
@@ -25,7 +27,9 @@ const initialState: PlayerState = {
     paused: false,
     currentSongIndex: 0,
     playlist: [],
-    playNextQueue: []
+    playNextQueue: [],
+    volume: 25,
+    muted: false
 };
 
 const playerSlice = createSlice({
@@ -41,10 +45,16 @@ const playerSlice = createSlice({
             const nextIndex = (index + 1) % 3;
 
             state.repeat = repeatValuesArray[nextIndex];
+        },
+        setVolume: (state, action: PayloadAction<number>) => {
+            state.volume = action.payload;
+        },
+        toggleMute: (state) => {
+            state.muted = !state.muted;
         }
     }
 });
 
 export default playerSlice;
 
-export const { toggleRepeat, toggleShuffle } = playerSlice.actions;
+export const { toggleRepeat, toggleShuffle, setVolume, toggleMute } = playerSlice.actions;
