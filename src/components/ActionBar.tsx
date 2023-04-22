@@ -4,13 +4,13 @@ import { useAppSelector } from "@/hooks";
 import { GoogleMaterialIcon, PlayButton } from ".";
 
 type ActionBarProps = {
-    userInfo?: {
+    itemInfo?: {
         isFollowing: boolean;
         onFollowToggle: React.MouseEventHandler<HTMLSpanElement>;
     };
 };
 
-const ActionBar: React.FC<ActionBarProps> = ({ userInfo }) => {
+const ActionBar: React.FC<ActionBarProps> = ({ itemInfo }) => {
     const headerBGColor = useAppSelector(state => state.app.headerBGColor);
 
     return (
@@ -25,15 +25,15 @@ const ActionBar: React.FC<ActionBarProps> = ({ userInfo }) => {
             <div className="px-content-spacing py-6 bg-transparent flex items-center gap-8">
                 <PlayButton />
 
-                {userInfo && (
+                {itemInfo && (
                     <GoogleMaterialIcon
                         iconName="favorite"
                         size={2.4}
-                        FILL={userInfo.isFollowing ? 1 : 0}
-                        onClick={userInfo.onFollowToggle}
+                        FILL={itemInfo.isFollowing ? 1 : 0}
+                        onClick={itemInfo.onFollowToggle}
                         className={"cursor-pointer transition-[color]".concat(
                             " ",
-                            userInfo.isFollowing ? "text-[#1ed760]" : "text-[hsla(0,0%,100%,.7)] hover:text-white"
+                            itemInfo.isFollowing ? "text-[#1ed760]" : "text-[hsla(0,0%,100%,.7)] hover:text-white"
                         )}
                     />
                 )}

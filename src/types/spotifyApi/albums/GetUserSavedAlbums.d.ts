@@ -5,5 +5,8 @@ interface GetUserSavedAlbums {
     offset: number;
     previous: string | null;
     total: number;
-    items: FullAlbumInfo[];
+    items: {
+        added_at: string;
+        album: FullAlbumInfo;
+    }[];
 }

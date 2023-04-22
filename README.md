@@ -27,7 +27,8 @@ Implements almost all features available in [original app](open.spotify.com).
         - [ ] Dropdown album type switcher
         - [ ] Follow album by clicking follow button
     - [x] Related artists page
-- [ ] Album page
+- [x] Album page
+    - [ ] Action bar
 - [ ] Track page
 - [ ] Episode page
 - [ ] Podcast page

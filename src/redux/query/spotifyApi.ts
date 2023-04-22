@@ -8,7 +8,7 @@ import { spotifyApiHeaders, stringifySearchParams } from "@/utils";
 
 export const spotifyApi = createApi({
     reducerPath: "spotifyApi",
-    tagTypes: ["CurrentUsersPlaylists", "PlaylistFollowInfo", "PlaylistInfo", "UserFollowInfo"],
+    tagTypes: ["CurrentUsersPlaylists", "PlaylistFollowInfo", "PlaylistInfo", "UserFollowInfo", "AlbumFollowInfo"],
     baseQuery: fetchBaseQuery({ baseUrl: "https://api.spotify.com/v1" }),
     extractRehydrationInfo: (action, { reducerPath }) => {
         if (action.type === HYDRATE) {
@@ -156,6 +156,17 @@ export const spotifyApi = createApi({
             providesTags: ["UserFollowInfo"]
         }),
 
+        getAlbum: build.query<GetAlbumResponse, {
+            accessToken: string;
+            albumId: string;
+            market?: string
+        }>({
+            query: ({ accessToken, albumId, market }) => ({
+                url: "/albums/" + albumId + (market ? ("?market=" + market) : ""),
+                headers: spotifyApiHeaders(accessToken)
+            })
+        }),
+
         getAlbumTracks: build.query<GetAlumTracksResponse, {
             accessToken: string;
             albumId: string;
@@ -169,6 +180,17 @@ export const spotifyApi = createApi({
                 url: `/albums/${albumId}/tracks` + stringifySearchParams(searchParams),
                 headers: spotifyApiHeaders(accessToken)
             })
+        }),
+
+        checkUserSavedAlbums: build.query<boolean[], {
+            accessToken: string,
+            ids: string | string[]
+        }>({
+            query: ({ accessToken, ids }) => ({
+                url: "/me/albums/contains?ids=" + ids.toString(),
+                headers: spotifyApiHeaders(accessToken)
+            }),
+            providesTags: ["AlbumFollowInfo"]
         }),
 
         getSeveralBrowseCategories: build.query<
@@ -429,6 +451,32 @@ export const spotifyApi = createApi({
                 method: "DELETE"
             }),
             invalidatesTags: ["UserFollowInfo"]
+        }),
+
+        saveAlbumsForCurrentUser: build.mutation<"", {
+            accessToken: string
+            ids: string | string[]
+        }>({
+            query: ({ accessToken, ids }) => ({
+                url: "/me/albums",
+                body: Array.isArray(ids) ? ids : [ids],
+                method: "PUT",
+                headers: spotifyApiHeaders(accessToken)
+            }),
+            invalidatesTags: ["AlbumFollowInfo"]
+        }),
+
+        removeUserSavedAlbums: build.mutation<"", {
+            accessToken: string
+            ids: string | string[]
+        }>({
+            query: ({ accessToken, ids }) => ({
+                url: "/me/albums",
+                body: Array.isArray(ids) ? ids : [ids],
+                method: "DELETE",
+                headers: spotifyApiHeaders(accessToken)
+            }),
+            invalidatesTags: ["AlbumFollowInfo"]
         })
     })
 });

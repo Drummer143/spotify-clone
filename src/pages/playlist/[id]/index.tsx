@@ -110,7 +110,7 @@ const PlaylistPage: React.FC = () => {
                 </ItemPageTopSection>
 
                 <ActionBar
-                    userInfo={
+                    itemInfo={
                         followInfo
                             ? {
                                 isFollowing: followInfo[0],

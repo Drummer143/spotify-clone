@@ -11,6 +11,7 @@ type ItemPageTopSectionProps = {
     type: ItemType;
     name: string;
 
+    subheading?: string
     children?: React.ReactNode;
     imageUrl?: string;
     description?: string;
@@ -23,7 +24,8 @@ const ItemPageTopSection: React.FC<ItemPageTopSectionProps> = ({
     name,
     type,
     children,
-    editable
+    editable,
+    subheading = type
 }) => {
     const bgColor = useAppSelector(state => state.app.headerBGColor[1]);
 
@@ -72,7 +74,7 @@ const ItemPageTopSection: React.FC<ItemPageTopSectionProps> = ({
                 />
 
                 <div ref={containerRef} className={"flex h-full flex-col justify-end"}>
-                    <p className="font-bold text-sm first-letter:uppercase">{type}</p>
+                    <p className="font-bold text-sm first-letter:uppercase">{subheading}</p>
 
                     <h1
                         ref={playlistNameRef}
