@@ -8,7 +8,14 @@ import { spotifyApiHeaders, stringifySearchParams } from "@/utils";
 
 export const spotifyApi = createApi({
     reducerPath: "spotifyApi",
-    tagTypes: ["CurrentUsersPlaylists", "PlaylistFollowInfo", "PlaylistInfo", "UserFollowInfo", "AlbumFollowInfo"],
+    tagTypes: [
+        "AlbumFollowInfo",
+        "CurrentUsersPlaylists",
+        "PlaylistFollowInfo",
+        "PlaylistInfo",
+        "TrackFollowInfo",
+        "UserFollowInfo"
+    ],
     baseQuery: fetchBaseQuery({ baseUrl: "https://api.spotify.com/v1" }),
     extractRehydrationInfo: (action, { reducerPath }) => {
         if (action.type === HYDRATE) {
@@ -171,13 +178,13 @@ export const spotifyApi = createApi({
             accessToken: string;
             albumId: string;
             searchParams?: {
-                market: string;
+                market?: string;
                 limit?: number;
                 after?: string;
             };
         }>({
             query: ({ accessToken, searchParams, albumId }) => ({
-                url: `/albums/${albumId}/tracks` + stringifySearchParams(searchParams),
+                url: `/albums/${albumId}/tracks?` + stringifySearchParams(searchParams),
                 headers: spotifyApiHeaders(accessToken)
             })
         }),
@@ -265,6 +272,28 @@ export const spotifyApi = createApi({
                 url: `/users/${userId}/playlists?${stringifySearchParams(searchParams)}`,
                 headers: spotifyApiHeaders(accessToken)
             })
+        }),
+
+        getTrack: build.query<GetTrackResponse, {
+            accessToken: string
+            trackId: string
+            market?: string
+        }>({
+            query: ({ accessToken, trackId, market }) => ({
+                url: "/tracks/" + trackId + (market ? ("?market=" + market) : ""),
+                headers: spotifyApiHeaders(accessToken)
+            })
+        }),
+
+        checkUserSavedTracks: build.query<boolean[], {
+            accessToken: string,
+            ids: string | string[]
+        }>({
+            query: ({ accessToken, ids }) => ({
+                url: "me/tracks/contains?ids=" + ids.toString(),
+                headers: spotifyApiHeaders(accessToken)
+            }),
+            providesTags: ["TrackFollowInfo"]
         }),
 
         searchForItem: build.query<
@@ -477,6 +506,32 @@ export const spotifyApi = createApi({
                 headers: spotifyApiHeaders(accessToken)
             }),
             invalidatesTags: ["AlbumFollowInfo"]
+        }),
+
+        saveTracksForCurrentUser: build.mutation<"", {
+            accessToken: string
+            ids: string | string[]
+        }>({
+            query: ({ accessToken, ids }) => ({
+                url: "/me/tracks",
+                body: Array.isArray(ids) ? ids : [ids],
+                method: "PUT",
+                headers: spotifyApiHeaders(accessToken)
+            }),
+            invalidatesTags: ["TrackFollowInfo"]
+        }),
+
+        removeUserSavedTracks: build.mutation<"", {
+            accessToken: string
+            ids: string | string[]
+        }>({
+            query: ({ accessToken, ids }) => ({
+                url: "/me/tracks",
+                body: Array.isArray(ids) ? ids : [ids],
+                method: "DELETE",
+                headers: spotifyApiHeaders(accessToken)
+            }),
+            invalidatesTags: ["TrackFollowInfo"]
         })
     })
 });

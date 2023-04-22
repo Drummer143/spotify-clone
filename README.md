@@ -28,8 +28,7 @@ Implements almost all features available in [original app](open.spotify.com).
         - [ ] Follow album by clicking follow button
     - [x] Related artists page
 - [x] Album page
-    - [ ] Action bar
-- [ ] Track page
+- [x] Track page
 - [ ] Episode page
 - [ ] Podcast page
 - [ ] Music Player
@@ -41,6 +40,7 @@ Implements almost all features available in [original app](open.spotify.com).
 - [ ] Finish Now Playing Bar
 - [ ] Infinite scroll everywhere
 - [x] User search - no api for it
+- [ ] Use proxy for all images
 - [ ] Tests - ?
 - [ ] Mobile version - ?
 - [ ] Proxy next server - ?
@@ -48,7 +48,6 @@ Implements almost all features available in [original app](open.spotify.com).
 - [ ] Refreshing access token - ?
 - [ ] Download desktop app page - ?
 - [ ] Rewrite all styles from tailwindCSS to Sass - ?
-- [ ] Use proxy for all images
 
 ## BUGS: ##
 - [x] Incorrect placeholder displaying in Item Card

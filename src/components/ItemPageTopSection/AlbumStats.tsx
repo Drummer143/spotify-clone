@@ -5,9 +5,9 @@ import React from "react";
 type AlbumStatsProps = {
     ownerDisplayName: string;
     releaseDate: string
-    totalSongs: number
     ownerId: string
 
+    totalSongs?: number
     ownerImageURL?: string
 };
 
@@ -38,9 +38,13 @@ const AlbumStats: React.FC<AlbumStatsProps> = ({
 
             <span>{new Date(releaseDate).getFullYear()}</span>
 
-            <span className="mx-1 text-base">•</span>
+            {!!totalSongs && (
+                <>
+                    <span className="mx-1 text-base">•</span>
 
-            <span>{totalSongs} songs</span>
+                    <span>{totalSongs} songs</span>
+                </>
+            )}
         </div>
     );
 };
