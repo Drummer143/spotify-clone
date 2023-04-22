@@ -24,11 +24,12 @@ Implements almost all features available in [original app](open.spotify.com).
 - [ ] Settings page - ?
 - [x] Artist page
     - [x] Discography pages
-        - [ ] Dropdown album type switcher
-        - [ ] Follow album by clicking follow button
+        - [ ] Dropdown album type switcher - ?
+        - [x] Follow album by clicking follow button
     - [x] Related artists page
 - [x] Album page
 - [x] Track page
+- [ ] Save tracks in SongCard component
 - [ ] Episode page
 - [ ] Podcast page
 - [ ] Music Player
