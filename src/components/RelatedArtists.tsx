@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
-import { Grid, ItemCard, ItemsCollectionRowHeading } from ".";
+import { Grid, ItemCard, ItemsCollectionHeading } from ".";
 
 const RelatedArtists: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -38,7 +38,7 @@ const RelatedArtists: React.FC = () => {
 
     return (
         <div>
-            <ItemsCollectionRowHeading
+            <ItemsCollectionHeading
                 isLink
                 hrefToFullCollection={`/artist/${query.id}/related`}
                 heading="Fans Also Likes"

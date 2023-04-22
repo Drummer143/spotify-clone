@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
 import { albumSortComparator } from "@/utils";
-import { Grid, ItemCard, ItemsCollectionRowHeading } from ".";
+import { Grid, ItemCard, ItemsCollectionHeading } from ".";
 
 const ArtistPlaylistsAppearsOn: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -58,7 +58,7 @@ const ArtistPlaylistsAppearsOn: React.FC = () => {
 
     return (
         <div>
-            <ItemsCollectionRowHeading
+            <ItemsCollectionHeading
                 isLink={albums.total > countOfCardsInColumn}
                 hrefToFullCollection={`/artist/${query.id}/discography/appears_on`}
                 heading="Appears On"

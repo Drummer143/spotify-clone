@@ -1,9 +1,9 @@
 import Head from "next/head";
 import React, { useEffect, useRef } from "react";
 
-import { CategoryPlaylistsCollection, MainPageLoader } from "@/components";
 import { changeHeadBGColor, spotifyApi } from "@/redux";
 import { useAppSelector, useAppDispatch } from "@/hooks";
+import { CategoryPlaylistsCollection, MainPageLoader } from "@/components";
 
 const MainPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);

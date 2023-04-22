@@ -15,6 +15,7 @@ interface PlayerState {
     volume: number
     muted: boolean
 
+    playlistURL?: string
     prevSong?: string
     currentSong?: string
     nextSong?: string
@@ -51,6 +52,9 @@ const playerSlice = createSlice({
         },
         toggleMute: (state) => {
             state.muted = !state.muted;
+        },
+        setPlaylistURL: (state, action: PayloadAction<string>) => {
+            state.playlistURL = action.payload;
         }
     }
 });

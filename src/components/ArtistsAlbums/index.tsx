@@ -5,7 +5,7 @@ import GroupToggleButton from "./GroupToggleButton";
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
 import { albumSortComparator } from "@/utils";
-import { Grid, ItemCard, ItemsCollectionRowHeading } from "..";
+import { Grid, ItemCard, ItemsCollectionHeading } from "..";
 
 const ArtistsAlbums: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
@@ -64,7 +64,7 @@ const ArtistsAlbums: React.FC = () => {
 
     return (
         <div>
-            <ItemsCollectionRowHeading
+            <ItemsCollectionHeading
                 isLink={albums.total > countOfCardsInColumn}
                 hrefToFullCollection={`/artist/${query.id}/discography/${groupType}`}
                 heading="Discography"

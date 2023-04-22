@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 import Loader from "./Loader";
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
-import { ItemsCollectionRow, ItemsCollectionRowHeading, SongCard } from ".";
+import { ItemCard, ItemsCollectionHeading, SongCard } from ".";
 
 type CurrentUserPagePartProps = {
     user: GetUserResponse;
@@ -50,15 +50,20 @@ const CurrentUserPagePart: React.FC<CurrentUserPagePartProps> = ({ user }) => {
                         Top artists this month
                     </p>
 
-                    <ItemsCollectionRow
-                        items={topArtists.items}
-                    />
+                    {topArtists.items.slice(0, countOfCardsInColumn).map(artist => (
+                        <ItemCard
+                            {...artist}
+                            key={artist.id}
+                            imageURL={artist.images[0]?.url}
+                            description="Artist"
+                        />
+                    ))}
                 </section>
             )}
 
             {!!topTracks?.items.length && (
                 <section>
-                    <ItemsCollectionRowHeading
+                    <ItemsCollectionHeading
                         isLink
                         heading="Top tracks this month"
                         hrefToFullCollection={`/user/${user.id}/top/tracks`}
@@ -82,13 +87,20 @@ const CurrentUserPagePart: React.FC<CurrentUserPagePartProps> = ({ user }) => {
 
             {!!followedArtists?.artists.items.length && (
                 <section>
-                    <ItemsCollectionRowHeading
+                    <ItemsCollectionHeading
                         isLink
                         heading="following"
                         hrefToFullCollection={`/user/${user.id}/following`}
                     />
 
-                    <ItemsCollectionRow items={followedArtists.artists.items.slice(0, countOfCardsInColumn)} />
+                    {followedArtists.artists.items.slice(0, countOfCardsInColumn).map(artist => (
+                        <ItemCard
+                            {...artist}
+                            key={artist.id}
+                            imageURL={artist.images[0]?.url}
+                            description="Artist"
+                        />
+                    ))}
                 </section>
             )}
         </>

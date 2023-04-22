@@ -9,9 +9,9 @@ import { useAppSelector } from "@/hooks";
 import {
     ItemPageTopSection,
     Loader,
-    ItemsCollectionRow,
-    ItemsCollectionRowHeading,
-    CurrentUserPagePart
+    ItemsCollectionHeading,
+    CurrentUserPagePart,
+    ItemCard
 } from "@/components";
 import UserFollowButton from "@/components/UserFollowButton";
 
@@ -81,13 +81,19 @@ const UserPage: NextPage = () => {
 
                     {!!playlists?.items.length && (
                         <section>
-                            <ItemsCollectionRowHeading
+                            <ItemsCollectionHeading
                                 isLink={playlists.total > countOfCardsInColumn}
                                 heading={`${userInfo.id !== currentUserId ? "public" : ""} playlists`}
                                 hrefToFullCollection={`/user/${userInfo.id}/playlists`}
                             />
 
-                            <ItemsCollectionRow items={playlists.items} />
+                            {playlists.items.slice(0, countOfCardsInColumn).map(playlist => (
+                                <ItemCard
+                                    {...playlist}
+                                    key={playlist.id}
+                                    imageURL={playlist.images[0]?.url}
+                                />
+                            ))}
                         </section>
                     )}
                 </div>

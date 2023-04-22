@@ -10,9 +10,10 @@ type ItemCardProps = {
 
     description?: string | React.ReactNode;
     imageURL?: string;
+    onPlayButtonClick?: React.MouseEventHandler<HTMLButtonElement>
 };
 
-const ItemCard: React.FC<ItemCardProps> = ({ type, id, imageURL, description, name }) => {
+const ItemCard: React.FC<ItemCardProps> = ({ type, id, imageURL, description, name, onPlayButtonClick }) => {
     const router = useRouter();
 
     const handleClick: React.MouseEventHandler = () => router.push({ pathname: `/${type}/${id}` });
@@ -33,8 +34,9 @@ const ItemCard: React.FC<ItemCardProps> = ({ type, id, imageURL, description, na
                         .concat(" ", type === "artist" ? "rounded-full" : "rounded-[clamp(4px,32px_*_0.025,8px)]")}
                 />
 
-                {!["episode", "show"].includes(type) && (
+                {!["episode", "show", "user"].includes(type) && (
                     <PlayButton
+                        onClick={onPlayButtonClick}
                         size={3}
                         className={"absolute bottom-2 right-2 translate-y-[20%] opacity-0 duration-300"
                             .concat(" transition-[transform,_opacity,_box-shadow]")

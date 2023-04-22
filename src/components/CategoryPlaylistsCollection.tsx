@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
-import { ItemsCollectionRow, ItemsCollectionRowHeading } from ".";
+import { ItemCard, ItemsCollectionHeading, ItemsCollectionRowLoader } from ".";
 
 type CategoryPlaylistsCollectionProps = {
     id: string;
@@ -13,35 +13,38 @@ const CategoryPlaylistsCollection: React.FC<CategoryPlaylistsCollectionProps> = 
     const accessToken = useAppSelector(state => state.auth.accessToken);
     const countOfCardsInColumn = useAppSelector(state => state.app.countOfCardsInColumn);
 
-    const { data: playlists } = spotifyApi.useGetCategoryPlaylistsQuery(
-        {
-            accessToken: accessToken || "",
-            categoryId: id,
-            searchParams: {
-                limit: countOfCardsInColumn
-            }
-        },
-        {
-            skip: !accessToken
+    const [getPlaylists, { data: playlists, isLoading }] = spotifyApi.useLazyGetCategoryPlaylistsQuery();
+
+    useEffect(() => {
+        if (accessToken) {
+            getPlaylists({ accessToken, categoryId: id });
         }
-    );
+    }, [accessToken, getPlaylists, id]);
+
+    if (isLoading) {
+        return <ItemsCollectionRowLoader />;
+    }
+
+    if (!playlists?.playlists.items.length) {
+        return <></>;
+    }
 
     return (
-        <>
-            {!!playlists?.playlists.items.length && (
-                <section>
-                    <ItemsCollectionRowHeading
-                        isLink={playlists.playlists.total > countOfCardsInColumn}
-                        heading={name}
-                        hrefToFullCollection={`/genre/${id}`}
-                    />
+        <section>
+            <ItemsCollectionHeading
+                isLink={playlists.playlists.total > countOfCardsInColumn}
+                heading={name}
+                hrefToFullCollection={`/genre/${id}`}
+            />
 
-                    <ItemsCollectionRow
-                        items={playlists.playlists.items.slice(0, countOfCardsInColumn)}
-                    />
-                </section>
-            )}
-        </>
+            {playlists.playlists.items.slice(0, countOfCardsInColumn).map(playlist => (
+                <ItemCard
+                    {...playlist}
+                    key={playlist.id}
+                    imageURL={playlist.images[0]?.url}
+                />
+            ))}
+        </section>
     );
 };
 
