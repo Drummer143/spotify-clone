@@ -39,6 +39,7 @@ Implements almost all features available in [original app](open.spotify.com).
 - [ ] History navigation
 - [ ] Saved episodes page
 - [ ] Finish Now Playing Bar
+    - [x] Left Part
 - [ ] Infinite scroll everywhere
 - [x] User search - no api for it
 - [ ] Use proxy for all images

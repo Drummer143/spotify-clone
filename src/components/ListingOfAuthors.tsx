@@ -7,7 +7,7 @@ type ListingOfAuthorsProps = {
 
 const ListingOfAuthors: React.FC<ListingOfAuthorsProps> = ({ artists }) => {
     return (
-        <p className="text-sm text-[#b3b3b3] line-clamp-1">
+        <p className="text-[#b3b3b3] line-clamp-1">
             {artists.map((artist, i) => (
                 <React.Fragment key={artist.id}>
                     <Link href={`/artist/${artist.id}`} className="hover:underline">

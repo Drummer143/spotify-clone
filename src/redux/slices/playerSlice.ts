@@ -9,17 +9,23 @@ interface PlayerState {
     repeat: RepeatValues;
     currentPlayTime: number;
     currentSongIndex: number;
-    playlist?: unknown;
-    playNextQueue?: unknown;
+    playlist: string[];
+    playNextQueue: string[];
+    paused: boolean
+
+    prevSong?: string
+    currentSong?: string
+    nextSong?: string
 }
 
 const initialState: PlayerState = {
     currentPlayTime: 0,
     repeat: "no",
     shuffle: false,
+    paused: false,
     currentSongIndex: 0,
-    playlist: null,
-    playNextQueue: null
+    playlist: [],
+    playNextQueue: []
 };
 
 const playerSlice = createSlice({
