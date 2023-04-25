@@ -39,11 +39,7 @@ const CategoryPlaylistsCollection: React.FC<CategoryPlaylistsCollectionProps> = 
 
             <Grid>
                 {playlists.playlists.items.slice(0, countOfCardsInColumn).map(playlist => (
-                    <ItemCard
-                        {...playlist}
-                        key={playlist.id}
-                        imageURL={playlist.images[0]?.url}
-                    />
+                    <ItemCard {...playlist} key={playlist.id} imageURL={playlist.images[0]?.url} />
                 ))}
             </Grid>
         </section>

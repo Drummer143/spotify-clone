@@ -15,9 +15,7 @@ const SongTimeDisplayer: React.FC = () => {
             </SongTimeInfo>
 
             <div className="w-full">
-                <RangeInput
-                    currentPercentage={currentPlayTime / currentSongDuration}
-                />
+                <RangeInput currentPercentage={currentPlayTime / currentSongDuration} />
             </div>
 
             <SongTimeInfo side="right">

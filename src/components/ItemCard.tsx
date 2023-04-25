@@ -17,7 +17,6 @@ type ItemCardProps = {
 const isPlayable = (type: ItemType): type is Exclude<ItemType, "episode" | "show" | "user"> =>
     !["episode", "show", "user"].includes(type);
 
-
 const ItemCard: React.FC<ItemCardProps> = ({ type, id, imageURL, description, name }) => {
     const router = useRouter();
 
@@ -37,8 +36,10 @@ const ItemCard: React.FC<ItemCardProps> = ({ type, id, imageURL, description, na
                     type={type}
                     imageURL={imageURL}
                     proxy
-                    imageClassName={"w-full aspect-square"
-                        .concat(" ", type === "artist" ? "rounded-full" : "rounded-[clamp(4px,32px_*_0.025,8px)]")}
+                    imageClassName={"w-full aspect-square".concat(
+                        " ",
+                        type === "artist" ? "rounded-full" : "rounded-[clamp(4px,32px_*_0.025,8px)]"
+                    )}
                 />
 
                 {isPlayable(type) && (

@@ -25,11 +25,7 @@ const ImagePlaceholder: React.FC<ImagePlaceholderProps> = ({ type, ...svgProps }
         }
     };
 
-    return (
-        <div className="w-full h-full bg-[#282828] flex items-center justify-center">
-            {selectImage()}
-        </div>
-    );
+    return <div className="w-full h-full bg-[#282828] flex items-center justify-center">{selectImage()}</div>;
 };
 
 export default ImagePlaceholder;

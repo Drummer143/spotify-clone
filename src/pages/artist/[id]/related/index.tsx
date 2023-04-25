@@ -42,9 +42,7 @@ const Index: NextPage = () => {
     return (
         <>
             <Head>
-                <title>
-                    {artist?.name ? artist.name + "'s f" : "F"}ans also like | Spotify Clone
-                </title>
+                <title>{artist?.name ? artist.name + "'s f" : "F"}ans also like | Spotify Clone</title>
             </Head>
 
             <div className="pt-20 px-content-spacing">
@@ -52,12 +50,7 @@ const Index: NextPage = () => {
 
                 <Grid>
                     {relatedArtists.artists.map(artist => (
-                        <ItemCard
-                            {...artist}
-                            key={artist.id}
-                            description="Artist"
-                            imageURL={artist.images[0]?.url}
-                        />
+                        <ItemCard {...artist} key={artist.id} description="Artist" imageURL={artist.images[0]?.url} />
                     ))}
                 </Grid>
             </div>

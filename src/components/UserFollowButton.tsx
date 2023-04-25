@@ -4,8 +4,8 @@ import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
 
 type UserFollowButtonProps = {
-    targetId: string
-    type: "user" | "artist"
+    targetId: string;
+    type: "user" | "artist";
 };
 
 const UserFollowButton: React.FC<UserFollowButtonProps> = ({ targetId, type }) => {
@@ -35,11 +35,12 @@ const UserFollowButton: React.FC<UserFollowButtonProps> = ({ targetId, type }) =
 
     return (
         <button
-            className={"px-4 py-2 text-xs font-bold rounded border border-solid uppercase tracking-[.1em]"
-                .concat(" ", followInfo && followInfo[0] ?
-                    "border-white" :
-                    " border-[hsla(0,0%,100%,.3)] transition-[border-color] hover:border-white")
-            }
+            className={"px-4 py-2 text-xs font-bold rounded border border-solid uppercase tracking-[.1em]".concat(
+                " ",
+                followInfo && followInfo[0]
+                    ? "border-white"
+                    : " border-[hsla(0,0%,100%,.3)] transition-[border-color] hover:border-white"
+            )}
             onClick={toggleFollow}
         >
             Follow{followInfo && followInfo[0] ? "ing" : ""}

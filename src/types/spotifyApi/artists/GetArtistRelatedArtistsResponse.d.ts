@@ -1,3 +1,3 @@
 interface GetArtistRelatedArtistsResponse {
-    artists: ArtistInfo[]
+    artists: ArtistInfo[];
 }

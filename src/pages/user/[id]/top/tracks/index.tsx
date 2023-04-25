@@ -34,31 +34,31 @@ const TopTrackPage: NextPage = () => {
 
     return (
         <>
-        <Head>
-            <title>{currentUserName} - Spotify Clone</title>
-        </Head>
+            <Head>
+                <title>{currentUserName} - Spotify Clone</title>
+            </Head>
 
-        <section className="pt-20">
-            <h1 className="text-2xl font-bold mb-4 px-content-spacing">Top tracks this month</h1>
+            <section className="pt-20">
+                <h1 className="text-2xl font-bold mb-4 px-content-spacing">Top tracks this month</h1>
 
-            <SonglistHead stickyX={64} hiddenFields={{ dateAdded: true }} />
+                <SonglistHead stickyX={64} hiddenFields={{ dateAdded: true }} />
 
-            <div className="px-content-spacing">
-                {topTracks.items.map((track, i) => (
-                    <SongCard
-                        artists={track.artists}
-                        duration={track.duration_ms}
-                        imageURL={track.album.images[0]?.url}
-                        name={track.name}
-                        songId={track.id}
-                        albumId={track.album.id}
-                        albumName={track.album.name}
-                        key={track.id}
-                        number={i + 1}
-                    />
-                ))}
-            </div>
-        </section>
+                <div className="px-content-spacing">
+                    {topTracks.items.map((track, i) => (
+                        <SongCard
+                            artists={track.artists}
+                            duration={track.duration_ms}
+                            imageURL={track.album.images[0]?.url}
+                            name={track.name}
+                            songId={track.id}
+                            albumId={track.album.id}
+                            albumName={track.album.name}
+                            key={track.id}
+                            number={i + 1}
+                        />
+                    ))}
+                </div>
+            </section>
         </>
     );
 };

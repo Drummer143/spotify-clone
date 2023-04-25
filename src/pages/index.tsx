@@ -32,7 +32,7 @@ const MainPage: React.FC = () => {
         });
     }, [accessToken, getCategories]);
 
-    if(isLoading) {
+    if (isLoading) {
         return <MainPageLoader />;
     }
 
@@ -42,10 +42,7 @@ const MainPage: React.FC = () => {
                 <title>Spotify Clone</title>
             </Head>
 
-            <div
-                ref={mainPageContainerRef}
-                className={"pt-16 px-content-spacing flex flex-col gap-10 max-h-full"}
-            >
+            <div ref={mainPageContainerRef} className={"pt-16 px-content-spacing flex flex-col gap-10 max-h-full"}>
                 {browseCategories?.categories.items.map(category => (
                     <CategoryPlaylistsCollection key={category.id} {...category} />
                 ))}

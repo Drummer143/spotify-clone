@@ -9,7 +9,7 @@ const scopes = [
 
     "user-library-read",
     "user-library-modify",
-    
+
     "user-top-read",
 
     "user-follow-read",

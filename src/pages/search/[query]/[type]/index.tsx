@@ -43,7 +43,7 @@ const CertainSearchResultsPage: React.FC = () => {
         );
     }
 
-    if(!result) {
+    if (!result) {
         return <div>Error</div>;
     }
 

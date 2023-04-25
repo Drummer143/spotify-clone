@@ -53,11 +53,7 @@ const Index: NextPage = () => {
             </Head>
 
             <section>
-                <ItemPageTopSection
-                    name={artist.name}
-                    type={artist.type}
-                    imageUrl={artist.images[0]?.url}
-                />
+                <ItemPageTopSection name={artist.name} type={artist.type} imageUrl={artist.images[0]?.url} />
 
                 <div className="px-content-spacing flex gap-10 flex-col">
                     <div className="pt-6 flex gap-8 items-center">

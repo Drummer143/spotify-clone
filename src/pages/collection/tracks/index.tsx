@@ -37,11 +37,7 @@ const LikeSongPage: React.FC = () => {
             </Head>
 
             <section className="max-h-full">
-                <ItemPageTopSection
-                    name="Liked songs"
-                    type="playlist"
-                    imageUrl="/likedSongsImage.png"
-                >
+                <ItemPageTopSection name="Liked songs" type="playlist" imageUrl="/likedSongsImage.png">
                     <PlaylistStats
                         ownerDisplayName={user.display_name}
                         ownerId={user.id}

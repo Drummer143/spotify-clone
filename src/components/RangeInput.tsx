@@ -1,18 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 
 type RangeInputProps = {
-    setToZero?: boolean
-    currentPercentage?: number
-    onMouseMove?: (percentage: number) => void
-    onMouseDown?: (percentage: number) => void
+    setToZero?: boolean;
+    currentPercentage?: number;
+    onMouseMove?: (percentage: number) => void;
+    onMouseDown?: (percentage: number) => void;
 };
 
-const RangeInput: React.FC<RangeInputProps> = ({
-    onMouseMove,
-    onMouseDown,
-    setToZero,
-    currentPercentage = 0
-}) => {
+const RangeInput: React.FC<RangeInputProps> = ({ onMouseMove, onMouseDown, setToZero, currentPercentage = 0 }) => {
     const [leftShift, setLeftShift] = useState(0);
     const [isMoving, setIsMoving] = useState(false);
     const [inputWidth, setInputWidth] = useState(0);
@@ -80,15 +75,18 @@ const RangeInput: React.FC<RangeInputProps> = ({
             <div className="h-1 w-full bg-[hsla(0,0%,100%,0.3)] rounded-sm overflow-hidden cursor-pointer">
                 <div
                     style={{ transform: `translateX(calc(${setToZero ? 0 : leftShift}px - 100%))` }}
-                    className={"w-full h-full transition-[background-color] rounded-sm"
-                        .concat(" ", isMoving ? "bg-[#1db954]" : "bg-white group-hover:bg-[#1db954]")}
+                    className={"w-full h-full transition-[background-color] rounded-sm".concat(
+                        " ",
+                        isMoving ? "bg-[#1db954]" : "bg-white group-hover:bg-[#1db954]"
+                    )}
                 ></div>
             </div>
 
             <div
-                style={{ left: setToZero ? "0px" : (leftShift + "px") }}
-                className={"w-3 h-3 z-[2] absolute bg-white rounded-full -translate-x-1/2"
-                    .concat(isMoving ? "" : " hidden group-hover:block")}
+                style={{ left: setToZero ? "0px" : leftShift + "px" }}
+                className={"w-3 h-3 z-[2] absolute bg-white rounded-full -translate-x-1/2".concat(
+                    isMoving ? "" : " hidden group-hover:block"
+                )}
             ></div>
         </div>
     );

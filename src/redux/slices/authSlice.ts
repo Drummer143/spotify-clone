@@ -7,8 +7,8 @@ interface AuthState {
     codeVerifier?: string;
     accessToken?: string;
     currentUserInfo?: {
-        id: string
-        name: string
+        id: string;
+        name: string;
     };
 }
 
@@ -46,7 +46,7 @@ const authSlice = createSlice({
             state.codeVerifier = action.payload;
         },
 
-        setCurrentUserInfo: (state, action: PayloadAction<{ id: string, name: string }>) => {
+        setCurrentUserInfo: (state, action: PayloadAction<{ id: string; name: string }>) => {
             state.currentUserInfo = action.payload;
         },
 

@@ -1,3 +1,3 @@
 interface GetArtistTopTracksResponse {
-    tracks: TrackInfo[]
+    tracks: TrackInfo[];
 }

@@ -23,7 +23,7 @@ const PopularArtistTracks: React.FC = () => {
         }
     });
 
-    const handleExpandButtonClick = () => setCountOfDisplayingTracks(prev => prev === 5 ? 10 : 5);
+    const handleExpandButtonClick = () => setCountOfDisplayingTracks(prev => (prev === 5 ? 10 : 5));
 
     useEffect(() => {
         let artistId = query.id;

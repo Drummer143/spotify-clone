@@ -4,11 +4,11 @@ import React from "react";
 
 type AlbumStatsProps = {
     ownerDisplayName: string;
-    releaseDate: string
-    ownerId: string
+    releaseDate: string;
+    ownerId: string;
 
-    totalSongs?: number
-    ownerImageURL?: string
+    totalSongs?: number;
+    ownerImageURL?: string;
 };
 
 const AlbumStats: React.FC<AlbumStatsProps> = ({

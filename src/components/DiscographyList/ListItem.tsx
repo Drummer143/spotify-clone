@@ -7,13 +7,13 @@ import { useAppSelector } from "@/hooks";
 import { spotifyApi } from "@/redux";
 
 type ListItemProps = {
-    name: string
-    albumType: AlbumType
-    releaseDate: string
-    totalSongs: number
-    albumId: string
+    name: string;
+    albumType: AlbumType;
+    releaseDate: string;
+    totalSongs: number;
+    albumId: string;
 
-    albumImage?: string
+    albumImage?: string;
 };
 
 const ListItem: React.FC<ListItemProps> = ({ albumImage, name, albumType, releaseDate, totalSongs, albumId }) => {
@@ -60,25 +60,19 @@ const ListItem: React.FC<ListItemProps> = ({ albumImage, name, albumType, releas
                     </p>
                     <div className="flex flex-grow items-end gap-4">
                         <button
-                            className={"grid place-content-center w-8 h-8 bg-white text-black rounded-full"
-                                .concat(" hover:scale-105 active:scale-100 active:bg-[#b7b7b7]")}
+                            className={"grid place-content-center w-8 h-8 bg-white text-black rounded-full".concat(
+                                " hover:scale-105 active:scale-100 active:bg-[#b7b7b7]"
+                            )}
                         >
-                            <GoogleMaterialIcon
-                                iconName="play_arrow"
-                                FILL={1}
-                                size={1.7}
-                                className="text-inherit"
-                            />
+                            <GoogleMaterialIcon iconName="play_arrow" FILL={1} size={1.7} className="text-inherit" />
                         </button>
 
                         <button
-                            className="grid place-content-center w-8 h-8 text-[hsla(0,0%,100%,.7)] hover:text-white"
+                            className={"grid place-content-center w-8 h-8 text-[hsla(0,0%,100%,.7)]".concat(
+                                " hover:text-white"
+                            )}
                         >
-                            <GoogleMaterialIcon
-                                iconName="favorite"
-                                size={1.7}
-                                className="text-inherit"
-                            />
+                            <GoogleMaterialIcon iconName="favorite" size={1.7} className="text-inherit" />
                         </button>
                     </div>
                 </div>

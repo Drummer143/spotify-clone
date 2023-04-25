@@ -3,7 +3,6 @@ import React from "react";
 import { GoogleMaterialIcon } from ".";
 
 type PlayButtonProps = JSX.IntrinsicElements["button"] & {
-    isPlaying: true;
     size?: number;
 };
 
@@ -11,7 +10,7 @@ const PlayButton: React.FC<PlayButtonProps> = ({ size = 3.5, className, ...other
     return (
         <button
             {...otherProps}
-            style={{ width: `${size}rem`}}
+            style={{ width: `${size}rem` }}
             className={"aspect-square rounded-full bg-[#1ed760] transition-[transform,_background-color]"
                 .concat(" flex items-center justify-center")
                 .concat(className ? ` ${className}` : "")

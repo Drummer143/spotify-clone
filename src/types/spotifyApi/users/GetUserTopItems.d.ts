@@ -9,16 +9,16 @@
 // }
 
 interface GetUserTopItemsItemType {
-    artists: ArtistInfo[]
-    tracks: TrackInfo[]
+    artists: ArtistInfo[];
+    tracks: TrackInfo[];
 }
 
 interface GetUserTopItems<T extends keyof GetUserTopItemsItemType> {
-    href: string
-    limit: number
-    next: string
-    offset: number
-    previous: null
-    total: number
-    items: GetUserTopItemsItemType[T]
+    href: string;
+    limit: number;
+    next: string;
+    offset: number;
+    previous: null;
+    total: number;
+    items: GetUserTopItemsItemType[T];
 }

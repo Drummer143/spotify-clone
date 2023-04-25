@@ -15,20 +15,14 @@ const CurrentUserPagePart: React.FC<CurrentUserPagePartProps> = ({ user }) => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
     const countOfCardsInColumn = useAppSelector(state => state.app.countOfCardsInColumn);
 
-    const [getFollowedArtists, {
-        currentData: followedArtists,
-        isLoading: followedArtistsIsLoading
-    }] = spotifyApi.useLazyGetFollowedArtistsQuery();
+    const [getFollowedArtists, { currentData: followedArtists, isLoading: followedArtistsIsLoading }] =
+        spotifyApi.useLazyGetFollowedArtistsQuery();
 
-    const [getTopTracks, {
-        currentData: topTracks,
-        isLoading: topTracksIsLoading
-    }] = spotifyApi.useLazyGetUserTopTracksQuery();
+    const [getTopTracks, { currentData: topTracks, isLoading: topTracksIsLoading }] =
+        spotifyApi.useLazyGetUserTopTracksQuery();
 
-    const [getTopArtists, {
-        currentData: topArtists,
-        isLoading: topArtistsIsLoading
-    }] = spotifyApi.useLazyGetUserTopArtistsQuery();
+    const [getTopArtists, { currentData: topArtists, isLoading: topArtistsIsLoading }] =
+        spotifyApi.useLazyGetUserTopArtistsQuery();
 
     useEffect(() => {
         if (accessToken) {
@@ -46,9 +40,7 @@ const CurrentUserPagePart: React.FC<CurrentUserPagePartProps> = ({ user }) => {
         <>
             {!!topArtists?.items.length && (
                 <section>
-                    <p className="text-2xl font-bold first-letter:uppercase mb-4">
-                        Top artists this month
-                    </p>
+                    <p className="text-2xl font-bold first-letter:uppercase mb-4">Top artists this month</p>
 
                     <Grid>
                         {topArtists.items.slice(0, countOfCardsInColumn).map(artist => (

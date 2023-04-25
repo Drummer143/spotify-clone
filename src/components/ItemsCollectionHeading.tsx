@@ -2,16 +2,19 @@ import Link from "next/link";
 import React from "react";
 
 type ItemsCollectionRowHeadingProps = {
-    heading: string
-} & ({
-    isLink: boolean;
-    hrefToFullCollection: string
-} | {
-    isLink?: false
-    hrefToFullCollection?: never
-})
+    heading: string;
+} & (
+    | {
+          isLink: boolean;
+          hrefToFullCollection: string;
+      }
+    | {
+          isLink?: false;
+          hrefToFullCollection?: never;
+      }
+);
 
-const ItemsCollectionRowHeading: React.FC<ItemsCollectionRowHeadingProps> = (props) => {
+const ItemsCollectionRowHeading: React.FC<ItemsCollectionRowHeadingProps> = props => {
     return (
         <div className="flex justify-between items-center mb-4">
             {props.isLink ? (

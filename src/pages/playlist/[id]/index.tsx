@@ -98,7 +98,6 @@ const PlaylistPage: React.FC = () => {
                     imageUrl={playlistInfo.images[0]?.url}
                     name={playlistInfo.name}
                     editable={currentUserId === ownerInfo.id}
-
                 >
                     <PlaylistStats
                         ownerDisplayName={playlistInfo.owner.display_name}
@@ -113,9 +112,9 @@ const PlaylistPage: React.FC = () => {
                     itemInfo={
                         followInfo
                             ? {
-                                isFollowing: followInfo[0],
-                                onFollowToggle: handleAddPlaylistToFavorite
-                            }
+                                  isFollowing: followInfo[0],
+                                  onFollowToggle: handleAddPlaylistToFavorite
+                              }
                             : undefined
                     }
                 />

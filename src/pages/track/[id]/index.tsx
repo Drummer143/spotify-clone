@@ -66,7 +66,9 @@ const TrackPage: NextPage = () => {
     return (
         <>
             <Head>
-                <title>{trackInfo.name} - song by {trackInfo.artists[0].name} | Spotify Clone</title>
+                <title>
+                    {trackInfo.name} - song by {trackInfo.artists[0].name} | Spotify Clone
+                </title>
             </Head>
 
             <section>
@@ -90,8 +92,9 @@ const TrackPage: NextPage = () => {
                 <div className="px-content-spacing relative z-0">
                     <Link
                         href={`/artist/${artistInfo.id}`}
-                        className={"flex items-center gap-4 p-2 rounded transition-[background-color]"
-                            .concat(" hover:bg-[hsla(0,0%,100%,.1)]")}
+                        className={"flex items-center gap-4 p-2 rounded transition-[background-color]".concat(
+                            " hover:bg-[hsla(0,0%,100%,.1)]"
+                        )}
                     >
                         <ImageWrapper
                             type={artistInfo.type}

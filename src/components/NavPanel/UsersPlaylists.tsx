@@ -21,12 +21,12 @@ const UsersPlaylists: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        if(accessToken) {
+        if (accessToken) {
             getPlaylists(accessToken);
         }
     }, [accessToken, getPlaylists]);
 
-    if(isLoading) {
+    if (isLoading) {
         return <NavPanelUserPlaylistsLoader />;
     }
 

@@ -12,8 +12,8 @@ type SearchItemTypes = keyof SearchForItemResponse;
 type GroupType = "all" | "album" | "single";
 
 interface PlaylistItem {
-    url: string
-    id: string
+    url: string;
+    id: string;
 }
 
 type Playlist = PlaylistItem[];

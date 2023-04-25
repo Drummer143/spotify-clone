@@ -4,14 +4,14 @@ import Image from "next/image";
 import { ImagePlaceholder } from ".";
 
 type ImageWrapperProps = {
-    type: ItemType
+    type: ItemType;
 
-    width?: number
-    height?: number
-    imageURL?: string
-    imageClassName?: string
-    placeholderClassName?: string
-    proxy?: boolean
+    width?: number;
+    height?: number;
+    imageURL?: string;
+    imageClassName?: string;
+    placeholderClassName?: string;
+    proxy?: boolean;
 };
 
 const ImageWrapper: React.FC<ImageWrapperProps> = ({
@@ -41,8 +41,9 @@ const ImageWrapper: React.FC<ImageWrapperProps> = ({
             width={48}
             height={48}
             type={type}
-            className={"max-w-[48px] aspect-square w-[25%]"
-                .concat(placeholderClassName ? ` ${placeholderClassName}` : "")}
+            className={"max-w-[48px] aspect-square w-[25%]".concat(
+                placeholderClassName ? ` ${placeholderClassName}` : ""
+            )}
         />
     );
 };

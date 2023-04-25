@@ -11,11 +11,11 @@ type ItemPageTopSectionProps = {
     type: ItemType;
     name: string;
 
-    subheading?: string
+    subheading?: string;
     children?: React.ReactNode;
     imageUrl?: string;
     description?: string;
-    editable?: boolean
+    editable?: boolean;
 };
 
 const ItemPageTopSection: React.FC<ItemPageTopSectionProps> = ({
@@ -78,8 +78,9 @@ const ItemPageTopSection: React.FC<ItemPageTopSectionProps> = ({
 
                     <h1
                         ref={playlistNameRef}
-                        className={"tracking-tighter w-fit mt-[calc(0.08em+0.5rem)] mb-[calc(0.12em+0.5rem)]"
-                            .concat(" font-bold line-clamp-1 text-[calc((100vw-30rem)/(80-30)*(1.5-1)+2rem)]")}
+                        className={"tracking-tighter w-fit mt-[calc(0.08em+0.5rem)] mb-[calc(0.12em+0.5rem)]".concat(
+                            " font-bold line-clamp-1 text-[calc((100vw-30rem)/(80-30)*(1.5-1)+2rem)]"
+                        )}
                     >
                         {name}
                     </h1>

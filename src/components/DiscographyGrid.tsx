@@ -3,13 +3,13 @@ import React from "react";
 import { Grid, ItemCard } from "@/components";
 
 type DiscographyGridProps = {
-    albums: AlbumInfo[]
+    albums: AlbumInfo[];
 };
 
 const DiscographyGrid: React.FC<DiscographyGridProps> = ({ albums }) => {
     return (
         <Grid className="px-content-spacing">
-            {albums.map((album) => (
+            {albums.map(album => (
                 <ItemCard
                     {...album}
                     key={album.id}

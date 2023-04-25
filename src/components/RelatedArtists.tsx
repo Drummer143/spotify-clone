@@ -46,12 +46,7 @@ const RelatedArtists: React.FC = () => {
 
             <Grid>
                 {artists.slice(0, countOfCardsInColumn).map(artist => (
-                    <ItemCard
-                        {...artist}
-                        key={artist.id}
-                        imageURL={artist.images[1]?.url}
-                        description="Artist"
-                    />
+                    <ItemCard {...artist} key={artist.id} imageURL={artist.images[1]?.url} description="Artist" />
                 ))}
             </Grid>
         </div>

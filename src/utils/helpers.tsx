@@ -145,8 +145,11 @@ export const albumSortComparator = (a: AlbumInfo, b: AlbumInfo) => {
 
 export const buildPlaylistURL = (id: string, type: Extract<ItemType, "album" | "artist" | "playlist" | "track">) => {
     switch (type) {
-        case "album": return SPOTIFY_API_BASE_URL + `/albums/${id}/tracks`;
-        case "artist": return SPOTIFY_API_BASE_URL + `/artists/${id}/top-tracks?market=ES`;
-        case "playlist": return SPOTIFY_API_BASE_URL + `/playlists/${id}/tracks`;
+        case "album":
+            return SPOTIFY_API_BASE_URL + `/albums/${id}/tracks`;
+        case "artist":
+            return SPOTIFY_API_BASE_URL + `/artists/${id}/top-tracks?market=ES`;
+        case "playlist":
+            return SPOTIFY_API_BASE_URL + `/playlists/${id}/tracks`;
     }
 };

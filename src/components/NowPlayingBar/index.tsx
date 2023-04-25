@@ -7,37 +7,29 @@ import RightPart from "./RightPart";
 import MiddleControls from "./MiddleControls";
 import { spotifyApiHeaders } from "@/utils";
 import { useAppDispatch, useAppSelector, usePlayer } from "@/hooks";
-import { setCurrentSongIndex as reduxSetCurrentSongIndex, setCurrentPlayTime, setCurrentSongDuration, setPaused, setPlaylist } from "@/redux";
+import {
+    setCurrentSongIndex as reduxSetCurrentSongIndex,
+    setCurrentPlayTime,
+    setCurrentSongDuration,
+    setPaused,
+    setPlaylist
+} from "@/redux";
 
 import styles from "@/styles/NowPlayingBar.module.css";
 
 const NowPlayingBar: React.FC = () => {
-    const {
-        currentPlayTime,
-        currentSongIndex,
-        muted,
-        paused,
-        playNextQueue,
-        playlist,
-        repeat,
-        shuffle,
-        volume,
-        currentSong,
-        nextSong,
-        playlistURL,
-        prevSong
-    } = useAppSelector(state => state.player);
+    const { muted, paused, playlist, volume, playlistURL } = useAppSelector(state => state.player);
     const accessToken = useAppSelector(state => state.auth.accessToken);
 
     const dispatch = useAppDispatch();
 
-    const { setCurrentSongIndex, setCurrentTime } = usePlayer({
+    const { setCurrentSongIndex } = usePlayer({
         paused,
         volume,
         playlist: playlist,
         onEnded: () => dispatch(reduxSetCurrentSongIndex("next")),
-        onTimeUpdate: (currentTime) => dispatch(setCurrentPlayTime(currentTime)),
-        onNextTrack: (trackDuration) => dispatch(setCurrentSongDuration(trackDuration)),
+        onTimeUpdate: currentTime => dispatch(setCurrentPlayTime(currentTime)),
+        onNextTrack: trackDuration => dispatch(setCurrentSongDuration(trackDuration)),
         muted,
         onPause: () => {
             if (!paused) {
@@ -51,25 +43,31 @@ const NowPlayingBar: React.FC = () => {
         }
     });
 
-    const fetchPlaylist = useCallback(async (accessToken: string, playlistURL: string) => {
-        const res = await axios.get<GetPlaylistItemsResponse | GetAlbumTracksResponse | GetArtistTopTracksResponse>(playlistURL, {
-            headers: spotifyApiHeaders(accessToken)
-        });
+    const fetchPlaylist = useCallback(
+        async (accessToken: string, playlistURL: string) => {
+            const res = await axios.get<GetPlaylistItemsResponse | GetAlbumTracksResponse | GetArtistTopTracksResponse>(
+                playlistURL,
+                {
+                    headers: spotifyApiHeaders(accessToken)
+                }
+            );
 
-        const tracks = "tracks" in res.data ? res.data.tracks : res.data.items;
+            const tracks = "tracks" in res.data ? res.data.tracks : res.data.items;
 
-        let playlist = tracks.map<PlaylistItem>(track => {
-            if (!("preview_url" in track)) {
-                track = track.track;
-            }
+            let playlist = tracks.map<PlaylistItem>(track => {
+                if (!("preview_url" in track)) {
+                    track = track.track;
+                }
 
-            return ({ id: track.id, url: track.preview_url });
-        });
+                return { id: track.id, url: track.preview_url };
+            });
 
-        playlist = playlist.filter(track => track.url);
+            playlist = playlist.filter(track => track.url);
 
-        dispatch(setPlaylist(playlist));
-    }, [dispatch]);
+            dispatch(setPlaylist(playlist));
+        },
+        [dispatch]
+    );
 
     useEffect(() => {
         dispatch(setPaused(true));

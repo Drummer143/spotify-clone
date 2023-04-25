@@ -6,14 +6,7 @@ import { useRouter } from "next/router";
 import UserStats from "@/components/ItemPageTopSection/UserStats";
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
-import {
-    ItemPageTopSection,
-    Loader,
-    ItemsCollectionHeading,
-    CurrentUserPagePart,
-    ItemCard,
-    Grid
-} from "@/components";
+import { ItemPageTopSection, Loader, ItemsCollectionHeading, CurrentUserPagePart, ItemCard, Grid } from "@/components";
 import UserFollowButton from "@/components/UserFollowButton";
 
 const UserPage: NextPage = () => {
@@ -90,11 +83,7 @@ const UserPage: NextPage = () => {
 
                             <Grid>
                                 {playlists.items.slice(0, countOfCardsInColumn).map(playlist => (
-                                    <ItemCard
-                                        {...playlist}
-                                        key={playlist.id}
-                                        imageURL={playlist.images[0]?.url}
-                                    />
+                                    <ItemCard {...playlist} key={playlist.id} imageURL={playlist.images[0]?.url} />
                                 ))}
                             </Grid>
                         </section>

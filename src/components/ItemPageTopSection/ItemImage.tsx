@@ -6,7 +6,7 @@ import ImagePlaceholder from "../ImagePlaceholder";
 import { isURL } from "@/utils";
 
 type ItemImageProps = {
-    type: ItemType
+    type: ItemType;
 
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
     className?: string;

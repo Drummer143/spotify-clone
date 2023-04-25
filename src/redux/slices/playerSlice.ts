@@ -12,15 +12,15 @@ interface PlayerState {
     currentSongIndex: number;
     playlist: Playlist;
     playNextQueue: Playlist;
-    paused: boolean
-    volume: number
-    muted: boolean
-    currentSongDuration: number
+    paused: boolean;
+    volume: number;
+    muted: boolean;
+    currentSongDuration: number;
 
-    playlistURL?: string
-    prevSong?: string
-    currentSong?: string
-    nextSong?: string
+    playlistURL?: string;
+    prevSong?: string;
+    currentSong?: string;
+    nextSong?: string;
 }
 
 const initialState: PlayerState = {
@@ -53,13 +53,18 @@ const playerSlice = createSlice({
         setVolume: (state, action: PayloadAction<number>) => {
             state.volume = action.payload;
         },
-        toggleMute: (state) => {
+        toggleMute: state => {
             state.muted = !state.muted;
         },
-        setPlaylistURL: (state, { payload: { id, type } }: PayloadAction<{
-            id: string,
-            type: Extract<ItemType, "album" | "artist" | "playlist">
-        }>) => {
+        setPlaylistURL: (
+            state,
+            {
+                payload: { id, type }
+            }: PayloadAction<{
+                id: string;
+                type: Extract<ItemType, "album" | "artist" | "playlist">;
+            }>
+        ) => {
             state.playlistURL = buildPlaylistURL(id, type);
         },
         setPlaylist: (state, action: PayloadAction<Playlist>) => {

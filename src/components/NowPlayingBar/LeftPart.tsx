@@ -39,10 +39,9 @@ const LeftPart: React.FC = () => {
             />
 
             <div>
-                <Link
-                    className="text-[0.875rem] line-clamp-1 hover:underline"
-                    href={`/track/${currentTrack.id}`}
-                >{currentTrack.name}</Link>
+                <Link className="text-[0.875rem] line-clamp-1 hover:underline" href={`/track/${currentTrack.id}`}>
+                    {currentTrack.name}
+                </Link>
 
                 <div className="text-[0.75rem] line-clamp-1 tracking-widest">
                     <ListingOfAuthors artists={currentTrack.artists} />

@@ -2,11 +2,11 @@ import React from "react";
 import ContentLoader from "react-content-loader";
 
 const HeaderLoader: React.FC = () => {
-
     return (
         <div
-            className={"fixed top-0 right-0 z-[2] pr-content-spacing w-[calc(100%_-_var(--nav-bar-width))] h-16"
-                .concat(" flex justify-end items-center")}
+            className={"fixed top-0 right-0 z-[2] pr-content-spacing w-[calc(100%_-_var(--nav-bar-width))] h-16".concat(
+                " flex justify-end items-center"
+            )}
         >
             <div className="bg-[#282828] w-[125px] h-[2rem] rounded-[2rem]">
                 <ContentLoader

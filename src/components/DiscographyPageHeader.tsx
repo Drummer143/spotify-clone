@@ -5,10 +5,10 @@ import { GoogleMaterialIcon } from ".";
 import { useIntersectionObserver } from "@/hooks";
 
 type DiscographyPageHeaderProps = {
-    artistName: string
-    artistId: string
-    appearance: "grid" | "list"
-    setAppearance: React.Dispatch<React.SetStateAction<"grid" | "list">>
+    artistName: string;
+    artistId: string;
+    appearance: "grid" | "list";
+    setAppearance: React.Dispatch<React.SetStateAction<"grid" | "list">>;
 };
 
 const DiscographyPageHeader: React.FC<DiscographyPageHeaderProps> = ({
@@ -42,26 +42,26 @@ const DiscographyPageHeader: React.FC<DiscographyPageHeaderProps> = ({
             </Link>
 
             <div className="flex gap-3">
-                <div>
-
-                </div>
+                <div></div>
                 <button
-                    className={"p-1.5 rounded-full"
-                        .concat(" ", appearance === "list" ?
-                            "text-white bg-[hsla(0,0%,100%,.1)]" :
-                            "text-[hsla(0,0%,100%,.7)] hover:text-white hover:bg-[hsla(0,0%,100%,.1)]")
-                    }
+                    className={"p-1.5 rounded-full".concat(
+                        " ",
+                        appearance === "list"
+                            ? "text-white bg-[hsla(0,0%,100%,.1)]"
+                            : "text-[hsla(0,0%,100%,.7)] hover:text-white hover:bg-[hsla(0,0%,100%,.1)]"
+                    )}
                     onClick={() => setAppearance("list")}
                 >
                     <GoogleMaterialIcon iconName="view_list" size={1.3} className="text-inherit" />
                 </button>
 
                 <button
-                    className={"p-1.5 rounded-full"
-                        .concat(" ", appearance === "grid" ?
-                            "text-white bg-[hsla(0,0%,100%,.1)]" :
-                            "text-[hsla(0,0%,100%,.7)] hover:text-white hover:bg-[hsla(0,0%,100%,.1)]")
-                    }
+                    className={"p-1.5 rounded-full".concat(
+                        " ",
+                        appearance === "grid"
+                            ? "text-white bg-[hsla(0,0%,100%,.1)]"
+                            : "text-[hsla(0,0%,100%,.7)] hover:text-white hover:bg-[hsla(0,0%,100%,.1)]"
+                    )}
                     onClick={() => setAppearance("grid")}
                 >
                     <GoogleMaterialIcon iconName="grid_view" size={1.3} className="text-inherit" />

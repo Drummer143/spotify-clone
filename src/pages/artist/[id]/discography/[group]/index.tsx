@@ -25,7 +25,7 @@ const AlbumsPage: NextPage = () => {
             return;
         }
 
-        [group, id] = [group, id].map(item => Array.isArray(item) ? item[0] : item);
+        [group, id] = [group, id].map(item => (Array.isArray(item) ? item[0] : item));
 
         const g = group as GroupType;
 
