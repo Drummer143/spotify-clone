@@ -68,7 +68,6 @@ const ArtistsAlbums: React.FC = () => {
                 isLink={albums.total > countOfCardsInColumn}
                 hrefToFullCollection={`/artist/${query.id}/discography/${groupType}`}
                 heading="Discography"
-
             />
 
             <div className="flex gap-2 mb-4">

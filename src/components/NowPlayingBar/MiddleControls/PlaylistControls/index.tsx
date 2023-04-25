@@ -2,12 +2,15 @@ import React from "react";
 
 import ControlsButton from "./ControlsButton";
 import { GoogleMaterialIcon } from "@/components";
-import { toggleShuffle, toggleRepeat } from "@/redux";
+import { toggleShuffle, toggleRepeat, setPaused } from "@/redux";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 
 const PlaylistControls: React.FC = () => {
+    const { repeat, shuffle, paused } = useAppSelector(state => state.player);
+
     const dispatch = useAppDispatch();
-    const { repeat, shuffle } = useAppSelector(state => state.player);
+
+    const togglePaused = () => dispatch(setPaused());
 
     return (
         <div className="w-full flex justify-center gap-2 items-center text-[hsla(0,0%,100%,.7)]">
@@ -19,8 +22,16 @@ const PlaylistControls: React.FC = () => {
                 <GoogleMaterialIcon iconName="skip_previous" className="text-inherit" FILL={1} wght={700} size={1.6} />
             </ControlsButton>
 
-            <ControlsButton className="bg-white rounded-full mx-2 hover:scale-105 active:scale-95">
-                <GoogleMaterialIcon iconName="play_arrow" className="text-[#181818]" FILL={1} size={1.7} />
+            <ControlsButton
+                className="bg-white rounded-full mx-2 hover:scale-105 active:scale-95"
+                onClick={togglePaused}
+            >
+                <GoogleMaterialIcon
+                    iconName={paused ? "play_arrow" : "pause"}
+                    className="text-[#181818]"
+                    FILL={1}
+                    size={1.7}
+                />
             </ControlsButton>
 
             <ControlsButton>

@@ -3,6 +3,7 @@ import moment from "moment";
 
 import ListingOfAuthors from "../components/ListingOfAuthors";
 import GoogleMaterialIcon from "../components/GoogleMaterialIcon";
+import { SPOTIFY_API_BASE_URL } from "./constants";
 
 export const createUserMenuLinks = (userId: string) => [
     { text: "Account", to: "https://www.spotify.com/account/" },
@@ -140,4 +141,12 @@ export const albumSortComparator = (a: AlbumInfo, b: AlbumInfo) => {
     }
 
     return 0;
+};
+
+export const buildPlaylistURL = (id: string, type: Extract<ItemType, "album" | "artist" | "playlist" | "track">) => {
+    switch (type) {
+        case "album": return SPOTIFY_API_BASE_URL + `/albums/${id}/tracks`;
+        case "artist": return SPOTIFY_API_BASE_URL + `/artists/${id}/top-tracks?market=ES`;
+        case "playlist": return SPOTIFY_API_BASE_URL + `/playlists/${id}/tracks`;
+    }
 };

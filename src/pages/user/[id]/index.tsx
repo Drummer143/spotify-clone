@@ -11,7 +11,8 @@ import {
     Loader,
     ItemsCollectionHeading,
     CurrentUserPagePart,
-    ItemCard
+    ItemCard,
+    Grid
 } from "@/components";
 import UserFollowButton from "@/components/UserFollowButton";
 
@@ -87,13 +88,15 @@ const UserPage: NextPage = () => {
                                 hrefToFullCollection={`/user/${userInfo.id}/playlists`}
                             />
 
-                            {playlists.items.slice(0, countOfCardsInColumn).map(playlist => (
-                                <ItemCard
-                                    {...playlist}
-                                    key={playlist.id}
-                                    imageURL={playlist.images[0]?.url}
-                                />
-                            ))}
+                            <Grid>
+                                {playlists.items.slice(0, countOfCardsInColumn).map(playlist => (
+                                    <ItemCard
+                                        {...playlist}
+                                        key={playlist.id}
+                                        imageURL={playlist.images[0]?.url}
+                                    />
+                                ))}
+                            </Grid>
                         </section>
                     )}
                 </div>

@@ -174,7 +174,7 @@ export const spotifyApi = createApi({
             })
         }),
 
-        getAlbumTracks: build.query<GetAlumTracksResponse, {
+        getAlbumTracks: build.query<GetAlbumTracksResponse, {
             accessToken: string;
             albumId: string;
             searchParams?: {

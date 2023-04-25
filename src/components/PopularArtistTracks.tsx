@@ -41,7 +41,7 @@ const PopularArtistTracks: React.FC = () => {
         getTracks({ accessToken, artistId, market: "AM" });
     }, [accessToken, getTracks, query.id]);
 
-    if (!tracks) {
+    if (!tracks?.length) {
         return <></>;
     }
 

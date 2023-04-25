@@ -32,7 +32,7 @@ const RelatedArtists: React.FC = () => {
         getRelatedArtists({ accessToken, artistId });
     }, [accessToken, countOfCardsInColumn, getRelatedArtists, query.id]);
 
-    if (!artists) {
+    if (!artists?.length) {
         return <></>;
     }
 

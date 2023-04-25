@@ -9,15 +9,15 @@ import { useAppSelector } from "@/hooks";
 
 const LeftPart: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
-    const currentSongId = useAppSelector(state => state.player.currentSong);
+    const { playlist, currentSongIndex } = useAppSelector(state => state.player);
 
     const [getCurrentTrack, { currentData: currentTrack, isLoading }] = spotifyApi.useLazyGetTrackQuery();
 
     useEffect(() => {
-        if (accessToken && currentSongId) {
-            getCurrentTrack({ accessToken, trackId: currentSongId });
+        if (accessToken && playlist[currentSongIndex]?.id) {
+            getCurrentTrack({ accessToken, trackId: playlist[currentSongIndex].id });
         }
-    }, [accessToken, currentSongId, getCurrentTrack]);
+    }, [accessToken, currentSongIndex, getCurrentTrack, playlist]);
 
     if (isLoading) {
         return <Loader />;

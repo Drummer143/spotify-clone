@@ -22,6 +22,7 @@ export { default as NowPlayingBar } from "./NowPlayingBar";
 export { default as PlayButton } from "./PlayButton";
 export { default as PlaylistEditModal } from "./PlaylistEditModal";
 export { default as PopularArtistTracks } from "./PopularArtistTracks";
+export { default as RangeInput } from "./RangeInput";
 export { default as RelatedArtists } from "./RelatedArtists";
 export { default as ResizeDetector } from "./ResizeDetector";
 export { default as SavedSongsIcon } from "./SavedSongsIcon";

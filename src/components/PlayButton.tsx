@@ -3,6 +3,7 @@ import React from "react";
 import { GoogleMaterialIcon } from ".";
 
 type PlayButtonProps = JSX.IntrinsicElements["button"] & {
+    isPlaying: true;
     size?: number;
 };
 

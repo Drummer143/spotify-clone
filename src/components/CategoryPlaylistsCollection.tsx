@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
-import { ItemCard, ItemsCollectionHeading, ItemsCollectionRowLoader } from ".";
+import { Grid, ItemCard, ItemsCollectionHeading, ItemsCollectionRowLoader } from ".";
 
 type CategoryPlaylistsCollectionProps = {
     id: string;
@@ -37,13 +37,15 @@ const CategoryPlaylistsCollection: React.FC<CategoryPlaylistsCollectionProps> = 
                 hrefToFullCollection={`/genre/${id}`}
             />
 
-            {playlists.playlists.items.slice(0, countOfCardsInColumn).map(playlist => (
-                <ItemCard
-                    {...playlist}
-                    key={playlist.id}
-                    imageURL={playlist.images[0]?.url}
-                />
-            ))}
+            <Grid>
+                {playlists.playlists.items.slice(0, countOfCardsInColumn).map(playlist => (
+                    <ItemCard
+                        {...playlist}
+                        key={playlist.id}
+                        imageURL={playlist.images[0]?.url}
+                    />
+                ))}
+            </Grid>
         </section>
     );
 };

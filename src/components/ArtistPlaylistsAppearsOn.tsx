@@ -52,7 +52,7 @@ const ArtistPlaylistsAppearsOn: React.FC = () => {
         });
     }, [accessToken, countOfCardsInColumn, getAlbums, query.id]);
 
-    if (!albums) {
+    if (!albums?.items.length) {
         return <></>;
     }
 

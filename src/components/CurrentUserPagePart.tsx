@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 import Loader from "./Loader";
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
-import { ItemCard, ItemsCollectionHeading, SongCard } from ".";
+import { Grid, ItemCard, ItemsCollectionHeading, SongCard } from ".";
 
 type CurrentUserPagePartProps = {
     user: GetUserResponse;
@@ -50,14 +50,16 @@ const CurrentUserPagePart: React.FC<CurrentUserPagePartProps> = ({ user }) => {
                         Top artists this month
                     </p>
 
-                    {topArtists.items.slice(0, countOfCardsInColumn).map(artist => (
-                        <ItemCard
-                            {...artist}
-                            key={artist.id}
-                            imageURL={artist.images[0]?.url}
-                            description="Artist"
-                        />
-                    ))}
+                    <Grid>
+                        {topArtists.items.slice(0, countOfCardsInColumn).map(artist => (
+                            <ItemCard
+                                {...artist}
+                                key={artist.id}
+                                imageURL={artist.images[0]?.url}
+                                description="Artist"
+                            />
+                        ))}
+                    </Grid>
                 </section>
             )}
 
@@ -93,14 +95,16 @@ const CurrentUserPagePart: React.FC<CurrentUserPagePartProps> = ({ user }) => {
                         hrefToFullCollection={`/user/${user.id}/following`}
                     />
 
-                    {followedArtists.artists.items.slice(0, countOfCardsInColumn).map(artist => (
-                        <ItemCard
-                            {...artist}
-                            key={artist.id}
-                            imageURL={artist.images[0]?.url}
-                            description="Artist"
-                        />
-                    ))}
+                    <Grid>
+                        {followedArtists.artists.items.slice(0, countOfCardsInColumn).map(artist => (
+                            <ItemCard
+                                {...artist}
+                                key={artist.id}
+                                imageURL={artist.images[0]?.url}
+                                description="Artist"
+                            />
+                        ))}
+                    </Grid>
                 </section>
             )}
         </>

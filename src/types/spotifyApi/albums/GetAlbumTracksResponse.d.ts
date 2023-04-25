@@ -1,4 +1,4 @@
-interface GetAlumTracksResponse {
+interface GetAlbumTracksResponse {
     href: string
     limit: number
     next: string | null

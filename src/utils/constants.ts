@@ -26,3 +26,5 @@ export const searchTypesOrder: Exclude<keyof SearchForItemResponse, "tracks">[] 
     "shows",
     "episodes"
 ];
+
+export const SPOTIFY_API_BASE_URL = "https://api.spotify.com/v1";
