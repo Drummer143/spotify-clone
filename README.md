@@ -10,14 +10,7 @@ Implements almost all features available in [original app](open.spotify.com).
 5. TailwindCSS
 
 ## TODO: ##
-- [x] User page
-    - [x] Follow/Unfollow user
-    - [x] Top user's tracks page
-    - [x] Current user's following page
-    - [x] User's Playlists page
-    - [ ] Statistic period toggler - ?
-    - [x] Edit profile modal - no api for it
-- [x] Loader Components
+- [ ] Loader Components
     - [ ] TrackLoader
     - [ ] ItemPageTopSectionLoader
 - [ ] Error pages
@@ -25,10 +18,6 @@ Implements almost all features available in [original app](open.spotify.com).
 - [x] Artist page
     - [x] Discography pages
         - [ ] Dropdown album type switcher - ?
-        - [x] Follow album by clicking follow button
-    - [x] Related artists page
-- [x] Album page
-- [x] Track page
 - [ ] Save tracks in SongCard component
 - [ ] Episode page
 - [ ] Podcast page
@@ -40,10 +29,7 @@ Implements almost all features available in [original app](open.spotify.com).
 - [ ] Playlist creation
 - [ ] History navigation
 - [ ] Saved episodes page
-- [ ] Finish Now Playing Bar
-    - [x] Left Part
 - [ ] Infinite scroll everywhere
-- [x] User search - no api for it
 - [ ] Use proxy for all images
 - [ ] Tests - ?
 - [ ] Mobile version - ?
@@ -54,7 +40,5 @@ Implements almost all features available in [original app](open.spotify.com).
 - [ ] Rewrite all styles from tailwindCSS to Sass - ?
 
 ## BUGS: ##
-- [x] Incorrect placeholder displaying in Item Card
 - [ ] Fix Warnings called by Image tags
-- [x] Fix bottom paddings in all page
-- [ ] Fix falsy displaying in JSX
+- [ ] Fix falsy values displaying in JSX
