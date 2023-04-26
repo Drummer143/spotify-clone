@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useRef } from "react";
+import moment from "moment";
 
 import SongTimeInfo from "./SongTimeInfo";
 import { RangeInput } from "@/components";
-import { useAppSelector } from "@/hooks";
-import moment from "moment";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { setCurrentPlayTime, setPaused } from "@/redux";
 
 const SongTimeDisplayer: React.FC = () => {
-    const { currentPlayTime, currentSongDuration } = useAppSelector(state => state.player);
+    const { currentPlayTime, currentSongDuration, paused } = useAppSelector(state => state.player);
+
+    const isPausedBeforeRewind = useRef(false);
+
+    const dispatch = useAppDispatch();
+
+    const handleRangeMouseDown = () => {
+        isPausedBeforeRewind.current = paused;
+
+        dispatch(setPaused(true));
+    };
+
+    const handleRangeMouseUp = (percentage: number) => {
+        dispatch(setCurrentPlayTime(percentage * currentSongDuration));
+
+        if (!isPausedBeforeRewind.current) {
+            queueMicrotask(() => dispatch(setPaused(false)));
+        }
+    };
 
     return (
         <div className="flex gap-2 items-center justify-center mt-2">
@@ -15,7 +34,12 @@ const SongTimeDisplayer: React.FC = () => {
             </SongTimeInfo>
 
             <div className="w-full">
-                <RangeInput currentPercentage={currentPlayTime / currentSongDuration} />
+                <RangeInput
+                    onMouseDown={handleRangeMouseDown}
+                    // onMouseMove={handleRangeMouseMove}
+                    onMouseUp={handleRangeMouseUp}
+                    currentPercentage={currentPlayTime / currentSongDuration}
+                />
             </div>
 
             <SongTimeInfo side="right">

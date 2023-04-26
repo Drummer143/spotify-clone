@@ -5,9 +5,16 @@ type RangeInputProps = {
     currentPercentage?: number;
     onMouseMove?: (percentage: number) => void;
     onMouseDown?: (percentage: number) => void;
+    onMouseUp?: (percentage: number) => void;
 };
 
-const RangeInput: React.FC<RangeInputProps> = ({ onMouseMove, onMouseDown, setToZero, currentPercentage = 0 }) => {
+const RangeInput: React.FC<RangeInputProps> = ({
+    onMouseMove,
+    onMouseDown,
+    setToZero,
+    currentPercentage = 0,
+    onMouseUp
+}) => {
     const [leftShift, setLeftShift] = useState(0);
     const [isMoving, setIsMoving] = useState(false);
     const [inputWidth, setInputWidth] = useState(0);
@@ -61,9 +68,25 @@ const RangeInput: React.FC<RangeInputProps> = ({ onMouseMove, onMouseDown, setTo
         setLeftShift(newShift);
     };
 
-    const handleMouseUp = () => {
+    const handleMouseUp = (e: MouseEvent) => {
         document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+
         setIsMoving(false);
+
+        if (onMouseUp) {
+            const { clientX } = e;
+
+            let newShift = clientX - inputLeft.current;
+
+            if (newShift < 0) {
+                newShift = 0;
+            } else if (newShift > inputWidth) {
+                newShift = inputWidth;
+            }
+
+            onMouseUp(newShift / inputWidth);
+        }
     };
 
     return (

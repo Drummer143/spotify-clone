@@ -32,9 +32,11 @@ Implements almost all features available in [original app](open.spotify.com).
 - [ ] Save tracks in SongCard component
 - [ ] Episode page
 - [ ] Podcast page
-- [ ] Music Player
-- [ ] Drag'n'Drop
-- [ ] Setting button in item pages
+- [x] Music Player
+    - [ ] Shuffle
+    - [ ] Next song queue
+- [ ] Player queue page
+- [ ] Drag'n'Drop - ?
 - [ ] Playlist creation
 - [ ] History navigation
 - [ ] Saved episodes page

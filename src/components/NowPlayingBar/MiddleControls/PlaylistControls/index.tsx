@@ -2,7 +2,7 @@ import React from "react";
 
 import ControlsButton from "./ControlsButton";
 import { GoogleMaterialIcon } from "@/components";
-import { toggleShuffle, toggleRepeat, setPaused } from "@/redux";
+import { toggleShuffle, toggleRepeat, setPaused, setCurrentSongIndex } from "@/redux";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 
 const PlaylistControls: React.FC = () => {
@@ -12,13 +12,17 @@ const PlaylistControls: React.FC = () => {
 
     const togglePaused = () => dispatch(setPaused());
 
+    const nextTrack = () => dispatch(setCurrentSongIndex("next"));
+
+    const prevTrack = () => dispatch(setCurrentSongIndex("prev"));
+
     return (
         <div className="w-full flex justify-center gap-2 items-center text-[hsla(0,0%,100%,.7)]">
             <ControlsButton active={shuffle} onClick={() => dispatch(toggleShuffle())}>
                 <GoogleMaterialIcon iconName="shuffle" className="text-inherit" wght={700} size={1.4} />
             </ControlsButton>
 
-            <ControlsButton>
+            <ControlsButton onClick={prevTrack}>
                 <GoogleMaterialIcon iconName="skip_previous" className="text-inherit" FILL={1} wght={700} size={1.6} />
             </ControlsButton>
 
@@ -34,7 +38,7 @@ const PlaylistControls: React.FC = () => {
                 />
             </ControlsButton>
 
-            <ControlsButton>
+            <ControlsButton onClick={nextTrack}>
                 <GoogleMaterialIcon iconName="skip_next" className="text-inherit" FILL={1} wght={700} size={1.6} />
             </ControlsButton>
 

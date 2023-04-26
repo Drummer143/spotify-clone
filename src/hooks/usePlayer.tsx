@@ -6,13 +6,15 @@ type UsePlayerProps = {
     paused: boolean;
     volume: number;
     muted?: boolean;
+    loopTrack?: boolean;
+    loopPlaylist?: boolean;
     playlist: {
         url: string;
     }[];
 
     startSongIndex?: number;
 
-    onEnded: PlayerEventListener;
+    // onEnded: (values: { event: Event, trackNumber: number }) => void;
     onPause: PlayerEventListener;
     onPlay: PlayerEventListener;
     onNextTrack: (duration: number) => void;
@@ -23,13 +25,15 @@ export const usePlayer = ({
     paused,
     playlist,
     volume,
-    onEnded,
+    // onEnded,
     onPause,
     onPlay,
+    loopPlaylist,
     startSongIndex = 0,
     onTimeUpdate,
     onNextTrack,
-    muted = false
+    muted = false,
+    loopTrack = false
 }: UsePlayerProps) => {
     const [player] = useState(new Audio());
     const [currentSongIndex, setCurrentSongIndex] = useState(startSongIndex);
@@ -43,13 +47,26 @@ export const usePlayer = ({
 
     useEffect(() => {
         player.autoplay = true;
+        player.controls = true;
+
+        if ("mediaSession" in navigator) {
+            navigator.mediaSession.setActionHandler("previoustrack", () => {
+                setCurrentSongIndex(prev => (prev - 1 === -1 ? playlist.length - 1 : prev - 1));
+            });
+
+            navigator.mediaSession.setActionHandler("nexttrack", () => {
+                setCurrentSongIndex(prev => (prev + 1 === playlist.length ? 0 : prev + 1));
+            });
+        }
 
         player.ontimeupdate = () => onTimeUpdate(isNaN(player.currentTime) ? 0 : player.currentTime, player.duration);
 
-        player.onended = e => {
-            setCurrentSongIndex(prev => prev + 1);
+        player.onended = (/* e */) => {
+            const nextIndex = currentSongIndex + 1 < playlist.length || !loopPlaylist ? currentSongIndex + 1 : 0;
 
-            onEnded(e);
+            setCurrentSongIndex(nextIndex);
+
+            // onEnded({ event: e, trackNumber: nextIndex });
         };
 
         player.onloadedmetadata = () => onNextTrack(player.duration);
@@ -57,10 +74,11 @@ export const usePlayer = ({
         player.onpause = onPause;
 
         player.onplay = onPlay;
-    }, [onEnded, onNextTrack, onPause, onPlay, onTimeUpdate, player]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [/* onEnded, */ onNextTrack, onPause, onPlay, onTimeUpdate, player]);
 
     useEffect(() => {
-        if (playlist.length < currentSongIndex) {
+        if (playlist.length <= currentSongIndex) {
             return;
         }
 
@@ -69,6 +87,7 @@ export const usePlayer = ({
         } else {
             setCurrentSongIndex(prev => prev + 1);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentSongIndex, player, playlist]);
 
     useEffect(() => {
@@ -86,6 +105,10 @@ export const usePlayer = ({
     useEffect(() => {
         player.muted = muted;
     }, [muted, player]);
+
+    useEffect(() => {
+        player.loop = loopTrack;
+    }, [loopTrack, player]);
 
     return { setCurrentTime, currentSongIndex, setCurrentSongIndex };
 };

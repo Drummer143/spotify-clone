@@ -76,10 +76,17 @@ const playerSlice = createSlice({
             state.playlistURL = undefined;
         },
         setCurrentSongIndex: (state, { payload }: PayloadAction<"next" | "prev" | number>) => {
+            if (state.repeat === "single") {
+                state.repeat = "playlist";
+            }
+
+            const prevIndex = state.currentSongIndex;
+            const playlistLength = state.playlist.length;
+
             if (payload === "next") {
-                state.currentSongIndex++;
+                state.currentSongIndex = prevIndex < playlistLength - 1 ? prevIndex + 1 : 0;
             } else if (payload === "prev") {
-                state.currentSongIndex--;
+                state.currentSongIndex = prevIndex - 1 === -1 ? playlistLength - 1 : prevIndex - 1;
             } else {
                 state.currentSongIndex = payload;
             }

@@ -18,19 +18,27 @@ import {
 import styles from "@/styles/NowPlayingBar.module.css";
 
 const NowPlayingBar: React.FC = () => {
-    const { muted, paused, playlist, volume, playlistURL } = useAppSelector(state => state.player);
+    const { muted, paused, playlist, volume, playlistURL, currentSongIndex, currentPlayTime, repeat } = useAppSelector(
+        state => state.player
+    );
     const accessToken = useAppSelector(state => state.auth.accessToken);
 
     const dispatch = useAppDispatch();
 
-    const { setCurrentSongIndex } = usePlayer({
+    const {
+        setCurrentSongIndex,
+        setCurrentTime,
+        currentSongIndex: playerIndex
+    } = usePlayer({
         paused,
         volume,
+        loopPlaylist: repeat === "playlist",
+        loopTrack: repeat === "single",
         playlist: playlist,
-        onEnded: () => dispatch(reduxSetCurrentSongIndex("next")),
+        muted,
+        // onEnded: ({ trackNumber }) => dispatch(reduxSetCurrentSongIndex(trackNumber)),
         onTimeUpdate: currentTime => dispatch(setCurrentPlayTime(currentTime)),
         onNextTrack: trackDuration => dispatch(setCurrentSongDuration(trackDuration)),
-        muted,
         onPause: () => {
             if (!paused) {
                 dispatch(setPaused(true));
@@ -70,8 +78,25 @@ const NowPlayingBar: React.FC = () => {
     );
 
     useEffect(() => {
+        dispatch(reduxSetCurrentSongIndex(playerIndex));
+    }, [dispatch, playerIndex, setCurrentSongIndex]);
+
+    useEffect(() => {
         dispatch(setPaused(true));
-    }, [dispatch]);
+        setCurrentSongIndex(currentSongIndex);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        setCurrentSongIndex(currentSongIndex);
+    }, [currentSongIndex, setCurrentSongIndex]);
+
+    useEffect(() => {
+        if (paused) {
+            setCurrentTime(currentPlayTime);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPlayTime, setCurrentTime]);
 
     useEffect(() => {
         if (!playlistURL || !accessToken) {
@@ -81,7 +106,8 @@ const NowPlayingBar: React.FC = () => {
         fetchPlaylist(accessToken, playlistURL);
 
         setCurrentSongIndex(0);
-    }, [accessToken, dispatch, fetchPlaylist, playlistURL, setCurrentSongIndex]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [accessToken, dispatch, fetchPlaylist, playlistURL]);
 
     return (
         <footer
