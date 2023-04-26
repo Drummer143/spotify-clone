@@ -1,55 +1,21 @@
 import axios from "axios";
 import React, { useCallback, useEffect } from "react";
-import dynamic from "next/dynamic";
 
+import Player from "./Player";
 import LeftPart from "./LeftPart";
 import RightPart from "./RightPart";
 import MiddleControls from "./MiddleControls";
 import { spotifyApiHeaders } from "@/utils";
-import { useAppDispatch, useAppSelector, usePlayer } from "@/hooks";
-import {
-    setCurrentSongIndex as reduxSetCurrentSongIndex,
-    setCurrentPlayTime,
-    setCurrentSongDuration,
-    setPaused,
-    setPlaylist
-} from "@/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { setCurrentSongIndex, setPlaylist } from "@/redux";
 
 import styles from "@/styles/NowPlayingBar.module.css";
 
 const NowPlayingBar: React.FC = () => {
-    const { muted, paused, playlist, volume, playlistURL, currentSongIndex, currentPlayTime, repeat } = useAppSelector(
-        state => state.player
-    );
+    const playlistURL = useAppSelector(state => state.player.playlistURL);
     const accessToken = useAppSelector(state => state.auth.accessToken);
 
     const dispatch = useAppDispatch();
-
-    const {
-        setCurrentSongIndex,
-        setCurrentTime,
-        currentSongIndex: playerIndex
-    } = usePlayer({
-        paused,
-        volume,
-        loopPlaylist: repeat === "playlist",
-        loopTrack: repeat === "single",
-        playlist: playlist,
-        muted,
-        // onEnded: ({ trackNumber }) => dispatch(reduxSetCurrentSongIndex(trackNumber)),
-        onTimeUpdate: currentTime => dispatch(setCurrentPlayTime(currentTime)),
-        onNextTrack: trackDuration => dispatch(setCurrentSongDuration(trackDuration)),
-        onPause: () => {
-            if (!paused) {
-                dispatch(setPaused(true));
-            }
-        },
-        onPlay: () => {
-            if (paused) {
-                dispatch(setPaused(false));
-            }
-        }
-    });
 
     const fetchPlaylist = useCallback(
         async (accessToken: string, playlistURL: string) => {
@@ -78,34 +44,13 @@ const NowPlayingBar: React.FC = () => {
     );
 
     useEffect(() => {
-        dispatch(reduxSetCurrentSongIndex(playerIndex));
-    }, [dispatch, playerIndex, setCurrentSongIndex]);
-
-    useEffect(() => {
-        dispatch(setPaused(true));
-        setCurrentSongIndex(currentSongIndex);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
-        setCurrentSongIndex(currentSongIndex);
-    }, [currentSongIndex, setCurrentSongIndex]);
-
-    useEffect(() => {
-        if (paused) {
-            setCurrentTime(currentPlayTime);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentPlayTime, setCurrentTime]);
-
-    useEffect(() => {
         if (!playlistURL || !accessToken) {
             return;
         }
 
         fetchPlaylist(accessToken, playlistURL);
 
-        setCurrentSongIndex(0);
+        dispatch(setCurrentSongIndex(0));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [accessToken, dispatch, fetchPlaylist, playlistURL]);
 
@@ -121,8 +66,10 @@ const NowPlayingBar: React.FC = () => {
             <MiddleControls />
 
             <RightPart />
+
+            <Player />
         </footer>
     );
 };
 
-export default dynamic(() => Promise.resolve(NowPlayingBar), { ssr: false });
+export default NowPlayingBar;
