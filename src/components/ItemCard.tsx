@@ -22,11 +22,14 @@ const ItemCard: React.FC<ItemCardProps> = ({ type, id, imageURL, description, na
 
     const handleClick: React.MouseEventHandler = () => router.push({ pathname: `/${type}/${id}` });
 
+    const handleMouseEnter = () => router.prefetch(`/${type}/${id}`);
+
     const dispatch = useAppDispatch();
 
     return (
         <div
             onClick={handleClick}
+            onMouseEnter={handleMouseEnter}
             className={"group p-4 bg-[#181818] rounded-[clamp(4px,32px_*_0.025,8px)] transition-[background-color]"
                 .concat(" cursor-pointer")
                 .concat(" hover:bg-[#282828]")}
