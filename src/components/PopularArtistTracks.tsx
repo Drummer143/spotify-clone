@@ -28,33 +28,41 @@ const PopularArtistTracks: React.FC = () => {
 
     const handleExpandButtonClick = () => setCountOfDisplayingTracks(prev => (prev === 5 ? 10 : 5));
 
-    const playSongs = useCallback((trackNumber = 0) => {
-        if (tracks?.length) {
-            const playlist: Playlist = tracks
-                ?.map(track => ({
+    const playSongs = useCallback(
+        (trackNumber = 0) => {
+            if (tracks?.length) {
+                const playlist: Playlist = tracks?.map(track => ({
                     id: track.id,
                     url: track.preview_url
                 }));
 
-            dispatch(setPlaylist({
-                playlist,
-                startIndex: trackNumber,
-                playlistInfo: query.id ? {
-                    id: Array.isArray(query.id) ? query.id[0] : query.id,
-                    type: "artist"
-                } : undefined
-            }));
-        }
-    }, [dispatch, query.id, tracks]);
+                dispatch(
+                    setPlaylist({
+                        playlist,
+                        startIndex: trackNumber,
+                        playlistInfo: query.id
+                            ? {
+                                  id: Array.isArray(query.id) ? query.id[0] : query.id,
+                                  type: "artist"
+                              }
+                            : undefined
+                    })
+                );
+            }
+        },
+        [dispatch, query.id, tracks]
+    );
 
     useEffect(() => {
         dispatch(setHeaderPlayButtonVisibility(true));
 
         if (tracks && query.id) {
-            dispatch(setCurrentPagePlaylistInfo({
-                id: Array.isArray(query.id) ? query.id[0] : query.id,
-                type: "artist"
-            }));
+            dispatch(
+                setCurrentPagePlaylistInfo({
+                    id: Array.isArray(query.id) ? query.id[0] : query.id,
+                    type: "artist"
+                })
+            );
         }
 
         return () => {

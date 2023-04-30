@@ -4,7 +4,7 @@ import { GoogleMaterialIcon } from ".";
 
 type PlayButtonProps = JSX.IntrinsicElements["button"] & {
     size?: number;
-    icon?: "play_arrow" | "pause"
+    icon?: "play_arrow" | "pause";
 };
 
 const PlayButton: React.FC<PlayButtonProps> = ({ size = 3.5, className, icon = "play_arrow", ...otherProps }) => {

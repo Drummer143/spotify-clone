@@ -23,14 +23,14 @@ interface PlayerState {
     isPlaylistRequested: boolean; // needed for play button on header
 
     playlistInfo?: {
-        id: string
-        type?: string
+        id: string;
+        type?: string;
     };
     currentPagePlaylistInfo?: {
-        id: string
-        type?: string
+        id: string;
+        type?: string;
     };
-    playlistInCurrentPage?: string // needed for play button on header
+    playlistInCurrentPage?: string; // needed for play button on header
     playlistURL?: string;
 }
 
@@ -50,77 +50,75 @@ const initialState: PlayerState = {
 
 export const getPlaylist = createAsyncThunk<
     {
-        playlist: Playlist
-        startIndex?: number
-        playlistInfo?: PlayerState["playlistInfo"]
+        playlist: Playlist;
+        startIndex?: number;
+        playlistInfo?: PlayerState["playlistInfo"];
     },
     {
-        id: string,
-        type: Extract<ItemType, "album" | "artist" | "playlist" | "track">
-        startIndex?: number
+        id: string;
+        type: Extract<ItemType, "album" | "artist" | "playlist" | "track">;
+        startIndex?: number;
     },
     { state: RootState }
->(
-    "player/getPlaylist",
-    async ({ id, type, startIndex }, { rejectWithValue, getState }) => {
-        const URL = buildPlaylistURL(id, type);
+>("player/getPlaylist", async ({ id, type, startIndex }, { rejectWithValue, getState }) => {
+    const URL = buildPlaylistURL(id, type);
 
-        const { auth: { accessToken } } = getState();
+    const {
+        auth: { accessToken }
+    } = getState();
 
-        if (!accessToken) {
-            return rejectWithValue("No access token provided");
-        }
+    if (!accessToken) {
+        return rejectWithValue("No access token provided");
+    }
 
-        try {
-            const res = await axios.get<
-                GetPlaylistItemsResponse | GetAlbumTracksResponse | GetArtistTopTracksResponse | GetTrackResponse
-            >(
-                URL,
-                {
-                    headers: spotifyApiHeaders(accessToken)
-                }
-            );
+    try {
+        const res = await axios.get<
+            GetPlaylistItemsResponse | GetAlbumTracksResponse | GetArtistTopTracksResponse | GetTrackResponse
+        >(URL, {
+            headers: spotifyApiHeaders(accessToken)
+        });
 
-            if ("type" in res.data) {
-                if (res.data.preview_url) {
-                    return {
-                        playlist: [{
+        if ("type" in res.data) {
+            if (res.data.preview_url) {
+                return {
+                    playlist: [
+                        {
                             id: res.data.id,
                             url: res.data.preview_url
-                        }],
-                        playlistInfo: {
-                            id: res.data.id
-                        },
-                        startIndex
-                    };
-                } else {
-                    return rejectWithValue("no playable tracks");
-                }
+                        }
+                    ],
+                    playlistInfo: {
+                        id: res.data.id
+                    },
+                    startIndex
+                };
+            } else {
+                return rejectWithValue("no playable tracks");
+            }
+        }
+
+        const tracks = "tracks" in res.data ? res.data.tracks : res.data.items;
+
+        const playlist = tracks.map<PlaylistItem>(track => {
+            if (!("preview_url" in track)) {
+                track = track.track;
             }
 
-            const tracks = "tracks" in res.data ? res.data.tracks : res.data.items;
+            return { id: track.id, url: track.preview_url, playlistInfo: { id, type } };
+        });
 
-            const playlist = tracks.map<PlaylistItem>(track => {
-                if (!("preview_url" in track)) {
-                    track = track.track;
-                }
-
-                return { id: track.id, url: track.preview_url, playlistInfo: { id, type } };
-            });
-
-            return {
-                playlist,
-                startIndex,
-                playlistInfo: {
-                    id,
-                    type
-                }
-            };
-        } catch (error) {
-            return rejectWithValue(error);
-        }
+        return {
+            playlist,
+            startIndex,
+            playlistInfo: {
+                id,
+                type
+            }
+        };
+    } catch (error) {
+        return rejectWithValue(error);
     }
-);
+});
 
 const playerSlice = createSlice({
     name: "player",
@@ -204,16 +202,16 @@ const playerSlice = createSlice({
             state.currentSongDuration = action.payload;
         },
 
-        requestCurrentPagePlaylist: (state) => {
+        requestCurrentPagePlaylist: state => {
             state.isPlaylistRequested = true;
         },
 
         setPlaylist: (
             state,
             action: PayloadAction<{
-                playlist: Playlist,
-                startIndex?: number,
-                playlistInfo?: PlayerState["playlistInfo"]
+                playlist: Playlist;
+                startIndex?: number;
+                playlistInfo?: PlayerState["playlistInfo"];
             }>
         ) => {
             if (!action.payload.playlist.length) {
@@ -223,6 +221,8 @@ const playerSlice = createSlice({
             const isPlayable = action.payload.playlist.find(song => song.url);
 
             if (!isPlayable) {
+                // TODO:
+                // eslint-disable-next-line no-console
                 console.error("no playable songs in playlist");
 
                 state.currentSongIndex = 0;
@@ -254,7 +254,6 @@ const playerSlice = createSlice({
             state.currentPlayTime = 0;
             state.paused = false;
             state.playlistURL = undefined;
-
         });
     }
 });

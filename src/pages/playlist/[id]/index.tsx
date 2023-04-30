@@ -44,17 +44,19 @@ const PlaylistPage: React.FC = () => {
         }
     }, [accessToken, followInfo, followPlaylist, playlistId, unfollowPlaylist]);
 
-    const playSongs = useCallback((trackNumber = 0) => {
-        if (playlistInfo?.tracks.items.length) {
-            const playlist: Playlist = playlistInfo?.tracks.items
-                .map(({ track }) => ({
+    const playSongs = useCallback(
+        (trackNumber = 0) => {
+            if (playlistInfo?.tracks.items.length) {
+                const playlist: Playlist = playlistInfo?.tracks.items.map(({ track }) => ({
                     id: track.id,
                     url: track.preview_url
                 }));
 
-            dispatch(setPlaylist({ playlist, startIndex: trackNumber, playlistInfo: { id: playlistInfo.id } }));
-        }
-    }, [playlistInfo, dispatch]);
+                dispatch(setPlaylist({ playlist, startIndex: trackNumber, playlistInfo: { id: playlistInfo.id } }));
+            }
+        },
+        [playlistInfo, dispatch]
+    );
 
     const handleCloseModal = () => dispatch(setCurrentModal());
 

@@ -38,7 +38,7 @@ const SongTimeDisplayer: React.FC = () => {
                     onMouseDown={handleRangeMouseDown}
                     // onMouseMove={handleRangeMouseMove}
                     onMouseUp={handleRangeMouseUp}
-                    currentPercentage={currentSongDuration === 0 ? 0 : (currentPlayTime / currentSongDuration)}
+                    currentPercentage={currentSongDuration === 0 ? 0 : currentPlayTime / currentSongDuration}
                     disabled={!currentSongDuration}
                 />
             </div>

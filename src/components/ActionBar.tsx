@@ -6,7 +6,7 @@ import { requestCurrentPagePlaylist, setPaused } from "@/redux/slices/playerSlic
 
 type ActionBarProps = {
     itemInfo?: {
-        buttonType: "heart" | "textButton"
+        buttonType: "heart" | "textButton";
         isFollowing: boolean;
         onFollowToggle: React.MouseEventHandler<HTMLSpanElement>;
     };
@@ -58,17 +58,20 @@ const ActionBar: React.FC<ActionBarProps> = ({ itemInfo }) => {
                     />
                 )}
 
-                {itemInfo?.buttonType === "textButton" && (<button
-                    className={"px-4 py-2 text-xs font-bold rounded border border-solid uppercase "
-                        .concat(" tracking-[.1em]")
-                        .concat(" ", itemInfo.isFollowing
-                            ? "border-white"
-                            : " border-[hsla(0,0%,100%,.3)] transition-[border-color] hover:border-white"
-                        )}
-                    onClick={itemInfo.onFollowToggle}
-                >
-                    Follow{itemInfo.isFollowing ? "ing" : ""}
-                </button>
+                {itemInfo?.buttonType === "textButton" && (
+                    <button
+                        className={"px-4 py-2 text-xs font-bold rounded border border-solid uppercase "
+                            .concat(" tracking-[.1em]")
+                            .concat(
+                                " ",
+                                itemInfo.isFollowing
+                                    ? "border-white"
+                                    : " border-[hsla(0,0%,100%,.3)] transition-[border-color] hover:border-white"
+                            )}
+                        onClick={itemInfo.onFollowToggle}
+                    >
+                        Follow{itemInfo.isFollowing ? "ing" : ""}
+                    </button>
                 )}
             </div>
         </div>

@@ -34,17 +34,19 @@ const AlbumPage: NextPage = () => {
         }
     };
 
-    const playSongs = useCallback((trackNumber = 0) => {
-        if (albumInfo?.tracks.items.length) {
-            const playlist: Playlist = albumInfo?.tracks.items
-                .map(track => ({
+    const playSongs = useCallback(
+        (trackNumber = 0) => {
+            if (albumInfo?.tracks.items.length) {
+                const playlist: Playlist = albumInfo?.tracks.items.map(track => ({
                     id: track.id,
                     url: track.preview_url
                 }));
 
-            dispatch(setPlaylist({ playlist, startIndex: trackNumber, playlistInfo: { id: albumInfo.id } }));
-        }
-    }, [albumInfo, dispatch]);
+                dispatch(setPlaylist({ playlist, startIndex: trackNumber, playlistInfo: { id: albumInfo.id } }));
+            }
+        },
+        [albumInfo, dispatch]
+    );
 
     useEffect(() => {
         let albumId = query.id;

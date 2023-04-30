@@ -16,8 +16,7 @@ type ItemCardProps = {
 
 type PlaylistLikeItemTypes = Exclude<ItemType, "episode" | "show" | "user">;
 
-const isPlayable = (type: ItemType): type is PlaylistLikeItemTypes =>
-    !["episode", "show", "user"].includes(type);
+const isPlayable = (type: ItemType): type is PlaylistLikeItemTypes => !["episode", "show", "user"].includes(type);
 
 const ItemCard: React.FC<ItemCardProps> = ({ type, id, imageURL, description, name }) => {
     const { playlistInfo, paused } = useAppSelector(state => state.player);
@@ -65,9 +64,9 @@ const ItemCard: React.FC<ItemCardProps> = ({ type, id, imageURL, description, na
                         size={3}
                         icon={playlistInfo?.id === id && !paused ? "pause" : "play_arrow"}
                         className={"absolute bottom-2 right-2 duration-300 transition-[transform,_opacity,_box-shadow]"
-                            .concat(" ", playlistInfo?.id === id && !paused ?
-                                "shadow-playlist-card" :
-                                "translate-y-[20%] opacity-0 group-hover:translate-y-0"
+                            .concat(" ", playlistInfo?.id === id && !paused
+                                ? "shadow-playlist-card"
+                                : "translate-y-[20%] opacity-0 group-hover:translate-y-0"
                                     .concat(" group-hover:opacity-100 group-hover:shadow-playlist-card")
                             )
                         }

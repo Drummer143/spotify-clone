@@ -45,9 +45,5 @@ const appSlice = createSlice({
 
 export default appSlice;
 
-export const {
-    changeHeadBGColor,
-    setCountOfCardsInColumn,
-    setCurrentModal,
-    setHeaderPlayButtonVisibility
-} = appSlice.actions;
+export const { changeHeadBGColor, setCountOfCardsInColumn, setCurrentModal, setHeaderPlayButtonVisibility } =
+    appSlice.actions;

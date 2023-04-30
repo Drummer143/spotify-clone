@@ -6,7 +6,7 @@ type RangeInputProps = {
     onMouseMove?: (percentage: number) => void;
     onMouseDown?: (percentage: number) => void;
     onMouseUp?: (percentage: number) => void;
-    disabled?: boolean
+    disabled?: boolean;
 };
 
 const RangeInput: React.FC<RangeInputProps> = ({
@@ -99,8 +99,9 @@ const RangeInput: React.FC<RangeInputProps> = ({
         <div
             ref={inputWidthRef}
             onMouseDown={handleClick}
-            className={"group relative h-3 w-full flex items-center select-none"
-                .concat(disabled ? " opacity-30 pointer-events-none" : "")}
+            className={"group relative h-3 w-full flex items-center select-none".concat(
+                disabled ? " opacity-30 pointer-events-none" : ""
+            )}
         >
             <div className="h-1 w-full bg-[hsla(0,0%,100%,0.3)] rounded-sm overflow-hidden cursor-pointer">
                 <div

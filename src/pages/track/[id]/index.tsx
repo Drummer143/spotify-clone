@@ -36,20 +36,27 @@ const TrackPage: NextPage = () => {
         }
     };
 
-    const playSongs = useCallback((trackNumber = 0) => {
-        if (trackInfo?.preview_url) {
-            dispatch(setPlaylist({
-                playlist: [{
-                    id: trackInfo.id,
-                    url: trackInfo.preview_url
-                }],
-                startIndex: trackNumber,
-                playlistInfo: {
-                    id: trackInfo.id
-                }
-            }));
-        }
-    }, [trackInfo, dispatch]);
+    const playSongs = useCallback(
+        (trackNumber = 0) => {
+            if (trackInfo?.preview_url) {
+                dispatch(
+                    setPlaylist({
+                        playlist: [
+                            {
+                                id: trackInfo.id,
+                                url: trackInfo.preview_url
+                            }
+                        ],
+                        startIndex: trackNumber,
+                        playlistInfo: {
+                            id: trackInfo.id
+                        }
+                    })
+                );
+            }
+        },
+        [trackInfo, dispatch]
+    );
 
     useEffect(() => {
         let trackId = query.id;

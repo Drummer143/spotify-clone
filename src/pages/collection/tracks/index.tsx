@@ -18,17 +18,19 @@ const LikeSongPage: React.FC = () => {
         spotifyApi.useLazyGetCurrentUserSavedTracksQuery();
     const [getCurrentUser, { currentData: user, isLoading: userIsLoading }] = spotifyApi.useLazyGetCurrentUserQuery();
 
-    const playSongs = useCallback((trackNumber = 0) => {
-        if (savedTracks?.items.length) {
-            const playlist: Playlist = savedTracks.items
-                .map(({ track }) => ({
+    const playSongs = useCallback(
+        (trackNumber = 0) => {
+            if (savedTracks?.items.length) {
+                const playlist: Playlist = savedTracks.items.map(({ track }) => ({
                     id: track.id,
                     url: track.preview_url
                 }));
 
-            dispatch(setPlaylist({ playlist, startIndex: trackNumber, playlistInfo: { id: SAVED_SONGS_ID } }));
-        }
-    }, [dispatch, savedTracks]);
+                dispatch(setPlaylist({ playlist, startIndex: trackNumber, playlistInfo: { id: SAVED_SONGS_ID } }));
+            }
+        },
+        [dispatch, savedTracks]
+    );
 
     useEffect(() => {
         dispatch(setCurrentPagePlaylistInfo({ id: SAVED_SONGS_ID }));

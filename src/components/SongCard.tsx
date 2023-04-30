@@ -20,9 +20,9 @@ type SongCardProps = {
     albumId?: string;
     albumName?: string;
     dateAdded?: string;
-    onSongSelect?: React.MouseEventHandler<HTMLElement>
-    playlistId?: string,
-    hideNumber?: boolean
+    onSongSelect?: React.MouseEventHandler<HTMLElement>;
+    playlistId?: string;
+    hideNumber?: boolean;
 };
 
 const SongCard: React.FC<SongCardProps> = ({
@@ -39,13 +39,9 @@ const SongCard: React.FC<SongCardProps> = ({
     playlistId,
     hideNumber
 }) => {
-    const {
-        currentSongIndex,
-        playlist,
-        paused,
-        playlistInfo,
-        currentPagePlaylistInfo
-    } = useAppSelector(state => state.player);
+    const { currentSongIndex, playlist, paused, playlistInfo, currentPagePlaylistInfo } = useAppSelector(
+        state => state.player
+    );
 
     const [countOfHiddenFields] = useState([hideNumber, !(albumId && albumName), !dateAdded].filter(f => f).length);
     const [dateFormatter] = useState(
@@ -98,7 +94,13 @@ const SongCard: React.FC<SongCardProps> = ({
                     <span className="group-hover:hidden group-focus:hidden text-[#b3b3b3]">{number}</span>
                     <GoogleMaterialIcon
                         onClick={handlePlayButtonClick}
-                        iconName={playlist[currentSongIndex]?.id === songId && playlistInfo?.id === currentPagePlaylistInfo?.id && !paused ? "pause" : "play_arrow"}
+                        iconName={
+                            playlist[currentSongIndex]?.id === songId &&
+                            playlistInfo?.id === currentPagePlaylistInfo?.id &&
+                            !paused
+                                ? "pause"
+                                : "play_arrow"
+                        }
                         FILL={1}
                         size={1.5}
                         className="text-[#b3b3b3] hidden leading-none group-hover:block group-focus:block"
@@ -129,12 +131,13 @@ const SongCard: React.FC<SongCardProps> = ({
                 <div>
                     <Link
                         href={`/track/${songId}`}
-                        className={"line-clamp-1 hover:underline w-fit"
-                            .concat(" ", playlistInfo?.id === currentPagePlaylistInfo?.id && playlist[currentSongIndex]?.id === songId ?
-                                "text-[#1ed760]" :
-                                "text-[#b3b3b3]"
-                            )
-                        }
+                        className={"line-clamp-1 hover:underline w-fit".concat(
+                            " ",
+                            playlistInfo?.id === currentPagePlaylistInfo?.id &&
+                                playlist[currentSongIndex]?.id === songId
+                                ? "text-[#1ed760]"
+                                : "text-[#b3b3b3]"
+                        )}
                     >
                         {name}
                     </Link>

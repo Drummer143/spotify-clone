@@ -23,13 +23,7 @@ const PlaylistControls: React.FC = () => {
             </ControlsButton>
 
             <ControlsButton onClick={prevTrack} className={"disabled:pointer-events-none"} disabled={!playlist.length}>
-                <GoogleMaterialIcon
-                    iconName="skip_previous"
-                    className="text-inherit"
-                    FILL={1}
-                    wght={700}
-                    size={1.6}
-                />
+                <GoogleMaterialIcon iconName="skip_previous" className="text-inherit" FILL={1} wght={700} size={1.6} />
             </ControlsButton>
 
             <ControlsButton
@@ -46,13 +40,7 @@ const PlaylistControls: React.FC = () => {
             </ControlsButton>
 
             <ControlsButton onClick={nextTrack} className={"disabled:pointer-events-none"} disabled={!playlist.length}>
-                <GoogleMaterialIcon
-                    iconName="skip_next"
-                    className="text-inherit"
-                    FILL={1}
-                    wght={700}
-                    size={1.6}
-                />
+                <GoogleMaterialIcon iconName="skip_next" className="text-inherit" FILL={1} wght={700} size={1.6} />
             </ControlsButton>
 
             <ControlsButton active={repeat !== "no"} onClick={() => dispatch(toggleRepeat())}>

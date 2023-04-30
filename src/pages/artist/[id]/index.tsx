@@ -90,7 +90,6 @@ const Index: NextPage = () => {
                 />
 
                 <div className="px-content-spacing relative z-0 flex gap-10 flex-col">
-
                     <PopularArtistTracks />
 
                     <ArtistsAlbums />

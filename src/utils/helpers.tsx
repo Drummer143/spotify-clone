@@ -160,7 +160,7 @@ export const findNextURL = (playlist: Playlist, startIndex: number, direction: -
     let newURL = playlist[startIndex]?.url;
     let newIndex = startIndex;
 
-    if(newURL) {
+    if (newURL) {
         return startIndex;
     } else {
         console.error("This song is not playable. Searching for nearest playable song");
