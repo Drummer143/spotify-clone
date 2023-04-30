@@ -1,6 +1,7 @@
 import { isRejected, PayloadAction } from "@reduxjs/toolkit";
 import type { MiddlewareAPI, Middleware } from "@reduxjs/toolkit";
-import { logOut } from "../slices/authSlice";
+
+import { logOut } from "..";
 
 export const rtkQueryErrorLogger: Middleware =
     (api: MiddlewareAPI) => next => (action: PayloadAction<{ status?: number }>) => {

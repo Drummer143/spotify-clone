@@ -2,9 +2,10 @@ import storage from "redux-persist/lib/storage";
 import { configureStore } from "@reduxjs/toolkit";
 import { persistCombineReducers, persistStore } from "redux-persist";
 
-import appSlice from "./slices/appSlice";
-import authSlice from "./slices/authSlice";
-import playerSlice from "./slices/playerSlice";
+import appSlice from "./slices/app.slice";
+import authSlice from "./slices/auth.slice";
+import playerSlice from "./slices/player.slice";
+import historySlice from "./slices/history.slice";
 import { spotifyApi } from "./query/spotifyApi";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { rtkQueryErrorLogger } from "./middleware/logger";
@@ -15,12 +16,13 @@ const persistentReducer = persistCombineReducers(
     {
         key: PERSIST_KEY,
         storage,
-        blacklist: [spotifyApi.reducerPath, "app"]
+        blacklist: [spotifyApi.reducerPath, appSlice.name, historySlice.name]
     },
     {
-        app: appSlice.reducer,
-        auth: authSlice.reducer,
-        player: playerSlice.reducer,
+        [appSlice.name]: appSlice.reducer,
+        [authSlice.name]: authSlice.reducer,
+        [playerSlice.name]: playerSlice.reducer,
+        [historySlice.name]: historySlice.reducer,
         [spotifyApi.reducerPath]: spotifyApi.reducer
     }
 );
@@ -30,11 +32,11 @@ const store = configureStore({
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware({
             serializableCheck: {
-                ignoredActions: ["persist/PERSIST", "spotifyApi"],
+                ignoredActions: ["persist/PERSIST", spotifyApi.reducerPath],
                 warnAfter: 128
             },
             immutableCheck: {
-                ignoredPaths: ["persist/PERSIST", "spotifyApi"],
+                ignoredPaths: ["persist/PERSIST", spotifyApi.reducerPath],
                 warnAfter: 128
             }
         }).concat(spotifyApi.middleware, rtkQueryErrorLogger),

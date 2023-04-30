@@ -2,7 +2,7 @@ import React from "react";
 
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { GoogleMaterialIcon, PlayButton } from ".";
-import { requestCurrentPagePlaylist, setPaused } from "@/redux/slices/playerSlice";
+import { requestCurrentPagePlaylist, setPaused } from "@/redux";
 
 type ActionBarProps = {
     itemInfo?: {

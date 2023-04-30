@@ -27,15 +27,14 @@ Implements almost all features available in [original app](open.spotify.com).
 - [ ] Player queue page
 - [ ] Drag'n'Drop - ?
 - [ ] Playlist creation
-- [ ] History navigation
 - [ ] Saved episodes page
 - [ ] Infinite scroll everywhere
-- [ ] Use proxy for all images
 - [ ] Tests - ?
 - [ ] Mobile version - ?
 - [ ] Proxy next server - ?
 - [ ] Custom scrollbars - ?
 - [ ] Refreshing access token - ?
+- [ ] Use proxy for all images - ?
 - [ ] Download desktop app page - ?
 - [ ] Rewrite all styles from tailwindCSS to Sass - ?
 
