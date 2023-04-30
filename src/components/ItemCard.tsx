@@ -2,8 +2,8 @@ import React from "react";
 import { useRouter } from "next/router";
 
 import { PlayButton, ImageWrapper } from ".";
-import { setPlaylistURL } from "@/redux";
-import { useAppDispatch } from "@/hooks";
+import { getPlaylist, setPaused } from "@/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 
 type ItemCardProps = {
     type: Exclude<ItemType, "track">;
@@ -14,10 +14,14 @@ type ItemCardProps = {
     imageURL?: string;
 };
 
-const isPlayable = (type: ItemType): type is Exclude<ItemType, "episode" | "show" | "user"> =>
+type PlaylistLikeItemTypes = Exclude<ItemType, "episode" | "show" | "user">;
+
+const isPlayable = (type: ItemType): type is PlaylistLikeItemTypes =>
     !["episode", "show", "user"].includes(type);
 
 const ItemCard: React.FC<ItemCardProps> = ({ type, id, imageURL, description, name }) => {
+    const { playlistInfo, paused } = useAppSelector(state => state.player);
+
     const router = useRouter();
 
     const handleClick: React.MouseEventHandler = () => router.push({ pathname: `/${type}/${id}` });
@@ -25,6 +29,16 @@ const ItemCard: React.FC<ItemCardProps> = ({ type, id, imageURL, description, na
     const handleMouseEnter = () => router.prefetch(`/${type}/${id}`);
 
     const dispatch = useAppDispatch();
+
+    const handlePlayButtonClick = (e: React.MouseEvent<HTMLButtonElement>, type: PlaylistLikeItemTypes) => {
+        e.stopPropagation();
+
+        if (playlistInfo?.id !== id) {
+            dispatch(getPlaylist({ id, type: type }));
+        } else {
+            dispatch(setPaused());
+        }
+    };
 
     return (
         <div
@@ -47,15 +61,16 @@ const ItemCard: React.FC<ItemCardProps> = ({ type, id, imageURL, description, na
 
                 {isPlayable(type) && (
                     <PlayButton
-                        onClick={e => {
-                            e.stopPropagation();
-                            dispatch(setPlaylistURL({ id, type: type }));
-                        }}
+                        onClick={e => handlePlayButtonClick(e, type)}
                         size={3}
-                        className={"absolute bottom-2 right-2 translate-y-[20%] opacity-0 duration-300"
-                            .concat(" transition-[transform,_opacity,_box-shadow]")
-                            .concat(" group-hover:translate-y-0 group-hover:opacity-100")
-                            .concat(" group-hover:shadow-playlist-card")}
+                        icon={playlistInfo?.id === id && !paused ? "pause" : "play_arrow"}
+                        className={"absolute bottom-2 right-2 duration-300 transition-[transform,_opacity,_box-shadow]"
+                            .concat(" ", playlistInfo?.id === id && !paused ?
+                                "shadow-playlist-card" :
+                                "translate-y-[20%] opacity-0 group-hover:translate-y-0"
+                                    .concat(" group-hover:opacity-100 group-hover:shadow-playlist-card")
+                            )
+                        }
                     />
                 )}
             </div>

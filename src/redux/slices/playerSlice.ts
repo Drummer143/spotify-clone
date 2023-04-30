@@ -1,5 +1,9 @@
-import { buildPlaylistURL } from "@/utils";
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+/* eslint-disable max-lines */
+import axios from "axios";
+
+import { RootState } from "../store";
+import { buildPlaylistURL, findNextURL, spotifyApiHeaders } from "@/utils";
+import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 type RepeatValues = "no" | "playlist" | "single";
 
@@ -16,11 +20,18 @@ interface PlayerState {
     volume: number;
     muted: boolean;
     currentSongDuration: number;
+    isPlaylistRequested: boolean; // needed for play button on header
 
+    playlistInfo?: {
+        id: string
+        type?: string
+    };
+    currentPagePlaylistInfo?: {
+        id: string
+        type?: string
+    };
+    playlistInCurrentPage?: string // needed for play button on header
     playlistURL?: string;
-    prevSong?: string;
-    currentSong?: string;
-    nextSong?: string;
 }
 
 const initialState: PlayerState = {
@@ -29,12 +40,87 @@ const initialState: PlayerState = {
     repeat: "no",
     shuffle: false,
     paused: false,
+    isPlaylistRequested: false,
     currentSongIndex: 0,
     playlist: [],
     playNextQueue: [],
     volume: 0.25,
     muted: false
 };
+
+export const getPlaylist = createAsyncThunk<
+    {
+        playlist: Playlist
+        startIndex?: number
+        playlistInfo?: PlayerState["playlistInfo"]
+    },
+    {
+        id: string,
+        type: Extract<ItemType, "album" | "artist" | "playlist" | "track">
+        startIndex?: number
+    },
+    { state: RootState }
+>(
+    "player/getPlaylist",
+    async ({ id, type, startIndex }, { rejectWithValue, getState }) => {
+        const URL = buildPlaylistURL(id, type);
+
+        const { auth: { accessToken } } = getState();
+
+        if (!accessToken) {
+            return rejectWithValue("No access token provided");
+        }
+
+        try {
+            const res = await axios.get<
+                GetPlaylistItemsResponse | GetAlbumTracksResponse | GetArtistTopTracksResponse | GetTrackResponse
+            >(
+                URL,
+                {
+                    headers: spotifyApiHeaders(accessToken)
+                }
+            );
+
+            if ("type" in res.data) {
+                if (res.data.preview_url) {
+                    return {
+                        playlist: [{
+                            id: res.data.id,
+                            url: res.data.preview_url
+                        }],
+                        playlistInfo: {
+                            id: res.data.id
+                        },
+                        startIndex
+                    };
+                } else {
+                    return rejectWithValue("no playable tracks");
+                }
+            }
+
+            const tracks = "tracks" in res.data ? res.data.tracks : res.data.items;
+
+            const playlist = tracks.map<PlaylistItem>(track => {
+                if (!("preview_url" in track)) {
+                    track = track.track;
+                }
+
+                return { id: track.id, url: track.preview_url, playlistInfo: { id, type } };
+            });
+
+            return {
+                playlist,
+                startIndex,
+                playlistInfo: {
+                    id,
+                    type
+                }
+            };
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
 
 const playerSlice = createSlice({
     name: "player",
@@ -43,6 +129,7 @@ const playerSlice = createSlice({
         toggleShuffle: state => {
             state.shuffle = !state.shuffle;
         },
+
         toggleRepeat: state => {
             const index = repeatValuesArray.indexOf(state.repeat);
 
@@ -50,47 +137,57 @@ const playerSlice = createSlice({
 
             state.repeat = repeatValuesArray[nextIndex];
         },
+
         setVolume: (state, action: PayloadAction<number>) => {
             state.volume = action.payload;
         },
+
         toggleMute: state => {
             state.muted = !state.muted;
         },
-        setPlaylistURL: (
-            state,
-            {
-                payload: { id, type }
-            }: PayloadAction<{
-                id: string;
-                type: Extract<ItemType, "album" | "artist" | "playlist">;
-            }>
-        ) => {
-            state.playlistURL = buildPlaylistURL(id, type);
-        },
-        setPlaylist: (state, action: PayloadAction<Playlist>) => {
-            state.playlist = action.payload;
 
-            state.currentPlayTime = 0;
-            state.paused = false;
-            state.currentSongIndex = 0;
-            state.playlistURL = undefined;
-        },
-        setCurrentSongIndex: (state, { payload }: PayloadAction<"next" | "prev" | number>) => {
+        setCurrentSongIndex: (state, action: PayloadAction<"next" | "prev" | number>) => {
             if (state.repeat === "single") {
                 state.repeat = "playlist";
             }
 
             const prevIndex = state.currentSongIndex;
             const playlistLength = state.playlist.length;
+            let newIndex = prevIndex;
 
-            if (payload === "next") {
-                state.currentSongIndex = prevIndex < playlistLength - 1 ? prevIndex + 1 : 0;
-            } else if (payload === "prev") {
-                state.currentSongIndex = prevIndex - 1 === -1 ? playlistLength - 1 : prevIndex - 1;
+            if (!state.playlist.length) {
+                state.currentSongIndex = 0;
+                state.currentPlayTime = 0;
+                state.currentSongDuration = 0;
+
+                return;
+            }
+
+            if (action.payload === "next") {
+                newIndex = findNextURL(state.playlist, newIndex + 1, 1, state.repeat === "playlist");
+            } else if (action.payload === "prev") {
+                newIndex = findNextURL(state.playlist, newIndex - 1, -1, state.repeat === "playlist");
             } else {
-                state.currentSongIndex = payload;
+                newIndex = findNextURL(state.playlist, action.payload, 1, state.repeat === "playlist");
+            }
+
+            if (newIndex <= -1 || newIndex >= playlistLength) {
+                if (state.repeat === "playlist") {
+                    if (action.payload === "next") {
+                        state.currentSongIndex = 0;
+                    } else {
+                        state.currentSongIndex = playlistLength - 1;
+                    }
+                } else {
+                    state.playlist = [];
+                    state.currentPlayTime = 0;
+                    state.currentSongDuration = 0;
+                }
+            } else {
+                state.currentSongIndex = newIndex;
             }
         },
+
         setPaused: (state, action: PayloadAction<boolean | undefined>) => {
             if (typeof action.payload === "undefined") {
                 state.paused = !state.paused;
@@ -98,12 +195,67 @@ const playerSlice = createSlice({
                 state.paused = action.payload;
             }
         },
+
         setCurrentPlayTime: (state, action: PayloadAction<number>) => {
             state.currentPlayTime = action.payload;
         },
+
         setCurrentSongDuration: (state, action: PayloadAction<number>) => {
             state.currentSongDuration = action.payload;
+        },
+
+        requestCurrentPagePlaylist: (state) => {
+            state.isPlaylistRequested = true;
+        },
+
+        setPlaylist: (
+            state,
+            action: PayloadAction<{
+                playlist: Playlist,
+                startIndex?: number,
+                playlistInfo?: PlayerState["playlistInfo"]
+            }>
+        ) => {
+            if (!action.payload.playlist.length) {
+                return;
+            }
+
+            const isPlayable = action.payload.playlist.find(song => song.url);
+
+            if (!isPlayable) {
+                console.error("no playable songs in playlist");
+
+                state.currentSongIndex = 0;
+                state.playlist = [];
+            } else {
+                state.playlist = action.payload.playlist;
+                state.currentSongIndex = action.payload.startIndex || 0;
+                state.playlistInfo = action.payload.playlistInfo;
+            }
+
+            state.currentPlayTime = 0;
+            state.isPlaylistRequested = false;
+            state.paused = false;
+        },
+
+        setCurrentPagePlaylistInfo: (
+            state,
+            action: PayloadAction<PlayerState["currentPagePlaylistInfo"] | undefined>
+        ) => {
+            state.currentPagePlaylistInfo = action.payload;
         }
+    },
+    extraReducers: builder => {
+        builder.addCase(getPlaylist.fulfilled, (state, action) => {
+            state.playlist = action.payload.playlist;
+            state.currentSongIndex = action.payload.startIndex || 0;
+            state.playlistInfo = action.payload.playlistInfo;
+
+            state.currentPlayTime = 0;
+            state.paused = false;
+            state.playlistURL = undefined;
+
+        });
     }
 });
 
@@ -116,8 +268,9 @@ export const {
     setPlaylist,
     toggleRepeat,
     toggleShuffle,
-    setPlaylistURL,
     setCurrentPlayTime,
     setCurrentSongIndex,
-    setCurrentSongDuration
+    setCurrentSongDuration,
+    setCurrentPagePlaylistInfo,
+    requestCurrentPagePlaylist
 } = playerSlice.actions;

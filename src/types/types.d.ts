@@ -12,7 +12,7 @@ type SearchItemTypes = keyof SearchForItemResponse;
 type GroupType = "all" | "album" | "single";
 
 interface PlaylistItem {
-    url: string;
+    url?: string;
     id: string;
 }
 

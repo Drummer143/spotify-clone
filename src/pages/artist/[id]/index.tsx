@@ -6,23 +6,48 @@ import { useRouter } from "next/router";
 import { spotifyApi } from "@/redux";
 import { useAppSelector } from "@/hooks";
 import {
-    ArtistPlaylistsAppearsOn,
-    ArtistsAlbums,
-    ItemPageTopSection,
     Loader,
-    PlayButton,
-    PopularArtistTracks,
+    ActionBar,
+    ArtistsAlbums,
     RelatedArtists,
-    UserFollowButton
+    ItemPageTopSection,
+    PopularArtistTracks,
+    ArtistPlaylistsAppearsOn
 } from "@/components";
 
 const Index: NextPage = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
-    const currentUserId = useAppSelector(state => state.auth.currentUserInfo?.id);
 
     const { query } = useRouter();
 
     const [getArtist, { currentData: artist, isLoading }] = spotifyApi.useLazyGetArtistQuery();
+    const [checkFollow, { currentData: followInfo }] = spotifyApi.useLazyCheckIfUserFollowsUsersQuery();
+    const [followUser] = spotifyApi.useFollowUsersMutation();
+    const [unfollowUser] = spotifyApi.useUnFollowUsersMutation();
+
+    const toggleFollow = () => {
+        if (!followInfo || !accessToken || !query.id) {
+            return;
+        }
+
+        if (followInfo[0]) {
+            unfollowUser({
+                accessToken,
+                searchParams: {
+                    ids: Array.isArray(query.id) ? query.id : [query.id],
+                    type: "artist"
+                }
+            });
+        } else {
+            followUser({
+                accessToken,
+                searchParams: {
+                    ids: Array.isArray(query.id) ? query.id : [query.id],
+                    type: "artist"
+                }
+            });
+        }
+    };
 
     useEffect(() => {
         let artistId = query.id;
@@ -35,8 +60,9 @@ const Index: NextPage = () => {
             artistId = artistId[0];
         }
 
+        checkFollow({ accessToken, searchParams: { type: "artist", ids: [artistId] } });
         getArtist({ accessToken, artistId });
-    }, [accessToken, getArtist, query.id]);
+    }, [accessToken, checkFollow, getArtist, query.id]);
 
     if (isLoading) {
         return <Loader />;
@@ -55,12 +81,15 @@ const Index: NextPage = () => {
             <section>
                 <ItemPageTopSection name={artist.name} type={artist.type} imageUrl={artist.images[0]?.url} />
 
-                <div className="px-content-spacing flex gap-10 flex-col">
-                    <div className="pt-6 flex gap-8 items-center">
-                        <PlayButton />
+                <ActionBar
+                    itemInfo={{
+                        isFollowing: !!followInfo && followInfo[0],
+                        buttonType: "textButton",
+                        onFollowToggle: toggleFollow
+                    }}
+                />
 
-                        {artist.id !== currentUserId && <UserFollowButton type="artist" targetId={artist.id} />}
-                    </div>
+                <div className="px-content-spacing relative z-0 flex gap-10 flex-col">
 
                     <PopularArtistTracks />
 

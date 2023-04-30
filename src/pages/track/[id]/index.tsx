@@ -1,16 +1,19 @@
+import Head from "next/head";
+import Link from "next/link";
 import { NextPage } from "next";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useRouter } from "next/router";
 
-import { ActionBar, ImageWrapper, ItemPageTopSection, Loader, SongCard } from "@/components";
-import { spotifyApi } from "@/redux";
-import { useAppSelector } from "@/hooks";
-import Head from "next/head";
 import AlbumStats from "@/components/ItemPageTopSection/AlbumStats";
-import Link from "next/link";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { ActionBar, ImageWrapper, ItemPageTopSection, Loader, SongCard } from "@/components";
+import { setCurrentPagePlaylistInfo, setHeaderPlayButtonVisibility, setPlaylist, spotifyApi } from "@/redux";
 
 const TrackPage: NextPage = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
+    const isPlaylistRequested = useAppSelector(state => state.player.isPlaylistRequested);
+
+    const dispatch = useAppDispatch();
 
     const { query } = useRouter();
 
@@ -33,6 +36,21 @@ const TrackPage: NextPage = () => {
         }
     };
 
+    const playSongs = useCallback((trackNumber = 0) => {
+        if (trackInfo?.preview_url) {
+            dispatch(setPlaylist({
+                playlist: [{
+                    id: trackInfo.id,
+                    url: trackInfo.preview_url
+                }],
+                startIndex: trackNumber,
+                playlistInfo: {
+                    id: trackInfo.id
+                }
+            }));
+        }
+    }, [trackInfo, dispatch]);
+
     useEffect(() => {
         let trackId = query.id;
 
@@ -47,6 +65,25 @@ const TrackPage: NextPage = () => {
         getTrack({ accessToken, trackId });
         checkIsTrackSaved({ accessToken, ids: trackId });
     }, [accessToken, checkIsTrackSaved, getTrack, query.id]);
+
+    useEffect(() => {
+        dispatch(setHeaderPlayButtonVisibility(true));
+
+        if (trackInfo) {
+            dispatch(setCurrentPagePlaylistInfo({ id: trackInfo.id, type: trackInfo.type }));
+        }
+
+        return () => {
+            dispatch(setCurrentPagePlaylistInfo());
+            dispatch(setHeaderPlayButtonVisibility(false));
+        };
+    }, [trackInfo, dispatch]);
+
+    useEffect(() => {
+        if (isPlaylistRequested) {
+            playSongs();
+        }
+    }, [isPlaylistRequested, playSongs]);
 
     useEffect(() => {
         if (accessToken && trackInfo) {
@@ -87,7 +124,13 @@ const TrackPage: NextPage = () => {
                     />
                 </ItemPageTopSection>
 
-                <ActionBar itemInfo={{ isFollowing: !!followInfo && followInfo[0], onFollowToggle: toggleFollow }} />
+                <ActionBar
+                    itemInfo={{
+                        isFollowing: !!followInfo && followInfo[0],
+                        onFollowToggle: toggleFollow,
+                        buttonType: "heart"
+                    }}
+                />
 
                 <div className="px-content-spacing relative z-0">
                     <Link

@@ -1,15 +1,18 @@
 import Head from "next/head";
 import { NextPage } from "next";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useRouter } from "next/router";
 
 import AlbumStats from "@/components/ItemPageTopSection/AlbumStats";
-import { spotifyApi } from "@/redux";
-import { useAppSelector } from "@/hooks";
+import { setCurrentPagePlaylistInfo, setHeaderPlayButtonVisibility, setPlaylist, spotifyApi } from "@/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { ActionBar, ItemPageTopSection, Loader, SongCard, SonglistHead } from "@/components";
 
 const AlbumPage: NextPage = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
+    const isPlaylistRequested = useAppSelector(state => state.player.isPlaylistRequested);
+
+    const dispatch = useAppDispatch();
 
     const { query } = useRouter();
 
@@ -31,6 +34,18 @@ const AlbumPage: NextPage = () => {
         }
     };
 
+    const playSongs = useCallback((trackNumber = 0) => {
+        if (albumInfo?.tracks.items.length) {
+            const playlist: Playlist = albumInfo?.tracks.items
+                .map(track => ({
+                    id: track.id,
+                    url: track.preview_url
+                }));
+
+            dispatch(setPlaylist({ playlist, startIndex: trackNumber, playlistInfo: { id: albumInfo.id } }));
+        }
+    }, [albumInfo, dispatch]);
+
     useEffect(() => {
         let albumId = query.id;
 
@@ -45,6 +60,25 @@ const AlbumPage: NextPage = () => {
         getAlbum({ accessToken, albumId });
         checkIsAlbumSaved({ accessToken, ids: albumId });
     }, [accessToken, checkIsAlbumSaved, getAlbum, query.id]);
+
+    useEffect(() => {
+        dispatch(setHeaderPlayButtonVisibility(true));
+
+        if (albumInfo) {
+            dispatch(setCurrentPagePlaylistInfo({ id: albumInfo.id, type: albumInfo.type }));
+        }
+
+        return () => {
+            dispatch(setCurrentPagePlaylistInfo());
+            dispatch(setHeaderPlayButtonVisibility(false));
+        };
+    }, [albumInfo, dispatch]);
+
+    useEffect(() => {
+        if (isPlaylistRequested) {
+            playSongs();
+        }
+    }, [isPlaylistRequested, playSongs]);
 
     useEffect(() => {
         if (accessToken && albumInfo) {
@@ -83,13 +117,20 @@ const AlbumPage: NextPage = () => {
                     />
                 </ItemPageTopSection>
 
-                <ActionBar itemInfo={{ isFollowing: !!followInfo && followInfo[0], onFollowToggle: toggleFollow }} />
+                <ActionBar
+                    itemInfo={{
+                        isFollowing: !!followInfo && followInfo[0],
+                        onFollowToggle: toggleFollow,
+                        buttonType: "heart"
+                    }}
+                />
 
                 <SonglistHead stickyX={64} hiddenFields={{ album: true, dateAdded: true }} />
 
                 <div className="px-content-spacing relative z-0">
-                    {albumInfo.tracks.items.map(song => (
+                    {albumInfo.tracks.items.map((song, i) => (
                         <SongCard
+                            onSongSelect={() => playSongs(i)}
                             duration={song.duration_ms}
                             key={song.id}
                             songId={song.id}

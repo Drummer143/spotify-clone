@@ -6,7 +6,7 @@ import { toggleShuffle, toggleRepeat, setPaused, setCurrentSongIndex } from "@/r
 import { useAppDispatch, useAppSelector } from "@/hooks";
 
 const PlaylistControls: React.FC = () => {
-    const { repeat, shuffle, paused } = useAppSelector(state => state.player);
+    const { repeat, shuffle, paused, playlist } = useAppSelector(state => state.player);
 
     const dispatch = useAppDispatch();
 
@@ -22,13 +22,20 @@ const PlaylistControls: React.FC = () => {
                 <GoogleMaterialIcon iconName="shuffle" className="text-inherit" wght={700} size={1.4} />
             </ControlsButton>
 
-            <ControlsButton onClick={prevTrack}>
-                <GoogleMaterialIcon iconName="skip_previous" className="text-inherit" FILL={1} wght={700} size={1.6} />
+            <ControlsButton onClick={prevTrack} className={"disabled:pointer-events-none"} disabled={!playlist.length}>
+                <GoogleMaterialIcon
+                    iconName="skip_previous"
+                    className="text-inherit"
+                    FILL={1}
+                    wght={700}
+                    size={1.6}
+                />
             </ControlsButton>
 
             <ControlsButton
-                className="bg-white rounded-full mx-2 hover:scale-105 active:scale-95"
+                className="bg-white rounded-full mx-2 hover:scale-105 active:scale-95 disabled:pointer-events-none"
                 onClick={togglePaused}
+                disabled={!playlist.length}
             >
                 <GoogleMaterialIcon
                     iconName={paused ? "play_arrow" : "pause"}
@@ -38,8 +45,14 @@ const PlaylistControls: React.FC = () => {
                 />
             </ControlsButton>
 
-            <ControlsButton onClick={nextTrack}>
-                <GoogleMaterialIcon iconName="skip_next" className="text-inherit" FILL={1} wght={700} size={1.6} />
+            <ControlsButton onClick={nextTrack} className={"disabled:pointer-events-none"} disabled={!playlist.length}>
+                <GoogleMaterialIcon
+                    iconName="skip_next"
+                    className="text-inherit"
+                    FILL={1}
+                    wght={700}
+                    size={1.6}
+                />
             </ControlsButton>
 
             <ControlsButton active={repeat !== "no"} onClick={() => dispatch(toggleRepeat())}>

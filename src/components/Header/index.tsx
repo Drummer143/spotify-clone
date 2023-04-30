@@ -19,10 +19,9 @@ type HeaderProps = {
     scrollY: MotionValue<number>;
 };
 
-const pathWhenPlayButtonVisible = ["v1/playlist/", "/collection"];
-
 const Header: React.FC<HeaderProps> = ({ scrollY }) => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
+    const isHeaderPlayButtonVisible = useAppSelector(state => state.app.isHeaderPlayButtonVisible);
 
     const router = useRouter();
 
@@ -58,9 +57,7 @@ const Header: React.FC<HeaderProps> = ({ scrollY }) => {
             <div className="flex items-center gap-4 flex-grow">
                 <HistoryNavigationButtons />
 
-                {pathWhenPlayButtonVisible.some(path => router.pathname.includes(path)) && (
-                    <PlaylistBar scrollY={scrollY} />
-                )}
+                {isHeaderPlayButtonVisible && <PlaylistBar scrollY={scrollY} />}
                 {router.pathname.includes("search") && <SearchInput />}
                 {router.pathname.includes("collection") && !router.pathname.includes("track") && <CollectionButtons />}
             </div>

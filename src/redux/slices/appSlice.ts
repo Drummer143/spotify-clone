@@ -5,11 +5,13 @@ interface AppState {
     currentModal?: "playlist";
     headerBGColor: ColorPair;
     countOfCardsInColumn: number;
+    isHeaderPlayButtonVisible: boolean;
 }
 
 const initialState: AppState = {
     headerBGColor: defaultHeadersBGColors.nonAuthentificated,
-    countOfCardsInColumn: 5
+    countOfCardsInColumn: 5,
+    isHeaderPlayButtonVisible: false
 };
 
 const appSlice = createSlice({
@@ -33,10 +35,19 @@ const appSlice = createSlice({
 
         setCurrentModal: (state, action: PayloadAction<AppState["currentModal"]>) => {
             state.currentModal = action.payload;
+        },
+
+        setHeaderPlayButtonVisibility: (state, action: PayloadAction<boolean>) => {
+            state.isHeaderPlayButtonVisible = action.payload;
         }
     }
 });
 
 export default appSlice;
 
-export const { changeHeadBGColor, setCountOfCardsInColumn, setCurrentModal } = appSlice.actions;
+export const {
+    changeHeadBGColor,
+    setCountOfCardsInColumn,
+    setCurrentModal,
+    setHeaderPlayButtonVisibility
+} = appSlice.actions;

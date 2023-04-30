@@ -23,7 +23,7 @@ const LeftPart: React.FC = () => {
         return <Loader />;
     }
 
-    if (!currentTrack) {
+    if (!playlist.length || !currentTrack) {
         return <div className="w-[30%]"></div>;
     }
 

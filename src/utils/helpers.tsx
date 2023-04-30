@@ -151,5 +151,30 @@ export const buildPlaylistURL = (id: string, type: Extract<ItemType, "album" | "
             return SPOTIFY_API_BASE_URL + `/artists/${id}/top-tracks?market=ES`;
         case "playlist":
             return SPOTIFY_API_BASE_URL + `/playlists/${id}/tracks`;
+        case "track":
+            return SPOTIFY_API_BASE_URL + `/track/${id}`;
     }
+};
+
+export const findNextURL = (playlist: Playlist, startIndex: number, direction: -1 | 1, loop = false) => {
+    let newURL = playlist[startIndex]?.url;
+    let newIndex = startIndex;
+
+    if(newURL) {
+        return startIndex;
+    } else {
+        console.error("This song is not playable. Searching for nearest playable song");
+    }
+
+    while (!newURL && newIndex >= 0 && newIndex <= playlist.length) {
+        if (loop && newIndex === playlist.length) {
+            newIndex = 0;
+        } else {
+            newIndex += direction;
+        }
+
+        newURL = playlist[newIndex]?.url;
+    }
+
+    return newIndex;
 };

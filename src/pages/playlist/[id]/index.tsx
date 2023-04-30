@@ -3,14 +3,21 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import PlaylistStats from "@/components/ItemPageTopSection/PlaylistStats";
-import { setCurrentModal, spotifyApi } from "@/redux";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { ActionBar, Tracklist, ItemPageTopSection, PlaylistEditModal, ItemsCollectionRowLoader } from "@/components";
+import { Loader, ActionBar, PlaylistEditModal, ItemPageTopSection, SongCard, SonglistHead } from "@/components";
+import {
+    spotifyApi,
+    setPlaylist,
+    setCurrentModal,
+    setCurrentPagePlaylistInfo,
+    setHeaderPlayButtonVisibility
+} from "@/redux";
 
 const PlaylistPage: React.FC = () => {
     const accessToken = useAppSelector(state => state.auth.accessToken);
     const currentModal = useAppSelector(state => state.app.currentModal);
     const currentUserId = useAppSelector(state => state.auth.currentUserInfo?.id);
+    const isPlaylistRequested = useAppSelector(state => state.player.isPlaylistRequested);
 
     const [playlistId, setPlaylistId] = useState<string>();
 
@@ -37,6 +44,18 @@ const PlaylistPage: React.FC = () => {
         }
     }, [accessToken, followInfo, followPlaylist, playlistId, unfollowPlaylist]);
 
+    const playSongs = useCallback((trackNumber = 0) => {
+        if (playlistInfo?.tracks.items.length) {
+            const playlist: Playlist = playlistInfo?.tracks.items
+                .map(({ track }) => ({
+                    id: track.id,
+                    url: track.preview_url
+                }));
+
+            dispatch(setPlaylist({ playlist, startIndex: trackNumber, playlistInfo: { id: playlistInfo.id } }));
+        }
+    }, [playlistInfo, dispatch]);
+
     const handleCloseModal = () => dispatch(setCurrentModal());
 
     useEffect(() => {
@@ -48,6 +67,25 @@ const PlaylistPage: React.FC = () => {
 
         setPlaylistId(Array.isArray(id) ? id[0] : id);
     }, [query.id]);
+
+    useEffect(() => {
+        dispatch(setHeaderPlayButtonVisibility(true));
+
+        if (playlistInfo) {
+            dispatch(setCurrentPagePlaylistInfo({ id: playlistInfo.id, type: playlistInfo.type }));
+        }
+
+        return () => {
+            dispatch(setCurrentPagePlaylistInfo());
+            dispatch(setHeaderPlayButtonVisibility(false));
+        };
+    }, [playlistInfo, dispatch]);
+
+    useEffect(() => {
+        if (isPlaylistRequested) {
+            playSongs();
+        }
+    }, [isPlaylistRequested, playSongs]);
 
     useEffect(() => {
         if (accessToken) {
@@ -74,11 +112,7 @@ const PlaylistPage: React.FC = () => {
     }, [accessToken, playlistId, user, checkFollow]);
 
     if (ownerIsLoading || playlistIsLoading) {
-        return (
-            <div className="px-content-spacing pt-16">
-                <ItemsCollectionRowLoader />
-            </div>
-        );
+        return <Loader />;
     }
 
     if (!playlistInfo || !ownerInfo) {
@@ -109,17 +143,34 @@ const PlaylistPage: React.FC = () => {
                 </ItemPageTopSection>
 
                 <ActionBar
-                    itemInfo={
-                        followInfo
-                            ? {
-                                  isFollowing: followInfo[0],
-                                  onFollowToggle: handleAddPlaylistToFavorite
-                              }
-                            : undefined
-                    }
+                    itemInfo={{
+                        isFollowing: !!followInfo && followInfo[0],
+                        onFollowToggle: handleAddPlaylistToFavorite,
+                        buttonType: "heart"
+                    }}
                 />
 
-                <Tracklist tracks={playlistInfo.tracks.items} />
+                <div className="relative z-[0] text-sm">
+                    <SonglistHead stickyX={64} />
+
+                    <div className="px-content-spacing">
+                        {playlistInfo.tracks.items.map(({ track, added_at: dateAdded }, i) => (
+                            <SongCard
+                                onSongSelect={() => playSongs(i)}
+                                key={track.id}
+                                number={i + 1}
+                                albumId={track.album.id}
+                                albumName={track.album.name}
+                                artists={track.artists}
+                                duration={track.duration_ms}
+                                imageURL={track.album.images[2]?.url}
+                                name={track.name}
+                                songId={track.id}
+                                dateAdded={dateAdded}
+                            />
+                        ))}
+                    </div>
+                </div>
             </section>
 
             {playlistInfo.owner.id === user?.id && (

@@ -22,24 +22,24 @@ const Player: React.FC = () => {
         currentSongIndex: playerIndex
     } = usePlayer({
         paused,
+        startSongIndex: currentSongIndex,
         volume,
         loopPlaylist: repeat === "playlist",
         loopTrack: repeat === "single",
         playlist: playlist,
         muted,
-        // onEnded: ({ trackNumber }) => dispatch(reduxSetCurrentSongIndex(trackNumber)),
         onTimeUpdate: currentTime => dispatch(setCurrentPlayTime(currentTime)),
-        onNextTrack: trackDuration => dispatch(setCurrentSongDuration(trackDuration)),
-        onPause: () => {
-            if (!paused) {
-                dispatch(setPaused(true));
-            }
-        },
-        onPlay: () => {
-            if (paused) {
-                dispatch(setPaused(false));
-            }
-        }
+        onNextTrack: trackDuration => dispatch(setCurrentSongDuration(trackDuration))
+        // onPause: () => {
+        //     if (!paused) {
+        //         dispatch(setPaused(true));
+        //     }
+        // },
+        // onPlay: () => {
+        //     if (paused) {
+        //         dispatch(setPaused(false));
+        //     }
+        // }
     });
 
     useEffect(() => {
@@ -47,8 +47,26 @@ const Player: React.FC = () => {
     }, [dispatch, playerIndex, setCurrentSongIndex]);
 
     useEffect(() => {
+        const handleSpaceDown = (e: KeyboardEvent) => {
+            if (e.code === "Space") {
+                e.preventDefault();
+                dispatch(setPaused());
+            }
+        };
+
+        document.addEventListener("keydown", handleSpaceDown);
         dispatch(setPaused(true));
         setCurrentSongIndex(currentSongIndex);
+
+        if ("mediaSession" in navigator) {
+            navigator.mediaSession.setActionHandler("pause", () => dispatch(setPaused(true)));
+            navigator.mediaSession.setActionHandler("play", () => dispatch(setPaused(false)));
+        }
+
+        return () => {
+            document.removeEventListener("keydown", handleSpaceDown);
+        };
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

@@ -13,6 +13,7 @@ const ControlsButton: React.FC<ControlsButtonProps> = ({ className, active, ...r
                         ? "text-[#1db954] hover:text-[#1ed760] active:text-[#1db954]"
                         : "hover:text-white active:text-inherit"
                 )
+                .concat(" disabled:opacity-30")
                 .concat(active ? " after:absolute after:left-1/2 after:bottom-0 after:-translate-x-1/2" : "")
                 .concat(active ? " after:h-1 after:w-1 after:rounded-full after:bg-current" : "")
                 .concat(className ? ` ${className}` : "")}
